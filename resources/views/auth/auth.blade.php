@@ -8,6 +8,11 @@
 
     <style>
 
+        body {
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            font-family: 'Poppins', sans-serif;
+        }
+
         label.error {
             color: #dc3545;
             font-size: 14px;
@@ -16,39 +21,29 @@
 </head>
 <body>
 <div class="container pt-3">
-    <form action="{{route('register-user')}}" method="POST" autocomplete="off" id="regForm">
+    <form action="{{route('login-user')}}" method="POST" autocomplete="off" id="regForm">
         @csrf
         <div class="row">
             <div class="col-xl-8 m-auto">
                 <div class="card shadow">
                     <div class="card-header">
-                        <h4 class="text-center font-weight-bold"> User Registration </h4>
+                        <h4 class="text-center font-weight-bold"> User Login </h4>
                     </div>
 
                     <div class="card-body">
 
                         @if(Session::has('success'))
                             <div class="alert alert-success">{{Session::get('success')}}</div>
-                            <script>
-                                window.setTimeout(function() {
-                                    window.location.href = '/login';
-                                }, 5000);
-                            </script>
                         @endif
                         @if(Session::has('fail'))
                             <div class="alert alert-danger">{{Session::get('fail')}}</div>
                         @endif
 
 
-                            <div class="">
-                                <div class="form-group">
-                                    <label for="name"> Name <span class="text-danger">*</span> </label>
-                                    <input type="text" name="name" id="name" class="form-control" placeholder="Enter name">
-                                </div>
-                                <span class="text-danger">@error('name') {{$message}} @enderror</span>
+                            <div>
                                 <div class="form-group">
                                     <label for="email"> Email <span class="text-danger">*</span> </label>
-                                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter email"><span class="text-danger">@error('email') {{$message}} @enderror</span>
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="Enter email">
                                 </div>
                                 <span class="text-danger">@error('email') {{$message}} @enderror</span>
                                 <div class="form-group">
@@ -59,11 +54,11 @@
                                 <div class="container">
                                     <div class="row">
                                         <div>
-                                            <button type="submit" class="btn btn-primary"> Create your account </button>
+                                            <button type="submit" class="btn btn-primary"> Login </button>
                                         </div>
                                     </div>
                                     <div class="row" style="margin-top: 10px">
-                                        <a href="login">Already registered? Click here</a>
+                                        <a href="register">New user? Click here</a>
                                     </div>
                                 </div>
                             </div>

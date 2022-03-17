@@ -15,6 +15,9 @@
         <div class="col-md-4 col-md-offset-4" style="margin-top: 20px">
             <h4>Welcome to dashboard</h4>
             <hr>
+            @if(Session::has('success'))
+                <div class="alert alert-success">{{Session::get('success')}}</div>
+            @endif
             <table class="table">
                 <thead>
                 <th>Name</th>

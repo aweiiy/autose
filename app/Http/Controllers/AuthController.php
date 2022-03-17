@@ -29,7 +29,7 @@ class AuthController extends Controller
         $res = $user->save();
         if($res)
         {
-           return back()->with('success', 'You have registered successfully. You will be redirected to login page in 5 seconds.');
+           return redirect('login')->with('success', 'You have registered successfully. You can now login');
         }else{
             return back()->with('fail', 'Something went wrong');
         }
@@ -43,7 +43,7 @@ class AuthController extends Controller
         if($user){
             if(Hash::check($request->password,$user->password)){
                 $request->session()->put('loginId', $user->id);
-                return redirect('dashboard');
+                return redirect('dashboard')->with('success', 'You have logged in successfully');
             }else{
                 return back()->with('fail', 'Password incorrect');
             }
