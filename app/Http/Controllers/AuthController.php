@@ -29,7 +29,7 @@ class AuthController extends Controller
         $res = $user->save();
         if($res)
         {
-           return back()->with('success', 'You have registered successfully');
+           return back()->with('success', 'You have registered successfully. You will be redirected to login page in 5 seconds.');
         }else{
             return back()->with('fail', 'Something went wrong');
         }
