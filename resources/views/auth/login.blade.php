@@ -1,51 +1,106 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie%=edge">
-    <title>Authentication</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ URL::asset('css/auth.css') }}">
-</head>
+    <title>User Registration</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <style>
+
+        body {
+            background: #f7f4e1;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        label.error {
+            color: #dc3545;
+            font-size: 14px;
+        }
+    </style>
+</head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4" style="margin-top: 20px">
-            <h4>Login form</h4>
-            <hr>
-            <form action="{{route('login-user')}}" method="post">
-                @if(Session::has('success'))
-                    <div class="alert alert-success">{{Session::get('success')}}</div>
-                @endif
-                @if(Session::has('fail'))
-                    <div class="alert alert-danger">{{Session::get('fail')}}</div>
-                @endif
-                @csrf
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" class="form-control" placeholder="Enter email" name="email" value="{{old('email')}}">
+<div class="container pt-3">
+    <form action="{{route('login-user')}}" method="POST" autocomplete="off" id="regForm">
+        @csrf
+        <div class="row">
+            <div class="col-xl-8 m-auto">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h4 class="text-center font-weight-bold"> User Login </h4>
+                    </div>
+
+                    <div class="card-body">
+
+                        @if(Session::has('success'))
+                            <div class="alert alert-success">{{Session::get('success')}}</div>
+                        @endif
+                        @if(Session::has('fail'))
+                            <div class="alert alert-danger">{{Session::get('fail')}}</div>
+                        @endif
+
+
+                        <div>
+                            <div class="form-group">
+                                <label for="email"> Email </label>
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Enter email">
+                            </div>
+                            <span class="text-danger">@error('email') {{$message}} @enderror</span>
+                            <div class="form-group">
+                                <label for="password"> Password </label>
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Enter password">
+                            </div>
+                            <span class="text-danger">@error('password') {{$message}} @enderror</span>
+                            <div class="container">
+                                <div class="row">
+                                    <div>
+                                        <button type="submit" class="btn btn-primary"> Login </button>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px">
+                                    <a href="register">New user? Click here</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
                 </div>
-                <span class="text-danger">@error('email') {{$message}} @enderror</span>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" placeholder="Enter password" name="password" value="">
-                </div>
-                <span class="text-danger">@error('password') {{$message}} @enderror</span>
-                <div class="form-group">
-                    <button class="btn btn-block btn-primary" type="submit">
-                        Login
-                    </button>
-                </div>
-                <br>
-                <a href="register">New user? Click here</a>
-            </form>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("#regForm").validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true,
+                    maxlength: 50
+                },
+                password: {
+                    required: true
+                }
+            },
+            messages: {
+                email: {
+                    required: "Enter your email",
+                    email: "Email must be a valid email address",
+                    maxlength: "Email cannot be more than 50 characters",
+                },
+                password: {
+                    required: "Enter your password"
+                }
+            }
+        });
+    });
+</script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </html>

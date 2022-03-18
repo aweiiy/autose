@@ -11,10 +11,6 @@ class car_make extends Model
     protected $table = 'car_make';
     protected $fillable = ['name'];
 
-    public function car_listing()
-    {
-        return $this->belongsToMany(car_listing::class,'car_listing','id_car_make');
-    }
 
     public function car_model()
     {

@@ -8,5 +8,5 @@
 {{-- sukuriam sekciją pavadinimu content, kurios reikšmė gali būti kodas iš kelių eilučių, todėl ši sekcija turi pabaigą @endsection  --}}
 {{-- šią sekciją galite iškviesti layouts/admin.blade.php vaizde su direktyva @yield('content')  --}}
 @section('content')
-    This is admin panel.
+    Empty 4 now
 @endsection

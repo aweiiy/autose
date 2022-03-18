@@ -43,12 +43,12 @@ class AuthController extends Controller
         if($user){
             if(Hash::check($request->password,$user->password)){
                 $request->session()->put('loginId', $user->id);
-                return redirect('dashboard')->with('success', 'You have logged in successfully');
+                return redirect('home')->with('success', 'You have logged in successfully');
             }else{
                 return back()->with('fail', 'Password incorrect');
             }
         }else{
-            return back()->with('fail', 'There is email is not registered');
+            return back()->with('fail', 'Incorrect login');
         }
     }
     public function dashboard(){
@@ -56,7 +56,7 @@ class AuthController extends Controller
         if(Session::has('loginId')){
             $data = User::where('id', '=', Session::get('loginId'))->first();
         }
-        return view('dashboard', compact('data'));
+        return view('pages.home', compact('data'));
     }
     public function logout(){
         if(Session::has('loginId')){

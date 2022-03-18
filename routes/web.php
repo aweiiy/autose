@@ -15,13 +15,17 @@ use App\Http\Controllers\AuthController;
 */
 
 
-Route::get('/', [AuthController::class,'dashboard'])->middleware('isLoggedIn');
+Route::get('/', [\App\Http\Controllers\HomeController::class,'home']);
 Route::get('/login',[AuthController::class,'login'])->middleware('alreadyLoggedIn');
 Route::get('/register', [AuthController::class,'register'])->middleware('alreadyLoggedIn');
 Route::post('/register-user',[AuthController::class, 'registerUser'])->name('register-user');
 Route::post('/login-user',[AuthController::class, 'loginUser'])->name('login-user');
 Route::get('/dashboard', [AuthController::class,'dashboard'])->middleware('isLoggedIn');
 Route::get('/logout', [AuthController::class,'logout']);
-Route::get('/auth', function () {
-    return view('auth.auth');
-});
+Route::get('/home', [\App\Http\Controllers\HomeController::class,'home']);
+Route::view('/auth', 'auth.auth');
+Route::view('/admin', 'admin.dashboard');
+Route::get('/add', [\App\Http\Controllers\HomeController::class,'add']);
+Route::get('/listings', [App\Http\Controllers\ListingController::class, 'index']);
+Route::resource('listings', App\Http\Controllers\ListingController::class);
+Route::get('/listings/create', [App\Http\Controllers\ListingController::class, 'create'])->middleware('isLoggedIn');

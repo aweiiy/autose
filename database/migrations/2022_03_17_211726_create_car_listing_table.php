@@ -19,9 +19,12 @@ class CreateCarListingTable extends Migration
             $table->foreignId('id_car_make');
             $table->foreignId('id_car_model');
             $table->foreignId('id_car_body_type');
+            $table->string('description');
+            $table->integer('year');
             $table->integer('price');
             $table->integer('phone_number');
             $table->string('email');
+            $table->string('image');
             $table->timestamps();
 
             $table->foreign('owner_id')->references('id')->on('users');

@@ -42,12 +42,12 @@
 
                             <div>
                                 <div class="form-group">
-                                    <label for="email"> Email <span class="text-danger">*</span> </label>
+                                    <label for="email"> Email </label>
                                     <input type="email" name="email" id="email" class="form-control" placeholder="Enter email">
                                 </div>
                                 <span class="text-danger">@error('email') {{$message}} @enderror</span>
                                 <div class="form-group">
-                                    <label for="password"> Password <span class="text-danger">*</span> </label>
+                                    <label for="password"> Password </label>
                                     <input type="password" name="password" id="password" class="form-control" placeholder="Enter password">
                                 </div>
                                 <span class="text-danger">@error('password') {{$message}} @enderror</span>
@@ -80,33 +80,23 @@
     $(document).ready(function() {
         $("#regForm").validate({
             rules: {
-                name: {
-                    required: true,
-                    maxlength: 20,
-                },
                 email: {
                     required: true,
                     email: true,
                     maxlength: 50
                 },
                 password: {
-                    required: true,
-                    minlength: 8
+                    required: true
                 }
             },
             messages: {
-                name: {
-                    required: "Name is required",
-                    maxlength: "Name cannot be more than 20 characters"
-                },
                 email: {
-                    required: "Email is required",
+                    required: "Enter your email",
                     email: "Email must be a valid email address",
                     maxlength: "Email cannot be more than 50 characters",
                 },
                 password: {
-                    required: "Password is required",
-                    minlength: "Password must be at least 8 characters"
+                    required: "Enter your password"
                 }
             }
         });

@@ -8,6 +8,10 @@
 
     <style>
 
+        body {
+            background: #f7f4e1;
+            font-family: 'Poppins', sans-serif;
+        }
         label.error {
             color: #dc3545;
             font-size: 14px;
