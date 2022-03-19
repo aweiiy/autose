@@ -15,10 +15,10 @@ class CreateCarListingTable extends Migration
     {
         Schema::create('car_listing', function (Blueprint $table) {
             $table->id('id');
-            $table->foreignId('owner_id');
-            $table->foreignId('id_car_make');
-            $table->foreignId('id_car_model');
-            $table->foreignId('id_car_body_type');
+            $table->foreignId('user_id');
+            $table->foreignId('car_make_id');
+            $table->foreignId('car_model_id');
+            $table->foreignId('car_body_type_id');
             $table->string('description');
             $table->integer('year');
             $table->integer('price');
@@ -27,10 +27,10 @@ class CreateCarListingTable extends Migration
             $table->string('image');
             $table->timestamps();
 
-            $table->foreign('owner_id')->references('id')->on('users');
-            $table->foreign('id_car_model')->references('id')->on('car_model');
-            $table->foreign('id_car_make')->references('id')->on('car_make');
-            $table->foreign('id_car_body_type')->references('id')->on('car_body_type');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('car_model_id')->references('id')->on('car_model');
+            $table->foreign('car_make_id')->references('id')->on('car_make');
+            $table->foreign('car_body_type_id')->references('id')->on('car_body_type');
 
         });
     }

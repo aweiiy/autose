@@ -1,41 +1,65 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie%=edge">
-    <title>Authentication</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <title>Laravel 8: Dynamic Dependent Dropdown</title>
 </head>
-
 <body>
-<div class="container">
+<div class="container my-5">
+    <h1 class="fs-5 fw-bold my-4 text-center">How to Create Dependent Dropdown in Laravel</h1>
     <div class="row">
-        <div class="col-md-4 col-md-offset-4" style="margin-top: 20px">
-            <h4>Welcome to dashboard</h4>
-            <hr>
-            @if(Session::has('success'))
-                <div class="alert alert-success">{{Session::get('success')}}</div>
-            @endif
-            <table class="table">
-                <thead>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Action</th>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>{{$data->name}}</td>
-                    <td>{{$data->email}}</td>
-                    <td><a href="logout">Logout</a></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <form action="">
+            <div class="mb-3">
+                <label for="car_make" class="form-label">CAR MAKE</label>
+                <select class="form-control" name="" id="car_make">
+                    <option hidden>Choose car_make</option>
+                    @foreach ($make as $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="model" class="form-label">model</label>
+                <select class="form-control" name="model" id="model"></select>
+            </div>
+        </form>
     </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        $('#car_make').on('change', function() {
+            var car_make_id = $(this).val();
+            if(car_make_id) {
+                $.ajax({
+                    url: '/getModel/'+car_make_id,
+                    type: "GET",
+                    data : {"_token":"{{ csrf_token() }}"},
+                    dataType: "json",
+                    success:function(data)
+                    {
+                        if(data){
+                            $('#model').empty();
+                            $('#model').append('<option hidden>Choose model</option>');
+                            $.each(data, function(key, model){
+                                key++;
+                                $('select[name="model"]').append('<option value="'+ key +'">' + model.name+ '</option>');
+                            });
+                        }else{
+                            $('#model').empty();
+                        }
+                    }
+                });
+            }else{
+                $('#model').empty();
+            }
+        });
+    });
+</script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </html>

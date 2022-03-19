@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\car_make;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -56,7 +57,8 @@ class AuthController extends Controller
         if(Session::has('loginId')){
             $data = User::where('id', '=', Session::get('loginId'))->first();
         }
-        return view('pages.home', compact('data'));
+        $make = car_make::all();
+        return view('dashboard', compact('data','make'));
     }
     public function logout(){
         if(Session::has('loginId')){

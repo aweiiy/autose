@@ -4,9 +4,6 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header">
-            <a href="{{ url('/listings/'.$car_listing->id.'/edit') }}" class="btn btn-primary"><i class="fas fa-edit"></i> Edit listing</a>
-        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered">
@@ -17,19 +14,19 @@
                     </tr>
                     <tr>
                         <td>Owner</td>
-                        <td>{{ $car_listing->owner_id }}</td>
+                        <td>{{ $car_listing->user->name }}</td>
                     </tr>
                     <tr>
                         <td>Make</td>
-                        <td>{{ $car_listing->id_car_make }}</td>
+                        <td>{{ $car_listing->car_make->name }}</td>
                     </tr>
                     <tr>
                         <td>Model</td>
-                        <td>{{ $car_listing->id_car_model }}</td>
+                        <td>{{ $car_listing->car_model->name}}</td>
                     </tr>
                     <tr>
                         <td>Body type</td>
-                        <td>{{ $car_listing->id_car_body_type }}</td>
+                        <td>{{ $car_listing->car_body_type->name }}</td>
                     </tr>
                     <tr>
                         <td>Description</td>
@@ -53,7 +50,7 @@
                     </tr>
                     <tr>
                         <td>Image</td>
-                        <td><img src="{{url('images/'.$car_listing->image)}}"></td>
+                        <td><img src="{{url('images/'.$car_listing->image)}}" class="img-fluid img-thumbnail" style="width:50%;"></td>
                     </tr>
                     </tbody>
                 </table>

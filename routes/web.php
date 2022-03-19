@@ -26,6 +26,14 @@ Route::get('/home', [\App\Http\Controllers\HomeController::class,'home']);
 Route::view('/auth', 'auth.auth');
 Route::view('/admin', 'admin.dashboard');
 Route::get('/add', [\App\Http\Controllers\HomeController::class,'add']);
-Route::get('/listings', [App\Http\Controllers\ListingController::class, 'index']);
-Route::resource('listings', App\Http\Controllers\ListingController::class);
-Route::get('/listings/create', [App\Http\Controllers\ListingController::class, 'create'])->middleware('isLoggedIn');
+#Route::get('/mylistings', [App\Http\Controllers\ListingController::class, 'index']);
+Route::resource('mylistings', App\Http\Controllers\ListingController::class);
+Route::get('/mylistings/create', [App\Http\Controllers\ListingController::class, 'create'])->middleware('isLoggedIn');
+Route::get('getModel/{id}', function ($id) {
+    $car_model = App\Models\car_model::where('car_make_id',$id)->get();
+    return response()->json($car_model);
+});
+Route::get('getBody/{id}', function ($id) {
+    $car_body_type = App\Models\car_body_type::where('car_model_id',$id)->get();
+    return response()->json($car_body_type);
+});

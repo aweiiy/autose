@@ -15,9 +15,9 @@ class User extends Model
     protected $table = 'users';
     protected $fillable = ['name', 'email', 'password'];
 
-    public function car_listing()
+    public function car_listing(): HasMany
     {
-        return $this->hasMany(\App\Models\car_listing::class);
+        return $this->hasMany(\App\Models\car_listing::class,'user_id','id');
     }
 
     public static function name() {

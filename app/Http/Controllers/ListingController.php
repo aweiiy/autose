@@ -24,18 +24,12 @@ class ListingController extends Controller
         if(Session::has('loginId')){
             $data = User::where('id', '=', Session::get('loginId'))->first();
         }
-        #$makes = car_make::all();
 
-        #$listings = car_listing::join('car_make', 'id_car_make', '=', 'car_make.id')->get();
+        $mylistings = car_listing::all();
 
-        #$listings = car_listing::with('users')->get();
-        #$users = User::with('car_listing')->get();
-        #$users = User::get();
-        $listings = car_listing::latest()->paginate(25);
-        #$users = User::all();
+        #print_r($mylistings);
 
-
-        return view('user.listings.index', compact('listings',));
+        return view('user.mylistings.index', compact('mylistings'));
     }
 
     /**
@@ -45,17 +39,8 @@ class ListingController extends Controller
      */
     public function create()
     {
-        $car_make = car_make::pluck('name', 'id');
-        $car_make->prepend('---Please select---', 0);
-        $car_make->all();
+        $car_make = car_make::all();
 
-        $car_model = car_model::pluck('name', 'id');
-        $car_model->prepend('---Please select---', 0);
-        $car_model->all();
-
-        $car_body_type = car_body_type::pluck('name', 'id');
-        $car_body_type->prepend('---Please select---', 0);
-        $car_body_type->all();
 
         $years = array_combine(range(date("Y"), 1900), range(date("Y"), 1900));
         $years = array('0' => '---Please select---') + $years;
@@ -65,7 +50,8 @@ class ListingController extends Controller
             $data = User::where('id', '=', Session::get('loginId'))->first();
         }
         $user = User::all();
-        return view('user.listings.form', compact('car_make', 'car_model', 'car_body_type' , 'years','data', 'user'));
+
+        return view('user.mylistings.form', compact('car_make' , 'years','data', 'user'));
     }
 
     /**
@@ -77,9 +63,9 @@ class ListingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_car_make' => 'required',
-            'id_car_model' => 'required',
-            'id_car_body_type' => 'required',
+            'car_make_id' => 'required',
+            'car_model_id' => 'required',
+            'car_body_type_id' => 'required',
             'phone_number' => 'required|integer',
             'price' => 'required|integer|max:1000000',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
@@ -89,15 +75,17 @@ class ListingController extends Controller
 
 
         $data = $request->all();
-        $data['owner_id'] = Session::get('loginId');
+
+        $data['user_id'] = Session::get('loginId');
+        print_r($data);
         if ($request->hasFile('image')) {
-            $fileName = time().'.'.$request->image->extension(); // failo pavadinimas pvz. 1620283915.jpg
-            $request->image->move(public_path('images'), $fileName);
-            $data['image'] = $fileName;
+            $imageName = time().'.'.$request->image->extension(); // failo pavadinimas pvz. 1620283915.jpg
+            $request->image->move(public_path('images'), $imageName);
+            $data['image'] = $imageName;
         }
 
         car_listing::create($data);
-        return redirect('listings')->with('success', 'Listing added successfully.');
+        return redirect('mylistings')->with('success', 'Listing added successfully.');
     }
 
     /**
@@ -109,7 +97,7 @@ class ListingController extends Controller
     public function show($id)
     {
         $car_listing = car_listing::findOrFail($id);
-        return view('user.listings.show', compact('car_listing'));
+        return view('user.mylistings.show', compact('car_listing'));
     }
 
     /**
@@ -120,26 +108,7 @@ class ListingController extends Controller
      */
     public function edit($id)
     {
-        $car_make = car_make::pluck('name', 'id');
-        $car_make->prepend('---Please select---', 0);
-        $car_make->all();
 
-        $car_model = car_model::pluck('name', 'id');
-        $car_model->prepend('---Please select---', 0);
-        $car_model->all();
-
-        $car_body_type = car_body_type::pluck('name', 'id');
-        $car_body_type->prepend('---Please select---', 0);
-        $car_body_type->all();
-
-        $years = array_combine(range(date("Y"), 1900), range(date("Y"), 1900));
-        $years = array('0' => '---Please select---') + $years;
-
-        $car_listing = car_listing::findOrFail($id);
-
-
-
-        return view('user.listings.form', compact('car_listing','car_make','car_model','car_body_type','years'));
     }
 
     /**
@@ -153,7 +122,7 @@ class ListingController extends Controller
     {
         $car_listing = car_listing::findOrFail($id);
         $car_listing->update($request->all());
-        return redirect('listings')->with('success', 'Listing updated successfully.');
+        return redirect('mylistings')->with('success', 'Listing updated successfully.');
     }
 
     /**
@@ -166,6 +135,6 @@ class ListingController extends Controller
     {
         $car_listing = car_listing::findOrFail($id);
         $car_listing->delete();
-        return redirect('listings')->with('success', 'Listing deleted successfully.');
+        return redirect('mylistings')->with('success', 'Listing deleted successfully.');
     }
 }

@@ -11,16 +11,24 @@ class car_listing extends Model
 {
     use HasFactory;
     protected $table = 'car_listing';
-    protected $fillable = ['owner_id', 'id_car_make', 'id_car_model', 'id_car_body_type','description', 'year', 'price', 'phone_number', 'email','image'];
+    protected $fillable = ['user_id', 'car_make_id', 'car_model_id', 'car_body_type_id','description', 'year', 'price', 'phone_number', 'email','image'];
 
-    public function user()
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'owner_id');
+        return $this->belongsTo(User::class);
     }
 
     public function car_make()
     {
-        return $this->belongsTo(car_make::class, 'id_car_make');
+        return $this->belongsTo(car_make::class);
+    }
+    public function car_model()
+    {
+        return $this->belongsTo(car_model::class);
+    }
+    public function car_body_type()
+    {
+        return $this->belongsTo(car_body_type::class);
     }
 
 }

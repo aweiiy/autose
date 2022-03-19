@@ -7,39 +7,36 @@
     <div class="card">
         <div class="card-header">
             <h6 class="m-0 font-weight-bold text-primary">
-                @if(isset($car_listing))
-                    Edit existing car listing
-                @else
                     Create a new listing
-                @endif
             </h6>
         </div>
         <div class="card-body">
-
-            @if(isset($car_listing))
-                {!! Form::model($car_listing, ['url' => ['listings', $car_listing->id], 'method' => 'patch']) !!}
-            @else
-                {!! Form::open(['url' => 'listings']) !!}
-            @endif
-
+                {!! Form::open(['url' => 'mylistings']) !!}
             <div class="form-group">
-                {!! Form::label('id_car_make', 'Make: ', ['class' => 'col-sm-3']) !!}
                 <div class="col-sm-6">
-                    {!! Form::select('id_car_make', $car_make, null, ['class' => 'form-control', 'required' => 'required']) !!}
+                <label for="car_make" class="form-label">Make</label>
+                <select class="form-control" name="car_make_id" id="car_make_id">
+                    <option hidden>Select car make</option>
+                    @foreach ($car_make as $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    @endforeach
+                </select>
                 </div>
-                <span class="text-danger">@error('id_car_make') {{$message}} @enderror</span>
+                <span class="text-danger">@error('car_make_id') {{$message}} @enderror</span>
             </div>
-                <div class="form-group">
-                    {!! Form::label('id_car_model', 'Genre: ', ['class' => 'col-sm-3']) !!}
-                    <div class="col-sm-6">
-                        {!! Form::select('id_car_model', $car_model, null, ['class' => 'form-control', 'required' => 'required']) !!}
-                    </div>
-                </div>
             <div class="form-group">
-                {!! Form::label('id_car_body_type', 'Body type: ', ['class' => 'col-sm-3']) !!}
                 <div class="col-sm-6">
-                    {!! Form::select('id_car_body_type', $car_body_type, null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    <label for="car_model_id" class="form-label">Model</label>
+                    <select class="form-control" name="car_model_id" id="car_model_id" required></select>
                 </div>
+                <span class="text-danger">@error('car_model_id') {{$message}} @enderror</span>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <label for="car_body_type_id" class="form-label">Model</label>
+                    <select class="form-control" name="car_body_type_id" id="car_body_type_id" required></select>
+                </div>
+                <span class="text-danger">@error('car_body_type_id') {{$message}} @enderror</span>
             </div>
             <div class="form-group">
                 {!! Form::label('description', 'Description: ', ['class' => 'col-sm-3']) !!}

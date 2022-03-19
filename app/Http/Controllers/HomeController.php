@@ -21,7 +21,7 @@ class HomeController extends Controller
         if(Session::has('loginId')){
             $data = User::where('id', '=', Session::get('loginId'))->first();
         }
-        return view('pages.listings', compact('data'));
+        return view('pages.mylistings', compact('data'));
     }
 
 }

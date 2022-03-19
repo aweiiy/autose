@@ -50,7 +50,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/admin/listings') }}" class="nav-link">
+                        <a href="{{ url('/admin/mylistings') }}" class="nav-link">
 
                             <p>Listings</p>
                         </a>

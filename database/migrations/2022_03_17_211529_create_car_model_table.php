@@ -15,11 +15,11 @@ class CreateCarModelTable extends Migration
     {
         Schema::create('car_model', function (Blueprint $table) {
             $table->id('id');
-            $table->foreignId('id_car_make');
+            $table->foreignId('car_make_id');
             $table->string('name');
             $table->timestamps();
 
-            $table->foreign('id_car_make')->references('id')->on('car_make');
+            $table->foreign('car_make_id')->references('id')->on('car_make');
         });
     }
 
