@@ -20,12 +20,7 @@ class ListingController extends Controller
      */
     public function index()
     {
-        $data = array();
-        if(Session::has('loginId')){
-            $data = User::where('id', '=', Session::get('loginId'))->first();
-        }
-
-        $mylistings = car_listing::all();
+        $mylistings = car_listing::paginate(2);
 
         #print_r($mylistings);
 
@@ -44,14 +39,9 @@ class ListingController extends Controller
 
         $years = array_combine(range(date("Y"), 1900), range(date("Y"), 1900));
         $years = array('0' => '---Please select---') + $years;
-
-        $data = array();
-        if(Session::has('loginId')){
-            $data = User::where('id', '=', Session::get('loginId'))->first();
-        }
         $user = User::all();
 
-        return view('user.mylistings.form', compact('car_make' , 'years','data', 'user'));
+        return view('user.mylistings.form', compact('car_make' , 'years', 'user'));
     }
 
     /**
@@ -63,11 +53,12 @@ class ListingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'car_make_id' => 'required',
-            'car_model_id' => 'required',
-            'car_body_type_id' => 'required',
+            'car_make_id' => 'required|integer',
+            'car_model_id' => 'required|integer',
+            'car_body_type_id' => 'required|integer',
             'phone_number' => 'required|integer',
             'price' => 'required|integer|max:1000000',
+            'year' => 'required|digits:4|integer|min:1900|max:'.(date('Y')+1),
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'description' => 'nullable',
             'email' => 'nullable'

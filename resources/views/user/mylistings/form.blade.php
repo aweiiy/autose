@@ -11,7 +11,7 @@
             </h6>
         </div>
         <div class="card-body">
-                {!! Form::open(['url' => 'mylistings']) !!}
+                {!! Form::open(['url' => 'mylistings', 'method' => 'store', 'enctype'=>'multipart/form-data'])!!}
             <div class="form-group">
                 <div class="col-sm-6">
                 <label for="car_make" class="form-label">Make</label>
@@ -44,19 +44,21 @@
                     {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
                 </div>
             </div>
+            <span class="text-danger">@error('description') {{$message}} @enderror</span>
                 <div class="form-group">
                     {!! Form::label('year', 'Year: ', ['class' => 'col-sm-3']) !!}
                     <div class="col-sm-6">
                         {!! Form::select('year', $years, isset($car_listing->year) ? $car_listing->year : null, ['class' => 'form-control', 'required' => 'required']) !!}
                     </div>
                 </div>
+            <span class="text-danger">@error('year') {{$message}} @enderror</span>
             <div class="form-group">
                 {!! Form::label('price', 'Price: ', ['class' => 'col-sm-3']) !!}
                 <div class="col-sm-6">
                     {!! Form::text('price', null, ['class' => 'form-control', 'required' => 'required']) !!}
                 </div>
             </div>
-
+            <span class="text-danger">@error('price') {{$message}} @enderror</span>
             <div class="form-group">
                 {!! Form::label('phone_number', 'Phone number: ', ['class' => 'col-sm-3']) !!}
                 <div class="col-sm-6">
@@ -70,6 +72,7 @@
                     {!! Form::text('email', \App\Models\User::data()->email, ['class' => 'form-control']) !!}
                 </div>
             </div>
+            <span class="text-danger">@error('description') {{$email}} @enderror</span>
                 <br>
                 <div class="form-group col-sm-6">
                     <div class="custom-file">
@@ -80,6 +83,7 @@
                     @endif
                     {!! $errors->first('image', '<div class="invalid-feedback">:message</div>') !!}
                 </div>
+            <span class="text-danger">@error('image') {{$message}} @enderror</span>
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-3">
                     {!! Form::submit('Save', ['class' => 'btn btn-primary form-control']) !!}

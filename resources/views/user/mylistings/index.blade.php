@@ -18,7 +18,7 @@
             @endif
 
             <div class="table-responsive">
-                <table class="table table-bordered table-striped align-middle">
+                <table class="table table-bordered table-striped align-middle table-hover">
                     <thead>
                     <tr>
                         <th scope="col">Image</th>
@@ -48,6 +48,7 @@
                     @endforeach
                     </tbody>
                 </table>
+                {{ $mylistings->links() }}
             </div>
         </div>
     </div>
