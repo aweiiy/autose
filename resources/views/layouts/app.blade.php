@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="library, books, writers">
-    <meta name="description" content="In this library you can find many new and old books.">
-    <meta name="author" content="">
+    <meta name="keywords" content="Cars, ads, listings">
+    <meta name="description" content="Autose is a digital marketplace for cars. Sell your car or find which one you like.">
+    <meta name="author" content="Edvinas">
     <title>{{ config('app.name', 'Autose') }}</title>
 
 <!-- Favicon -->
@@ -94,5 +94,5 @@
 <script src="{{ asset('js/script.js') }}"></script>
 
 </body>
-
+@include('layouts.footer')
 </html>

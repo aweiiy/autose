@@ -1,16 +1,10 @@
-<footer class="footer-bottom">
-    <!-- Container Start -->
-    <div class="container">
-        <div class="row">
-            <div>
-                <!-- Copyright -->
-                <div class="copyright">
-                    <p>Copyright © <script>
-                            var CurrentYear = new Date().getFullYear()
-                            document.write(CurrentYear)
-                        </script>. AUTOSE </p>
-                </div>
-            </div>
-        </div>
+<footer class="footer bg-dark text-center text-white">
+
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        Copyright © <script>
+            var CurrentYear = new Date().getFullYear()
+            document.write(CurrentYear)
+        </script>. AUTOSE
     </div>
 </footer>
+

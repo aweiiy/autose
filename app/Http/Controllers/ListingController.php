@@ -20,7 +20,8 @@ class ListingController extends Controller
      */
     public function index()
     {
-        $mylistings = car_listing::paginate(2);
+        $mylistings = car_listing::where('user_id', '=', Session::get('loginId'))->paginate(2);
+        #$mylistings = car_listing::paginate(2);
 
         #print_r($mylistings);
 
@@ -71,7 +72,7 @@ class ListingController extends Controller
         print_r($data);
         if ($request->hasFile('image')) {
             $imageName = time().'.'.$request->image->extension(); // failo pavadinimas pvz. 1620283915.jpg
-            $request->image->move(public_path('images'), $imageName);
+            $request->image->move(public_path('images/listings'), $imageName);
             $data['image'] = $imageName;
         }
 

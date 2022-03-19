@@ -27,7 +27,7 @@ Route::view('/auth', 'auth.auth');
 Route::view('/admin', 'admin.dashboard');
 Route::get('/add', [\App\Http\Controllers\HomeController::class,'add']);
 #Route::get('/mylistings', [App\Http\Controllers\ListingController::class, 'index']);
-Route::resource('mylistings', App\Http\Controllers\ListingController::class);
+Route::resource('mylistings', App\Http\Controllers\ListingController::class)->middleware('isLoggedIn');
 Route::get('/mylistings/create', [App\Http\Controllers\ListingController::class, 'create'])->middleware('isLoggedIn');
 Route::get('getModel/{id}', function ($id) {
     $car_model = App\Models\car_model::where('car_make_id',$id)->get();

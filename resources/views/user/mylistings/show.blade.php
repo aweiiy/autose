@@ -50,7 +50,7 @@
                     </tr>
                     <tr>
                         <td>Image</td>
-                        <td><img src="{{url('images/'.$car_listing->image)}}" class="img-fluid img-thumbnail" style="width:50%;"></td>
+                        <td><img src="{{url('images/listings/'.$car_listing->image)}}" class="img-fluid img-thumbnail" style="width:50%;"></td>
                     </tr>
                     </tbody>
                 </table>

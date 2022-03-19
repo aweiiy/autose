@@ -2642,11 +2642,10 @@ form textarea {
 }
 
 .footer-bottom {
-
+    position: fixed;
   background: #363839;
   padding: 25px 0;
     bottom: 0;
-    position: absolute;
     width: 100%
 }
 
