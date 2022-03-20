@@ -20,8 +20,7 @@ class ListingController extends Controller
      */
     public function index()
     {
-        $mylistings = car_listing::where('user_id', '=', Session::get('loginId'))->paginate(2);
-        #$mylistings = car_listing::paginate(2);
+        $mylistings = car_listing::where('user_id', '=', Session::get('loginId'))->paginate(10);
 
         #print_r($mylistings);
 
