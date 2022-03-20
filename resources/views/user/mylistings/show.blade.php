@@ -3,13 +3,41 @@
 @section('title', 'Listings')
 
 @section('content')
+    <style>
+        .img-size {
+            width: 1200px; /* You can set the dimensions to whatever you want */
+            height: 500px;
+            object-fit: fill;
+        }
+    </style>
     <div class="card">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-7">
                     <!-- Gallery-->
                     <div>
-                        <div><img src="{{url('images/listings/'.$car_listing->image)}}" class="rounded-3" style="width:100%;"></div>
+                        <div>
+                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    @foreach($images as $slider)
+                                        <div class="carousel-item {{$loop->first ? 'active' : '' }}">
+                                            <img src="{{url('listing_images', $slider->name)}}" class="d-block w-100"  alt="...">
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <a class="carousel-control-prev" href="#myCarousel" role="button"  data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true">     </span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <!-- Description-->
                     <div class="pb-4 mb-3">

@@ -18,6 +18,10 @@ class car_listing extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function images(){
+        return $this->hasMany(image::class);
+    }
+
     public function car_make()
     {
         return $this->belongsTo(car_make::class);

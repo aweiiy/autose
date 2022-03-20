@@ -15,11 +15,9 @@ class CreateCarBodyTypeTable extends Migration
     {
         Schema::create('car_body_type', function (Blueprint $table) {
             $table->id('id');
-            $table->foreignId('car_model_id');
             $table->string('name');
             $table->timestamps();
 
-            $table->foreign('car_model_id')->references('id')->on('car_model');
         });
     }
 

@@ -16,8 +16,4 @@ class car_model extends Model
         return $this->belongsTo(car_make::class)->withDefault();
     }
 
-    public function car_body_type()
-    {
-        return $this->hasMany(car_body_type::class);
-    }
 }
