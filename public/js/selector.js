@@ -15,7 +15,7 @@ $(document).ready(function() {
                         $('#car_model_id').append('<option hidden>Select model</option>');
                         $.each(data, function(key, model){
                             key++;
-                            $('select[name="car_model_id"]').append('<option value="'+ key +'">' + model.name+ '</option>');
+                            $('select[name="car_model_id"]').append('<option value="'+ model.id +'">' + model.name+ '</option>');
                         });
                     }else{
                         $('#car_model_id').empty();

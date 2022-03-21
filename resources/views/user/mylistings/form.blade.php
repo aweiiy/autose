@@ -179,7 +179,7 @@
                     },
                     phone_number: {
                         required:"Please prove your phone number",
-                        number: "The phone number must be a number"
+                        number: "The phone number must only contain numbers"
                     },
                     'images[]': {
                         required:"You must upload an image"

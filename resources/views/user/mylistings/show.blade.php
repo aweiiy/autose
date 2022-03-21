@@ -5,7 +5,7 @@
 @section('content')
     <style>
         .img-size {
-            width: 1200px; /* You can set the dimensions to whatever you want */
+            width: 1200px;
             height: 500px;
             object-fit: fill;
         }
@@ -41,7 +41,7 @@
                     </div>
                     <!-- Description-->
                     <div class="pb-4 mb-3">
-                        <h2 class="h4  pt-4 mt-3">{{ $car_listing->user->name }}'s Description:</h2>
+                        <h2 class="h4  pt-4 mt-3">Description:</h2>
                         <p class=" opacity-70 mb-1">{{$car_listing->description}}</p>
                     </div>
                     <!-- Post meta-->

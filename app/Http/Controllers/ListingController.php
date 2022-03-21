@@ -77,7 +77,7 @@ class ListingController extends Controller
 
         if($request->has('images')){
             foreach($request->file('images')as $image){
-                $imageName = $data['user_id'].'-image-'.time().rand(1,1000).'.'.$image->extension();
+                $imageName = $car_listing['id'].'-image-'.time().rand(1,1000).'.'.$image->extension();
                 $image->move(public_path('listing_images'),$imageName);
                 image::create([
                     'car_listing_id'=>$car_listing->id,
@@ -97,6 +97,7 @@ class ListingController extends Controller
     public function show($id)
     {
         $car_listing = car_listing::findOrFail($id);
+
         if(!$car_listing) abort(404);
         $images = $car_listing->images;
         return view('user.mylistings.show', compact('car_listing','images'));
@@ -122,9 +123,7 @@ class ListingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $car_listing = car_listing::findOrFail($id);
-        $car_listing->update($request->all());
-        return redirect('mylistings')->with('success', 'Listing updated successfully.');
+
     }
 
     /**
@@ -135,8 +134,6 @@ class ListingController extends Controller
      */
     public function destroy($id)
     {
-        $car_listing = car_listing::findOrFail($id);
-        $car_listing->delete();
-        return redirect('mylistings')->with('success', 'Listing deleted successfully.');
+
     }
 }

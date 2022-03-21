@@ -19,7 +19,7 @@ class CreateImageTable extends Migration
             $table->string('name');
             $table->timestamps();
 
-            $table->foreign('car_listing_id')->references('id')->on('car_listing');
+            $table->foreign('car_listing_id')->references('id')->on('car_listing')->onDelete('cascade');
 
         });
     }

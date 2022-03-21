@@ -30,7 +30,6 @@
                     <thead>
                     <tr>
                         <th scope="col">Image</th>
-                        <th scope="col">Owner</th>
                         <th scope="col">Name</th>
                         <th scope="col">Price</th>
                         <th scope="col">Controls</th>
@@ -43,7 +42,6 @@
                                 <td class="w-25"><img src="{{url('listing_images/'.$image->name)}}" class="fitToSize img-fluid img-thumbnail"></td>
                                 @break
                             @endforeach
-                            <td>{{ $item->user->name }}</td>
                             <td>{{ $item->car_make->name}} {{$item->car_model->name}} {{$item->car_body_type->name}} {{$item->year}}</td>
                             <td>{{ $item->price}} EUR</td>
                             <td>

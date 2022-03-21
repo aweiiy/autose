@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <title>Laravel 8: Dynamic Dependent Dropdown</title>
+    <title>Test dropdown</title>
 </head>
 <body>
 <div class="container my-5">
-    <h1 class="fs-5 fw-bold my-4 text-center">How to Create Dependent Dropdown in Laravel</h1>
+    <h1 class="fs-5 fw-bold my-4 text-center">Test dropdown</h1>
     <div class="row">
         <form action="">
             <div class="mb-3">
