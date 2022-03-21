@@ -24,6 +24,7 @@ Route::get('/dashboard', [AuthController::class,'dashboard'])->middleware('isLog
 Route::get('/logout', [AuthController::class,'logout']);
 Route::get('/home', [\App\Http\Controllers\HomeController::class,'home']);
 Route::view('/admin', 'admin.dashboard');
+Route::view('/test', 'auth.test');
 Route::get('/add', [\App\Http\Controllers\HomeController::class,'add']);
 #Route::get('/mylistings', [App\Http\Controllers\ListingController::class, 'index']);
 Route::resource('mylistings', App\Http\Controllers\ListingController::class)->middleware('isLoggedIn');

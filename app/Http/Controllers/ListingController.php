@@ -63,7 +63,6 @@ class ListingController extends Controller
             'phone_number' => 'required|integer',
             'price' => 'required|integer|max:1000000',
             'year' => 'required|digits:4|integer|min:1900|max:'.(date('Y')+1),
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'description' => 'nullable',
             'email' => 'nullable',
             'images' => 'required',
