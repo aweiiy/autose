@@ -13,11 +13,20 @@
     <div class="card">
         <div class="card-header">
             <h6 class="m-0 font-weight-bold text-primary">
-                    Create a new listing
+                @if(isset($car_listing))
+                    Edit existing listing
+                @else
+                    Create new listing
+                @endif
             </h6>
         </div>
         <div class="card-body">
+            @if(isset($car_listing))
+                {!! Form::model($car_listing, ['url' => ['mylistings', $car_listing->id], 'method' => 'patch', 'enctype'=>'multipart/form-data']) !!}
+            @else
                 {!! Form::open(['url' => 'mylistings', 'method' => 'store', 'enctype'=>'multipart/form-data', 'id'=>'listForm'])!!}
+            @endif
+
             <div class="form-group">
                 <div class="col-sm-6">
                 <label for="car_make" class="form-label">Make</label>
@@ -91,6 +100,11 @@
                         multiple
                     >
                 </div>
+                @if(isset($images))
+                    @foreach($images as $image)
+                    <img src="{{url('listing_images', $image->name)}}" height="100" class="mt-2">
+                    @endforeach
+                @endif
             </div>
             <span class="text-danger">@error('images.*') {{$message}} @enderror</span>
             <div class="form-group">
