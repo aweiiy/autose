@@ -46,9 +46,9 @@
                             <td>{{ $item->price}} EUR</td>
                             <td>
                                 <a href="{{ url('mylistings/'.$item->id) }}" class="btn btn-outline-secondary btn-sm" style="padding: 10px"><i class="fas fa-eye"></i> View</a>
-                                <a href="{{ url('mylistings/'.$item->id.'/edit') }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Edit</a>
-                                {!! Form::open(['method'=>'DELETE', 'url' => ['mylistings', $item->id], 'style' => 'display:inline','onClick'=>'confirmReq()']) !!}
-                                {!! Form::button('<i class="fas fa-trash-alt"></i> Delete', ['class' => 'btn btn-danger btn-sm', 'type' => 'submit']) !!}
+                                <a href="{{ url('mylistings/'.$item->id.'/edit') }}" class="btn btn-outline-primary btn-sm" style="padding: 10px"><i class="fas fa-edit"></i> Edit</a>
+                                {!! Form::open(['method'=>'DELETE', 'url' => ['mylistings', $item->id], 'style' => 'display:inline;','onClick'=>'confirmReq()']) !!}
+                                {!! Form::button('<i class="fas fa-trash-alt"></i> Delete', ['class' => 'btn btn-outline-danger btn-sm', 'style' => 'padding: 10px', 'type' => 'submit']) !!}
                                 {!! Form::close() !!}
                             </td>
                         </tr>

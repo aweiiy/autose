@@ -100,6 +100,7 @@ class ListingController extends Controller
         $car_listing = car_listing::findOrFail($id);
 
         if(!$car_listing) abort(404);
+        if($car_listing->user_id != Session::get('loginId')) abort(404,'Listing is not yours');
         $images = $car_listing->images;
         return view('user.mylistings.show', compact('car_listing','images'));
     }
@@ -112,6 +113,9 @@ class ListingController extends Controller
      */
     public function edit($id)
     {
+        $car_listing = car_listing::findOrFail($id);
+        if($car_listing->user_id != Session::get('loginId')) abort(404,'Listing is not yours');
+
         $car_make = car_make::all();
         $car_body_type = car_body_type::pluck('name', 'id');
         $car_body_type->prepend('Select body type', 0);
@@ -120,8 +124,7 @@ class ListingController extends Controller
         $years = array_combine(range(date("Y"), 1900), range(date("Y"), 1900));
         $years = array('0' => 'Select build year') + $years;
 
-        $car_listing = car_listing::findOrFail($id);
-        if(!$car_listing) abort(404);
+
         $images = $car_listing->images;
 
 

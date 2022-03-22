@@ -33,3 +33,4 @@ Route::get('getModel/{id}', function ($id) {
     $car_model = App\Models\car_model::where('car_make_id',$id)->get();
     return response()->json($car_model);
 });
+Route::view('/listings', 'pages.listings');

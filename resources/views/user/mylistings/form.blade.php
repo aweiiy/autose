@@ -26,7 +26,20 @@
             @else
                 {!! Form::open(['url' => 'mylistings', 'method' => 'store', 'enctype'=>'multipart/form-data', 'id'=>'listForm'])!!}
             @endif
-
+                @if(isset($car_listing))
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label class="form-label">Make</label>
+                        <h3>{{$car_listing->car_make->name}}</h3>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label class="form-label">Model</label>
+                        <h3>{{$car_listing->car_model->name}}</h3>
+                    </div>
+                </div>
+                @else
             <div class="form-group">
                 <div class="col-sm-6">
                 <label for="car_make" class="form-label">Make</label>
@@ -46,6 +59,7 @@
                 </div>
                 <span class="text-danger">@error('car_model_id') {{$message}} @enderror</span>
             </div>
+                @endif
             <div class="form-group">
                 {!! Form::label('car_body_type_id', 'Body type: ', ['class' => 'col-sm-3']) !!}
                 <div class="col-sm-6">
@@ -91,7 +105,7 @@
                 <br>
             <div class="form-group col-sm-6">
                 <div class="custom-file">
-                    <label for="files" class="form-label" mt-4> Upload images</label>
+                    <label for="files" class="form-label"> Upload images</label>
                     <input
                         type="file"
                         name="images[]"
