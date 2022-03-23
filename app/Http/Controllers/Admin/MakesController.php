@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\car_make;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
-class ProfileController extends Controller
+class MakesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,8 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $user = User::where('id', '=', Session::get('loginId'))->first();
-
-        return view('user.profile.index', compact('user'));
+        $car_makes = car_make::paginate(15);
+        return view('admin.makes.index', compact('car_makes'));
     }
 
     /**

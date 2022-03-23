@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\car_make;
+use App\Models\car_model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
-class ProfileController extends Controller
+class ModelsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $user = User::where('id', '=', Session::get('loginId'))->first();
-
-        return view('user.profile.index', compact('user'));
+        //
     }
 
     /**
@@ -85,5 +83,15 @@ class ProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function car_models($id)
+    {
+        $car_make = car_make::findOrFail($id);
+
+        $car_models = car_model::where('car_make_id',$id)->paginate(10);
+
+
+        return view('admin.makes.models', compact('car_models','car_make'));
     }
 }

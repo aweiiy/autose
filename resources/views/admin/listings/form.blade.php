@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Listings')
 
@@ -98,7 +98,7 @@
             <div class="form-group">
                 {!! Form::label('email', 'Email: ', ['class' => 'col-sm-3']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('email', \App\Models\User::data()->email, ['class' => 'form-control']) !!}
+                    {!! Form::text('email', $car_listing->email, ['class' => 'form-control']) !!}
                 </div>
             </div>
             <span class="text-danger">@error('description') {{$email}} @enderror</span>

@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
-class ProfileController extends Controller
+class BodyTypesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $user = User::where('id', '=', Session::get('loginId'))->first();
-
-        return view('user.profile.index', compact('user'));
+        //
     }
 
     /**

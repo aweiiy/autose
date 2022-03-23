@@ -36,6 +36,10 @@ Route::group(['middleware' => 'isLoggedIn'], function(){
     #Admin
     Route::group(['prefix' => 'admin', 'as'=> '.admin', 'middleware' => 'isAdmin'], function () {
         Route::view('/', 'admin.home');
+        Route::resource('users',App\Http\Controllers\Admin\UsersController::class);
+        Route::resource('listings',App\Http\Controllers\Admin\ListingsController::class);
+        Route::resource('makes',App\Http\Controllers\Admin\MakesController::class);
+        Route::get('/makes/models/{id}', [App\Http\Controllers\Admin\ModelsController::class, 'car_models']);
     });
 });
 

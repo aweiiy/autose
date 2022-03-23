@@ -32,7 +32,7 @@
             <!-- Sidebar user (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="info">
-                    <a href="#" class="d-block">
+                    <a href="{{ url('/admin') }}" class="d-block">
                             {{ \App\Models\User::name() }}
                     </a>
                 </div>
@@ -50,7 +50,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/admin/mylistings') }}" class="nav-link">
+                        <a href="{{ url('/admin/listings') }}" class="nav-link">
 
                             <p>Listings</p>
                         </a>

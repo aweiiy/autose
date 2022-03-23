@@ -4,8 +4,6 @@
 
 @section('content')
 
-    @foreach($user as $item)
-        {{$item}}
-    @endforeach
+{{$user}}
 
 @endsection

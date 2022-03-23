@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Listings')
 
@@ -12,7 +12,7 @@
     </style>
     <div class="card">
         <div class="card-header">
-            <a href="{{ url('mylistings/'.$car_listing->id.'/edit') }}" class="btn btn-primary"><i class="fas fa-edit"></i> Edit listing</a>
+            <a href="{{ url('admin/listings/'.$car_listing->id.'/edit') }}" class="btn btn-primary"><i class="fas fa-edit"></i> Edit listing</a>
         </div>
         <div class="card-body">
             <div class="row">
