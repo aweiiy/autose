@@ -9,9 +9,9 @@
     <!-- Font Awesome -->
     <link href="{{ asset('bower_components/fontawesome/css/all.min.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="{{ asset('css/adminlte.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 </head>
-<body class="hold-transition sidebar-mini">
+<body>
 <!-- Site wrapper -->
 <div class="wrapper">
     <!-- Navbar -->

@@ -27,6 +27,7 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->role = 0;
         $res = $user->save();
         if($res)
         {
@@ -44,6 +45,8 @@ class AuthController extends Controller
         if($user){
             if(Hash::check($request->password,$user->password)){
                 $request->session()->put('loginId', $user->id);
+                $request->session()->put('role', $user->role);
+                if($user->role == 1) return redirect('admin/');
                 return redirect('home')->with('success', 'You have logged in successfully');
             }else{
                 return back()->with('fail', 'Password incorrect');
@@ -63,6 +66,7 @@ class AuthController extends Controller
     public function logout(){
         if(Session::has('loginId')){
             Session::pull('loginId');
+            Session::pull('role');
             return redirect('home');
     }
     }

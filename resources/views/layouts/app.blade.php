@@ -29,7 +29,7 @@
 
 </head>
 
-<body class="body-wrapper">
+<body>
 
 <section>
     <div class="container">

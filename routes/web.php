@@ -14,23 +14,38 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-
-Route::get('/', [\App\Http\Controllers\HomeController::class,'home']);
+#All
+Route::view('/', 'pages.home');
 Route::get('/login',[AuthController::class,'login'])->middleware('alreadyLoggedIn');
 Route::get('/register', [AuthController::class,'register'])->middleware('alreadyLoggedIn');
 Route::post('/register-user',[AuthController::class, 'registerUser'])->name('register-user');
 Route::post('/login-user',[AuthController::class, 'loginUser'])->name('login-user');
-Route::get('/dashboard', [AuthController::class,'dashboard'])->middleware('isLoggedIn');
 Route::get('/logout', [AuthController::class,'logout']);
-Route::get('/home', [\App\Http\Controllers\HomeController::class,'home']);
-Route::view('/admin', 'admin.dashboard');
+Route::view('/home', 'pages.home');
+Route::view('/listings', 'pages.listings');
+
+
+
+
+#User
+
+
+Route::group(['middleware' => 'isLoggedIn'], function(){
+    Route::resource('mylistings', App\Http\Controllers\ListingController::class);
+    Route::resource('profile',App\Http\Controllers\User\ProfileController::class);
+    #Admin
+    Route::group(['prefix' => 'admin', 'as'=> '.admin', 'middleware' => 'isAdmin'], function () {
+        Route::view('/', 'admin.home');
+    });
+});
+
+
+
+Route::get('/dashboard', [AuthController::class,'dashboard'])->middleware('isLoggedIn');
 Route::view('/test', 'auth.test');
-Route::get('/add', [\App\Http\Controllers\HomeController::class,'add']);
-#Route::get('/mylistings', [App\Http\Controllers\ListingController::class, 'index']);
-Route::resource('mylistings', App\Http\Controllers\ListingController::class)->middleware('isLoggedIn');
-Route::get('/mylistings/create', [App\Http\Controllers\ListingController::class, 'create'])->middleware('isLoggedIn');
 Route::get('getModel/{id}', function ($id) {
     $car_model = App\Models\car_model::where('car_make_id',$id)->get();
     return response()->json($car_model);
 });
-Route::view('/listings', 'pages.listings');
+
+
