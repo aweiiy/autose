@@ -38,7 +38,9 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-1 align-self-center">
-                                            <i class="far fa-heart fa-2x" onclick="alert('saved')"></i>
+                                            <button class="btn" onclick="alert('saved')">
+                                                <i class="far fa-heart fa-2x"></i>
+                                            </button>
                                         </div>
                                         <div class="border-top border-light mt-3 pt-3">
                                             <div class="row g-2">
@@ -62,7 +64,7 @@
 
                 <!-- pagination -->
                     <div class="pagination justify-content-center py-4">
-
+                        {{ $car_listings->links() }}
                     </div>
                     <!-- pagination -->
                 </div>
