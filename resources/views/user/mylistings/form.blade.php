@@ -9,211 +9,156 @@
         font-size: 14px;
     }
 </style>
-
-    <div class="card">
-        <div class="card-header">
-            <h6 class="m-0 font-weight-bold text-primary">
-                @if(isset($car_listing))
-                    Edit existing listing
-                @else
-                    Create new listing
-                @endif
-            </h6>
-        </div>
-        <div class="card-body">
+<div class="mb-4">
+    <h1 class="h2 mb-0">
+        @if(isset($car_listing))
+            Edit existing listing
+        @else
+            Create new listing
+        @endif
+    </h1>
+</div>
+@if(isset($car_listing))
+    {!! Form::model($car_listing, ['url' => ['mylistings', $car_listing->id], 'method' => 'patch', 'enctype'=>'multipart/form-data','id'=>'listEditForm']) !!}
+@else
+    {!! Form::open(['url' => 'mylistings', 'method' => 'store', 'enctype'=>'multipart/form-data', 'id'=>'listForm'])!!}
+@endif
+<section class="card card-light card-body border-0 shadow-sm p-4 mb-4" id="price">
+    <h2 class="h4  mb-4">Price</h2>
+    {!! Form::label('price', 'Price:', ['class' => 'col-sm-3']) !!}
+    <div class="d-sm-flex mb-2">
+        {!! Form::number('price', null, ['class' => 'form-control w-100 me-2 mb-2', 'required' => 'required','min'=>'200', 'step'=>'50']) !!}
+    </div>
+    <span class="text-danger">@error('price') {{$message}} @enderror</span>
+</section>
+<section class="card card-light card-body border-0 shadow-sm p-4 mb-4" id="vehicle-info">
+    <h2 class="h4 mb-4">Vehicle information</h2>
+    <div class="row pb-2">
+        <div class="col-sm-6 mb-3">
             @if(isset($car_listing))
-                {!! Form::model($car_listing, ['url' => ['mylistings', $car_listing->id], 'method' => 'patch', 'enctype'=>'multipart/form-data','id'=>'listForm']) !!}
+                <label for="car_make" class="form-label">Make <span class="text-danger">*</span></label>
+                <h3>{{$car_listing->car_make->name}}</h3>
+            </div>
+             <div class="col-sm-6 mb-3">
+            <label for="car_model_id" class="form-label">Model</label>
+                 <h3>{{$car_listing->car_model->name}}</h3>
+            </div>
             @else
-                {!! Form::open(['url' => 'mylistings', 'method' => 'store', 'enctype'=>'multipart/form-data', 'id'=>'listForm'])!!}
-            @endif
-                @if(isset($car_listing))
-                <div class="form-group">
-                    <div class="col-sm-6">
-                        <label class="form-label">Make</label>
-                        <h3>{{$car_listing->car_make->name}}</h3>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-6">
-                        <label class="form-label">Model</label>
-                        <h3>{{$car_listing->car_model->name}}</h3>
-                    </div>
-                </div>
-                @else
-            <div class="form-group">
-                <div class="col-sm-6">
-                <label for="car_make" class="form-label">Make</label>
-                <select class="form-control" name="car_make_id" id="car_make_id">
-                    <option hidden>Select car make</option>
-                    @foreach ($car_make as $item)
-                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                    @endforeach
-                </select>
-                </div>
-                <span class="text-danger">@error('car_make_id') {{$message}} @enderror</span>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-6">
-                    <label for="car_model_id" class="form-label">Model</label>
-                    <select class="form-control" name="car_model_id" id="car_model_id" required></select>
-                </div>
-                <span class="text-danger">@error('car_model_id') {{$message}} @enderror</span>
-            </div>
-                @endif
-            <div class="form-group">
-                {!! Form::label('car_body_type_id', 'Body type: ', ['class' => 'col-sm-3']) !!}
-                <div class="col-sm-6">
-                    {!! Form::select('car_body_type_id', $car_body_type, null, ['class' => 'form-control', 'required' => 'required']) !!}
-                </div>
-                <span class="text-danger">@error('car_body_type_id') {{$message}} @enderror</span>
-            </div>
-            <div class="form-group">
-                {!! Form::label('description', 'Description: ', ['class' => 'col-sm-3']) !!}
-                <div class="col-sm-6">
-                    {!! Form::textarea('description', null, ['class' => 'form-control', 'rows'=>'5', 'style'=>'height:100%']) !!}
-                </div>
-            </div>
-            <span class="text-danger">@error('description') {{$message}} @enderror</span>
-                <div class="form-group">
-                    {!! Form::label('year', 'Year: ', ['class' => 'col-sm-3']) !!}
-                    <div class="col-sm-6">
-                        {!! Form::select('year', $years, isset($car_listing->year) ? $car_listing->year : null, ['class' => 'form-control', 'required' => 'required']) !!}
-                    </div>
-                </div>
+            <label for="car_make" class="form-label">Make <span class="text-danger">*</span></label>
+            <select class="form-control" name="car_make_id" id="car_make_id">
+                <option hidden>Select car make</option>
+                @foreach ($car_make as $item)
+                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endforeach
+            </select>
+            <span class="text-danger">@error('car_make_id') {{$message}} @enderror</span>
+        </div>
+        <div class="col-sm-6 mb-3">
+            <label for="car_model_id" class="form-label">Model</label>
+            <select class="form-control" name="car_model_id" id="car_model_id" required></select>
+            <span class="text-danger">@error('car_model_id') {{$message}} @enderror</span>
+        </div>
+        @endif
+        <div class="col-md-3 col-sm-6 mb-3">
+            {!! Form::label('year', 'Year: ', ['class' => 'col-sm-3']) !!}
+            {!! Form::select('year', $years, isset($car_listing->year) ? $car_listing->year : null, ['class' => 'form-control', 'required' => 'required']) !!}
             <span class="text-danger">@error('year') {{$message}} @enderror</span>
-            <div class="form-group">
-                {!! Form::label('price', 'Price: ', ['class' => 'col-sm-3']) !!}
-                <div class="col-sm-6">
-                    {!! Form::text('price', null, ['class' => 'form-control', 'required' => 'required']) !!}
-                </div>
-            </div>
-            <span class="text-danger">@error('price') {{$message}} @enderror</span>
-            <div class="form-group">
-                {!! Form::label('phone_number', 'Phone number: ', ['class' => 'col-sm-3']) !!}
-                <div class="col-sm-6">
-                    {!! Form::text('phone_number', null, ['class' => 'form-control', 'required' => 'required']) !!}
-                </div>
-                <span class="text-danger">@error('phone_number') {{$message}} @enderror</span>
-            </div>
-            <div class="form-group">
-                {!! Form::label('email', 'Email: ', ['class' => 'col-sm-3']) !!}
-                <div class="col-sm-6">
-                    {!! Form::text('email', \App\Models\User::data()->email, ['class' => 'form-control']) !!}
-                </div>
-            </div>
-            <span class="text-danger">@error('description') {{$email}} @enderror</span>
-                <br>
-            <div class="form-group col-sm-6">
-                <div class="custom-file">
-                    <label for="files" class="form-label"> Upload images</label>
-                    <input
-                        type="file"
-                        name="images[]"
-                        class="form-control"
-                        accept="image/*"
-                        multiple
-                    >
-                </div>
-                @if(isset($images))
-                    @foreach($images as $image)
-                    <img src="{{url('listing_images', $image->name)}}" height="100" class="mt-2">
-                    @endforeach
-                @endif
-            </div>
-            <span class="text-danger">@error('images.*') {{$message}} @enderror</span>
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-3">
-                    {!! Form::submit('Save', ['class' => 'btn btn-primary form-control']) !!}
-                </div>
-            </div>
-            {!! Form::close() !!}
-            @if ($errors->any())
-                <ul class="alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
+        </div>
+        <div class="col-md-3 col-sm-6 mb-3">
+            {!! Form::label('mileage', 'Mileage: ', ['class' => 'col-sm-3']) !!}
+            {!! Form::number('mileage', null, ['class' => 'form-control', 'min'=>'1', 'step'=>'100' , 'type'=>'number', 'placeholder'=>'Enter mileage'] ) !!}
+            <span class="text-danger">@error('mileage') {{$message}} @enderror</span>
+        </div>
+        <div class="col-md-6 mb-3">
+            {!! Form::label('vin', 'VIN: ', ['class' => 'col-sm-3']) !!}
+            {!! Form::text('vin', null, ['class' => 'form-control', 'placeholder'=>'Enter VIN code']) !!}
+            <span class="text-danger">@error('vin') {{$message}} @enderror</span>
         </div>
     </div>
+    <div class="border-top border-light mt-2 pt-4">
+        <div class="row pb-2">
+            <div class="col-md-6">
+                {!! Form::label('car_body_type_id', 'Body type: ', ['class' => 'col-sm-3']) !!}
+                {!! Form::select('car_body_type_id', $car_body_type, null, ['class' => 'form-control', 'required' => 'required']) !!}
+                <span class="text-danger">@error('car_body_type_id') {{$message}} @enderror</span>
+                {!! Form::label('fuel_type_id', 'Fuel Type: ', ['class' => 'col-sm-3']) !!}
+                {!! Form::select('fuel_type_id', $fuel_types, null, ['class' => 'form-control','id'=>'fuel']) !!}
+                <span class="text-danger">@error('fuel_type_id') {{$message}} @enderror</span>
+                {!! Form::label('cubic_capacity', 'Cubic capacity, cm³: ', ['class' => 'col-sm-3']) !!}
+                {!! Form::number('cubic_capacity', null, ['class' => 'form-control', 'min'=>'100', 'type'=>'number','id'=>'engine'] ) !!}
+                <span class="text-danger">@error('cubic_capacity') {{$message}} @enderror</span>
+                {!! Form::label('battery_capacity', 'Battery capacity, kWh: ', ['class' => 'col-sm-3']) !!}
+                {!! Form::number('battery_capacity', null, ['class' => 'form-control', 'min'=>'1', 'type'=>'number','id'=>'battery'] ) !!}
+                <span class="text-danger">@error('battery_capacity') {{$message}} @enderror</span>
+            </div>
+        </div>
+    </div>
+    <div class="border-top border-light mt-2 pt-4">
+        {!! Form::label('description', 'Description: ', ['class' => 'col-sm-3']) !!}
+        {!! Form::textarea('description', null, ['class' => 'form-control', 'rows'=>'5', 'style'=>'height:100%', 'placeholder'=>'Describe your vehicle']) !!}
+        <span class="text-danger">@error('description') {{$message}} @enderror</span>
+    </div>
+</section>
+<section class="card card-light card-body shadow-sm p-4 mb-4" id="photos">
+    <h2 class="h4 mb-4">Photos</h2>
+    <div class="alert alert-warning bg-faded-warning border-warning mb-4" role="alert">
+        <div class="d-flex">
+            <p class="fs-sm mb-1">The maximum photo size is 2 MB. Formats: jpeg, jpg, png. Put the main picture first. @if(isset($images))<strong>Old Photos will be deleted if new ones are uploaded</strong> @endif</p>
+        </div>
+    </div>
+    <div class="custom-file">
+        <label for="files" class="form-label"> Upload images</label>
+        <input
+            type="file"
+            name="images[]"
+            class="form-control"
+            accept="image/*"
+            multiple
+        >
+    </div>
+    <div class="images">
+        @if(isset($images))
+            @foreach($images as $image)
+                <img src="{{url('listing_images', $image->name)}}" height="100" class="mt-2">
+            @endforeach
+        @endif
+    </div>
+    <span class="text-danger">@error('images.*') {{$message}} @enderror</span>
+</section>
+<section class="card card-light card-body border-0 shadow-sm p-4 mb-4" id="contacts">
+    <h2 class="h4 mb-4">Contacts</h2>
+    <div class="row">
+        <div class="col-sm-6 mb-3">
+            {!! Form::label('city_id', 'City: ', ['class' => 'col-sm-3']) !!}
+            {!! Form::select('city_id', $cities, null, ['class' => 'form-control']) !!}
+            <span class="text-danger">@error('city_id') {{$message}} @enderror</span>
+        </div>
+        <div class="col-sm-6 mb-3">
+            {!! Form::label('email', 'Email: ', ['class' => 'col-sm-3']) !!}
+            {!! Form::text('email', \App\Models\User::data()->email, ['class' => 'form-control', 'placeholder'=>'Enter your email']) !!}
+            <span class="text-danger">@error('email') {{$message}} @enderror</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 mb-3">
+            {!! Form::label('phone_number', 'Phone number: ', ['class' => 'col-sm-3']) !!}
+            {!! Form::number('phone_number', null, ['class' => 'form-control', 'required' => 'required', 'type'=>'tel', 'placeholder'=>'+370 XXXXXXX']) !!}
+            <span class="text-danger">@error('phone_number') {{$message}} @enderror</span>
+        </div>
+    </div>
+</section>
+<div class="d-sm-flex justify-content-between pt-2">
+    {!! Form::submit('Save and continue', ['class' => 'btn btn-primary btn-lg d-block mb-2 form-control']) !!}
+    {!! Form::close() !!}
+    @if ($errors->any())
+        <ul class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+</div>
     <script>
-        $(document).ready(function() {
-            $("#listForm").validate({
-                rules: {
-                    car_make_id: {
-                        required:true,
-                        min: 1
-                    },
-                    car_model_id: {
-                        required:true,
-                        min: 1
-                    },
-                    car_body_type_id: {
-                        required:true,
-                        min: 1
-                    },
-                    description: {
-                        required:false,
-                    },
-                    year: {
-                        required:true,
-                        min: 1
-                    },
-                    price: {
-                        required:true,
-                        number: true
-                    },
-                    phone_number: {
-                        required:true,
-                        number: true
-                    },
-                    email: {
-                        email: true,
-                        maxlength: 50
-                    },
-                    'images[]': {
-                        required:true,
-                    },
 
-                },
-                messages: {
-                    email: {
-                        required: "Enter your email",
-                        email: "Email must be a valid email address",
-                        maxlength: "Email cannot be more than 50 characters",
-                    },
-                    car_make_id: {
-                        required: "Please select a car make",
-                        min: "Please select a car make"
-                    },
-                    car_model_id: {
-                        required:"Please select a model",
-                        min: "Please select a model",
-                    },
-                    car_body_type_id: {
-                        required:"Please select a body type",
-                        min: "Please select a body type"
-                    },
-                    description: {
-                        required:false,
-                    },
-                    year: {
-                        required:"Please select a year",
-                        min: "Please select a year"
-                    },
-                    price: {
-                        required:"Please state the price",
-                        number: "The price must be a number"
-                    },
-                    phone_number: {
-                        required:"Please prove your phone number",
-                        number: "The phone number must only contain numbers"
-                    },
-                    'images[]': {
-                        required:"You must upload an image"
-                    },
-                }
-            });
-        });
     </script>
 @endsection

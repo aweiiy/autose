@@ -5,7 +5,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <a href="{{ url('admin/makes/create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add model</a>
+            <a href="{{ url('admin/models/create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add model</a>
         </div>
         <div class="card-body">
             @if(Session::has('success'))

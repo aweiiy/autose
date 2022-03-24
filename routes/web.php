@@ -22,10 +22,9 @@ Route::post('/register-user',[AuthController::class, 'registerUser'])->name('reg
 Route::post('/login-user',[AuthController::class, 'loginUser'])->name('login-user');
 Route::get('/logout', [AuthController::class,'logout']);
 Route::view('/home', 'pages.home');
-Route::view('/listings', 'pages.listings');
 
 
-
+Route::get('/listings', [\App\Http\Controllers\ListingController::class, 'display']);
 
 #User
 

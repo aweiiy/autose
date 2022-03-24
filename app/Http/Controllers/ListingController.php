@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\city;
+use App\Models\fuel_type;
 use App\Models\image;
 use App\Models\User;
 use Faker\Provider\File;
@@ -42,12 +44,20 @@ class ListingController extends Controller
         $car_body_type->prepend('Select body type', 0);
         $car_body_type->all();
 
+        $cities = city::pluck('name', 'id');
+        $cities->prepend('Select city', 0);
+        $cities->all();
+
+        $fuel_types = fuel_type::pluck('name', 'id');
+        $fuel_types->prepend('Select fuel type', 0);
+        $fuel_types->all();
+
 
         $years = array_combine(range(date("Y"), 1900), range(date("Y"), 1900));
         $years = array('0' => 'Select build year') + $years;
         $user = User::all();
 
-        return view('user.mylistings.form', compact('car_make', 'car_body_type' , 'years', 'user'));
+        return view('user.mylistings.form', compact('car_make', 'car_body_type' , 'years', 'user','cities','fuel_types'));
     }
 
     /**
@@ -62,9 +72,15 @@ class ListingController extends Controller
             'car_make_id' => 'required|integer',
             'car_model_id' => 'required|integer',
             'car_body_type_id' => 'required|integer',
+            'city_id' => 'nullable|integer|min:1',
+            'fuel_type_id' => 'nullable|integer|min:1',
+            'cubic_capacity' => 'nullable|integer|min:100|max:10000',
+            'battery_capacity' => 'nullable|integer|min:10|max:1000',
             'phone_number' => 'required|integer',
             'price' => 'required|integer|max:1000000',
             'year' => 'required|digits:4|integer|min:1900|max:'.(date('Y')+1),
+            'mileage' => 'required|integer',
+            'vin' => 'nullable|min:17|max:17',
             'description' => 'nullable',
             'email' => 'nullable',
             'images' => 'required',
@@ -121,6 +137,14 @@ class ListingController extends Controller
         $car_body_type->prepend('Select body type', 0);
         $car_body_type->all();
 
+        $cities = city::pluck('name', 'id');
+        $cities->prepend('Select city', 0);
+        $cities->all();
+
+        $fuel_types = fuel_type::pluck('name', 'id');
+        $fuel_types->prepend('Select fuel type', 0);
+        $fuel_types->all();
+
         $years = array_combine(range(date("Y"), 1900), range(date("Y"), 1900));
         $years = array('0' => 'Select build year') + $years;
 
@@ -128,7 +152,7 @@ class ListingController extends Controller
         $images = $car_listing->images;
 
 
-        return view('user.mylistings.form', compact('car_listing','car_make','car_body_type','years','images'));
+        return view('user.mylistings.form', compact('car_listing','car_make','car_body_type','years','images','cities','fuel_types'));
     }
 
     /**
@@ -141,19 +165,33 @@ class ListingController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'car_make_id' => 'required|integer',
-            'car_model_id' => 'required|integer',
             'car_body_type_id' => 'required|integer',
+            'city_id' => 'nullable|integer|min:1',
+            'fuel_type_id' => 'nullable|integer|min:1',
+            'cubic_capacity' => 'nullable|integer|min:100|max:10000',
+            'battery_capacity' => 'nullable|integer|min:10|max:1000',
             'phone_number' => 'required|integer',
             'price' => 'required|integer|max:1000000',
             'year' => 'required|digits:4|integer|min:1900|max:'.(date('Y')+1),
+            'mileage' => 'required|integer',
+            'vin' => 'nullable|max:17',
             'description' => 'nullable',
             'email' => 'nullable',
-            'images' => 'required',
+            'images' => 'nullable',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         $car_listing = car_listing::findOrFail($id);
+
+        if($request->has('images')){
+            foreach($car_listing->images as $image){
+
+                $image_path = public_path().'/listing_images/'.$image->name;
+                $image->delete();
+                unlink($image_path);
+
+            }
+        }
 
         if($request->has('images')){
             foreach($request->file('images')as $image){
@@ -185,5 +223,12 @@ class ListingController extends Controller
         }
         $car_listing->delete();
         return redirect('mylistings')->with('success', 'Listing deleted successfully.');
+    }
+
+    public function display(){
+
+        $car_listings = car_listing::paginate(10);
+
+        return view('pages.listings', compact('car_listings'));
     }
 }

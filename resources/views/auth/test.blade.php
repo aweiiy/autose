@@ -1,29 +1,25 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
-<div class="my-slider">
-    <div><img src="/listing_images/30-image-1647963547188.jpg"></div>
-    <div><img src="/listing_images/30-image-1647963547188.jpg"></div>
-    <div><img src="/listing_images/30-image-1647963547188.jpg"></div>
+<!-- Carousel inside card -->
+<div class="card card-hover">
+    <div class="tns-carousel-wrapper card-img-top card-img-hover">
+        <span class="img-overlay"></span>
+        <div class="tns-carousel-inner">
+            <img src="http://127.0.0.1/listing_images/43-image-1648150747694.jpg" alt="Image">
+        </div>
+    </div>
+    <div class="card-body">
+        <img src="http://127.0.0.1/listing_images/43-image-1648150747694.jpg" alt="Image">
+    </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
 <script>
     var slider = tns({
-        container: '.my-slider',
+        container: '.card-hover',
         items: 1,
-        responsive: {
-            1: {
-                edgePadding: 20,
-                gutter: 20,
-                items: 1,
-                mouseDrag: true
-            },
-            700: {
-                gutter: 30,
-                mouseDrag: true
-            },
-            900: {
-                items: 1,
-                mouseDrag: true
-            }
-        }
+        speed: 100,
+        navPosition: "bottom",
+        mouseDrag: !0,
+        autoplayHoverPause: !0,
+        autoplayButtonOutput: !1
     });
 </script>

@@ -1,6 +1,23 @@
 (function ($) {
   'use strict';
 
+
+    var $fuel = $('#fuel'), $engine = $('#engine'), $battery = $('#battery');
+    $fuel.change(function () {
+        if ($fuel.val() == '0' || $fuel.val() == '1' || $fuel.val() == '2') {
+            $battery.attr('disabled', 'disabled').val('');
+        } else if ($fuel.val() == '5'){
+            $engine.attr('disabled', 'disabled').val('');
+            $battery.removeAttr('disabled');
+        } else {
+            $battery.removeAttr('disabled');
+        }
+    }).trigger('change');
+
+    $('.fa-heart').click(function() {
+        $(this).toggleClass('fas far');
+    })
+
   //  Count Up
   function counter() {
     var oTop;

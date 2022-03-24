@@ -101,6 +101,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
 <script src="{{ asset('js/script.js') }}"></script>
+<script src="{{ asset('js/validation.js') }}"></script>
 <script src="plugins/slick-carousel/slick/slick.min.js"></script>
 <script src="plugins/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 <script src="plugins/fancybox/jquery.fancybox.pack.js"></script>
