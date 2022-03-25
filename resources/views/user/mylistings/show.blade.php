@@ -10,6 +10,26 @@
             object-fit: fill;
         }
     </style>
+    <style>
+        .thumbnail{
+            border-right: 1px solid #fff;
+            border-top: 1px solid #fff;
+            display: block;
+            float: left;
+            height: 70px;
+            overflow: hidden;
+            position: relative;
+            width: 25%;
+            padding-left:0px;
+            padding-right:0px;
+        }
+        .thumbnail img{
+            width: 100%;
+        }
+        .mainPhoto{
+            height: 500px; width: 200px; overflow: hidden;object-fit: cover;
+        }
+    </style>
     <div class="card">
         <div class="card-header">
             <a href="{{ url('mylistings/'.$car_listing->id.'/edit') }}" class="btn btn-primary"><i class="fas fa-edit"></i> Edit listing</a>
@@ -18,28 +38,20 @@
             <div class="row">
                 <div class="col-md-7">
                     <!-- Gallery-->
-                    <div>
+                    <div class="row">
+                        <a href="{{url('listing_images', $images[0]->name)}}" data-lightbox="roadtrip"><img class="w-100 mainPhoto" src="{{url('listing_images', $images[0]->name)}}"></a>
+                    </div>
+                    <div class="row">
                         <div>
-                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                                <ol class="carousel-indicators">
-                                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                </ol>
-                                <div class="carousel-inner">
-                                    @foreach($images as $slider)
-                                        <div class="carousel-item {{$loop->first ? 'active' : '' }}">
-                                            <img src="{{url('listing_images', $slider->name)}}" class="d-block w-100"  alt="...">
-                                        </div>
-                                    @endforeach
-                                </div>
-                                <a class="carousel-control-prev" href="#myCarousel" role="button"  data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true">     </span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </div>
+                    @foreach($images as $image)
+                        @if($loop->index == 0)
+                            @continue
+                            @endif
+                            <a class="thumbnail" href="{{url('listing_images', $image->name)}}" data-lightbox="roadtrip"> <img src="{{url('listing_images', $image->name)}}" alt=""></a>
+                        @if($loop->iteration == 5)
+                            @break
+                        @endif
+                    @endforeach
                         </div>
                     </div>
                     <!-- Specs -->
@@ -123,3 +135,24 @@
         </div>
     </div>
 @endsection
+@push('javascript')
+    <script src="{{ asset('js/lightbox.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#images').change(function(){
+                $("#thumbs").html('');
+                for (var i = 0; i < $(this)[0].files.length; i++) {
+                    $("#thumbs").append('<div class="col-lg-3 col-md-3 col-sm-5"><a href="'+window.URL.createObjectURL(this.files[i])+'" data-lightbox="roadtrip"><img src="'+window.URL.createObjectURL(this.files[i])+'" width="50%"/></a></div>');
+                }
+            });
+        });
+        lightbox.option({
+            'resizeDuration': 0,
+            'wrapAround': true,
+            'imageFadeDuration': 0
+        })
+    </script>
+@endpush
+@push('css')
+    <link href="{{ asset('css/lightbox.css') }}" rel="stylesheet">
+@endpush
