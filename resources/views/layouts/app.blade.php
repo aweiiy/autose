@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +9,6 @@
     <meta name="author" content="Edvinas">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Autose') }}</title>
-
 <!-- Favicon -->
 <link href="" rel="shortcut icon">
 <!-- Bootstrap -->
@@ -19,11 +17,9 @@
 <link href="{{ asset('bower_components/fontawesome/css/all.min.css') }}" rel="stylesheet">
 <!-- Custom CSS -->
 <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-<script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
 <script src="{{ asset('js/selector.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    @stack('css')
+@stack('css')
 
 </head>
 <body>
@@ -35,8 +31,6 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         autose
                     </a>
-
-
                         <ul class="nav navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/home') }}">Home</a>
@@ -94,16 +88,11 @@
 
 
 <!-- JavaScripts -->
-<script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.bundle.js') }}"></script>
 <script src="{{ asset('bower_components/fontawesome/js/all.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
 <script src="{{ asset('js/script.js') }}"></script>
-<script src="{{ asset('js/validation.js') }}"></script>
-<script src="plugins/slick-carousel/slick/slick.min.js"></script>
-<script src="plugins/jquery-nice-select/js/jquery.nice-select.min.js"></script>
-<script src="plugins/fancybox/jquery.fancybox.pack.js"></script>
 <script src="plugins/smoothscroll/SmoothScroll.min.js"></script>
 @stack('javascript')
 </body>

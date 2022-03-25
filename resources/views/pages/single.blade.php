@@ -20,28 +20,20 @@
             <div class="row">
                 <div class="col-md-7">
                     <!-- Gallery-->
-                    <div>
+                    <div class="row">
+                        <a href="{{url('listing_images', $images[0]->name)}}" data-lightbox="roadtrip"><img class="w-100 mainPhoto" src="{{url('listing_images', $images[0]->name)}}"></a>
+                    </div>
+                    <div class="row">
                         <div>
-                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                                <ol class="carousel-indicators">
-                                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                </ol>
-                                <div class="carousel-inner">
-                                    @foreach($images as $slider)
-                                        <div class="carousel-item {{$loop->first ? 'active' : '' }}">
-                                            <img src="{{url('listing_images', $slider->name)}}" class="d-block w-100"  alt="{{$car_listing->car_make->name}} image {{ $loop->index + 1 }}">
-                                        </div>
-                                    @endforeach
-                                </div>
-                                <a class="carousel-control-prev" href="#myCarousel" role="button"  data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true">     </span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </div>
+                            @foreach($images as $image)
+                                @if($loop->index == 0)
+                                    @continue
+                                @endif
+                                <a class="thumbnail" href="{{url('listing_images', $image->name)}}" data-lightbox="roadtrip"> <img src="{{url('listing_images', $image->name)}}" alt=""></a>
+                                @if($loop->iteration == 5)
+                                    @break
+                                @endif
+                            @endforeach
                         </div>
                     </div>
                     <!-- Specs -->
@@ -129,3 +121,16 @@
         </div>
     </div>
 @endsection
+@push('javascript')
+    <script src="{{ asset('js/lightbox.js') }}"></script>
+    <script>
+        lightbox.option({
+            'resizeDuration': 0,
+            'wrapAround': true,
+            'imageFadeDuration': 0
+        })
+    </script>
+@endpush
+@push('css')
+    <link href="{{ asset('css/lightbox.css') }}" rel="stylesheet">
+@endpush

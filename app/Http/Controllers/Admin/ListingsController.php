@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\car_body_type;
 use App\Models\car_listing;
 use App\Models\car_make;
+use App\Models\city;
+use App\Models\fuel_type;
 use App\Models\image;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,7 +22,7 @@ class ListingsController extends Controller
      */
     public function index()
     {
-        $listings = car_listing::paginate(10);
+        $listings = car_listing::paginate(5);
 
         #print_r($mylistings);
 
@@ -78,13 +80,21 @@ class ListingsController extends Controller
         $car_body_type->prepend('Select body type', 0);
         $car_body_type->all();
 
+        $cities = city::pluck('name', 'id');
+        $cities->prepend('Select city', 0);
+        $cities->all();
+
+        $fuel_types = fuel_type::pluck('name', 'id');
+        $fuel_types->prepend('Select fuel type', 0);
+        $fuel_types->all();
+
         $years = array_combine(range(date("Y"), 1900), range(date("Y"), 1900));
         $years = array('0' => 'Select build year') + $years;
 
 
         $images = $car_listing->images;
 
-        return view('admin.listings.form', compact('car_listing','car_make','car_body_type','years','images'));
+        return view('admin.listings.form', compact('car_listing','car_make','car_body_type','years','images','fuel_types','cities'));
     }
 
     /**
@@ -97,15 +107,19 @@ class ListingsController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'car_make_id' => 'required|integer',
-            'car_model_id' => 'required|integer',
             'car_body_type_id' => 'required|integer',
-            'phone_number' => 'required|integer',
+            'city_id' => 'nullable|integer|min:1',
+            'fuel_type_id' => 'nullable|integer|min:1',
+            'cubic_capacity' => 'nullable|integer|min:100|max:10000',
+            'battery_capacity' => 'nullable|integer|min:1|max:1000',
+            'phone_number' => 'required|integer|min:1|digits_between:8,11',
             'price' => 'required|integer|max:1000000',
             'year' => 'required|digits:4|integer|min:1900|max:'.(date('Y')+1),
+            'mileage' => 'required|integer',
+            'vin' => 'nullable|string|min:17|max:17',
             'description' => 'nullable',
             'email' => 'nullable',
-            'images' => 'required',
+            'images' => 'nullable',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 

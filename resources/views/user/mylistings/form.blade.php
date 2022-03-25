@@ -117,13 +117,19 @@
             multiple
         >
     </div>
-            <div class="row mt-2">
+            <div class="row mt-4" style="background-color: #e9ecef">
                     <label class="form-label"> Uploaded images:</label>
                 @if(isset($images))
+                    <?php $count = $images->count() ?>
                 @foreach($images as $image)
-                    <div class="col-lg-3 col-md-3 col-sm-5">
+                    <div class="col-lg-3 col-md-3 col-sm-5 thumbnail">
                         <a href="{{url('listing_images', $image->name)}}" data-lightbox="roadtrip"> <img class="w-50 mb-2" src="{{url('listing_images', $image->name)}}" alt=""></a>
-                        <a href="../delete-image/{{$image->id}}" class="button p-2 mb-3">Delete</a>
+                        @if($count == 1)
+                    </div>
+                            @break
+                            @endif
+                        <a href="../delete-image/{{$image->id}}" class="button p-2 mb-3 align-top">Delete</a>
+
                     </div>
                 @endforeach
                 <label class="form-label"> New images:</label>
@@ -160,10 +166,6 @@
             <span class="text-danger">@error('phone_number') {{$message}} @enderror</span>
         </div>
     </div>
-</section>
-<div class="d-sm-flex justify-content-between pt-2">
-    {!! Form::submit('Save and continue', ['class' => 'btn btn-primary btn-lg d-block mb-2 form-control']) !!}
-    {!! Form::close() !!}
     @if ($errors->any())
         <ul class="alert alert-danger">
             @foreach ($errors->all() as $error)
@@ -171,12 +173,18 @@
             @endforeach
         </ul>
     @endif
+</section>
+<div class="d-sm-flex justify-content-between pt-2">
+    {!! Form::submit('Save and continue', ['class' => 'btn btn-primary btn-lg d-block mb-2 form-control']) !!}
+    {!! Form::close() !!}
 </div>
     <script>
 
     </script>
 @endsection
 @push('javascript')
+    <script src="{{ asset('js/validation.js') }}"></script>
+    <script src="{{ asset('js/selector.js') }}"></script>
     <script src="{{ asset('js/lightbox.js') }}"></script>
     <script>
         $(document).ready(function(){
@@ -187,6 +195,11 @@
                 }
             });
         });
+        lightbox.option({
+            'resizeDuration': 0,
+            'wrapAround': true,
+            'imageFadeDuration': 0
+        })
     </script>
 @endpush
 @push('css')

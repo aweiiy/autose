@@ -31,7 +31,7 @@
                                             <div class="ad-listing-content">
                                                 <div>{{$item->year}}</div>
                                                     <div class="h3">
-                                                        <strong>{{ $item->car_make->name }} {{ $item->car_model->name }}</strong>
+                                                        <strong>{{ $item->car_make->name }} {{ $item->car_model->name }} </strong>
                                                     </div>
                                                 <h2 class="pr-5">{{$item->price}} EUR</h2>
                                                 <div>{{$item->city->name}}</div>

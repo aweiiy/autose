@@ -25,7 +25,7 @@ class ListingController extends Controller
      */
     public function index()
     {
-        $mylistings = car_listing::where('user_id', '=', Session::get('loginId'))->paginate(10);
+        $mylistings = car_listing::where('user_id', '=', Session::get('loginId'))->paginate(5);
 
         #print_r($mylistings);
 
@@ -75,12 +75,12 @@ class ListingController extends Controller
             'city_id' => 'nullable|integer|min:1',
             'fuel_type_id' => 'nullable|integer|min:1',
             'cubic_capacity' => 'nullable|integer|min:100|max:10000',
-            'battery_capacity' => 'nullable|integer|min:10|max:1000',
-            'phone_number' => 'required|integer',
+            'battery_capacity' => 'nullable|integer|min:1|max:1000',
+            'phone_number' => 'required|integer|min:1|digits_between:8,11',
             'price' => 'required|integer|max:1000000',
             'year' => 'required|digits:4|integer|min:1900|max:'.(date('Y')+1),
             'mileage' => 'required|integer',
-            'vin' => 'nullable|min:17|max:17',
+            'vin' => 'nullable|string|min:17|max:17',
             'description' => 'nullable',
             'email' => 'nullable',
             'images' => 'required',
@@ -169,12 +169,12 @@ class ListingController extends Controller
             'city_id' => 'nullable|integer|min:1',
             'fuel_type_id' => 'nullable|integer|min:1',
             'cubic_capacity' => 'nullable|integer|min:100|max:10000',
-            'battery_capacity' => 'nullable|integer|min:10|max:1000',
-            'phone_number' => 'required|integer',
+            'battery_capacity' => 'nullable|integer|min:1|max:1000',
+            'phone_number' => 'required|integer|min:1|digits_between:8,11',
             'price' => 'required|integer|max:1000000',
             'year' => 'required|digits:4|integer|min:1900|max:'.(date('Y')+1),
             'mileage' => 'required|integer',
-            'vin' => 'nullable|max:17',
+            'vin' => 'nullable|string|min:17|max:17',
             'description' => 'nullable',
             'email' => 'nullable',
             'images' => 'nullable',
@@ -183,15 +183,6 @@ class ListingController extends Controller
 
         $car_listing = car_listing::findOrFail($id);
 
-        if($request->has('images')){
-            foreach($car_listing->images as $image){
-
-                $image_path = public_path().'/listing_images/'.$image->name;
-                $image->delete();
-                unlink($image_path);
-
-            }
-        }
 
         if($request->has('images')){
             foreach($request->file('images')as $image){
@@ -227,7 +218,7 @@ class ListingController extends Controller
 
     public function displayAll(){
 
-        $car_listings = car_listing::paginate(10);
+        $car_listings = car_listing::paginate(5);
 
         return view('pages.listings', compact('car_listings'));
     }

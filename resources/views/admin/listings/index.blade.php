@@ -38,7 +38,7 @@
                     </thead>
                     <tbody>
                     @forelse($listings as $item)
-                        <tr onclick="window.location='{{ url('listings/'.$item->id) }}';" style="cursor: pointer">
+                        <tr onclick="window.location='{{ url('admin/listings/'.$item->id) }}';" style="cursor: pointer">
                             <td>{{ $item->user->name}}</td>
                             @foreach($item->images as $image)
                                 <td class="w-25"><img src="{{url('listing_images/'.$image->name)}}" class="fitToSize img-fluid img-thumbnail"></td>

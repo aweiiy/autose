@@ -95,6 +95,25 @@ label {
     margin-top: .5rem
 }
 
+.thumbnail{
+    border-right: 1px solid #fff;
+    border-top: 1px solid #fff;
+    display: block;
+    float: left;
+    height: 70px;
+    overflow: hidden;
+    position: relative;
+    width: 25%;
+    padding-left:0px;
+    padding-right:0px;
+}
+.thumbnail img{
+    width: 100%;
+}
+.mainPhoto{
+    height: 500px; width: 200px; overflow: hidden;object-fit: cover;
+}
+
 .search-group {
     display: flex;
     align-items: center;

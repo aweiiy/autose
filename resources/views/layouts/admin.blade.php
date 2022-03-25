@@ -10,6 +10,9 @@
     <link href="{{ asset('bower_components/fontawesome/css/all.min.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
+    @stack('css')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body>
 <!-- Site wrapper -->
@@ -33,7 +36,12 @@
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="info">
                     <a href="{{ url('/admin') }}" class="d-block">
-                            {{ \App\Models\User::name() }}
+                        <i class="fa-solid fa-user"></i>
+                        {{ \App\Models\User::name() }}
+                    </a>
+                    <br>
+                    <a href="{{ url('/') }}" class="d-block">
+                        <i class="fa-solid fa-house"></i>Main page
                     </a>
                 </div>
             </div>
@@ -51,31 +59,19 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ url('/admin/listings') }}" class="nav-link">
-
-                            <p>Listings</p>
+                            <i class="fa-solid fa-file"></i>
+                            <p> Listings</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ url('/admin/makes') }}" class="nav-link">
-
+                            <i class="fa-solid fa-car"></i>
                             <p>Makes</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/admin/models') }}" class="nav-link">
-
-                            <p>Models</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ url('/admin/body_types') }}" class="nav-link">
-
-                            <p>Body types</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="{{ url('/admin/users') }}" class="nav-link">
-
+                            <i class="fa-solid fa-users"></i>
                             <p>Users</p>
                         </a>
                     </li>
@@ -128,6 +124,6 @@
 <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.bundle.js') }}"></script>
 <script src="{{ asset('bower_components/fontawesome/js/all.min.js') }}"></script>
 <script src="{{ asset('js/adminlte.js') }}"></script>
-
+@stack('javascript')
 </body>
 </html>

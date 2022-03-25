@@ -10,26 +10,6 @@
             object-fit: fill;
         }
     </style>
-    <style>
-        .thumbnail{
-            border-right: 1px solid #fff;
-            border-top: 1px solid #fff;
-            display: block;
-            float: left;
-            height: 70px;
-            overflow: hidden;
-            position: relative;
-            width: 25%;
-            padding-left:0px;
-            padding-right:0px;
-        }
-        .thumbnail img{
-            width: 100%;
-        }
-        .mainPhoto{
-            height: 500px; width: 200px; overflow: hidden;object-fit: cover;
-        }
-    </style>
     <div class="card">
         <div class="card-header">
             <a href="{{ url('mylistings/'.$car_listing->id.'/edit') }}" class="btn btn-primary"><i class="fas fa-edit"></i> Edit listing</a>
