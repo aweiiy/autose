@@ -8,6 +8,7 @@
     <meta name="keywords" content="Cars, ads, listings">
     <meta name="description" content="Autose is a digital marketplace for cars. Sell your car or find which one you like.">
     <meta name="author" content="Edvinas">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Autose') }}</title>
 
 <!-- Favicon -->
@@ -22,9 +23,7 @@
 <script src="{{ asset('js/selector.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Owl Carousel -->
-    <link href="plugins/slick-carousel/slick/slick.css" rel="stylesheet">
-    <link href="plugins/slick-carousel/slick/slick-theme.css" rel="stylesheet">
+    @stack('css')
 
 
 </head>
@@ -109,6 +108,7 @@
 <script src="plugins/jquery-nice-select/js/jquery.nice-select.min.js"></script>
 <script src="plugins/fancybox/jquery.fancybox.pack.js"></script>
 <script src="plugins/smoothscroll/SmoothScroll.min.js"></script>
+@stack('javascript')
 </body>
 @include('layouts.footer')
 </html>

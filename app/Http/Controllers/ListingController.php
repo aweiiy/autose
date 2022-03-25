@@ -225,10 +225,19 @@ class ListingController extends Controller
         return redirect('mylistings')->with('success', 'Listing deleted successfully.');
     }
 
-    public function display(){
+    public function displayAll(){
 
         $car_listings = car_listing::paginate(10);
 
         return view('pages.listings', compact('car_listings'));
+    }
+
+    public function displayListing($id){
+
+        $car_listing = car_listing::findOrFail($id);
+
+        if(!$car_listing) abort(404);
+        $images = $car_listing->images;
+        return view('pages.single', compact('car_listing','images'));
     }
 }

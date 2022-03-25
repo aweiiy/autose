@@ -15,19 +15,19 @@
                     </div>
                     <!-- ad listing list  -->
                     @foreach($car_listings as $item)
-                        <div class="car-listing-list mt-20" onclick="location.href='#';" style="cursor: pointer;">
+                        <div class="car-listing-list mt-20">
                             <div class="row p-lg-3 p-sm-5 p-4">
                                 <div class="col-lg-4 align-self-center">
-                                    <a href="#">
+                                    <a href="{{ url('listings/'.$item->id) }}">
                                         @foreach($item->images as $image)
-                                            <td class="w-25"><img src="{{url('listing_images/'.$image->name)}}" class="fitToSize img-fluid img-thumbnail rounded"></td>
+                                            <img src="{{url('listing_images/'.$image->name)}}" class="fitToSize img-fluid img-thumbnail rounded">
                                             @break
                                         @endforeach
                                     </a>
                                 </div>
                                 <div class="col-lg-8">
                                     <div class="row">
-                                        <div class="col-lg-10 col-md-10">
+                                        <div class="col-lg-10 col-md-10" onclick="location.href='{{ url('listings/'.$item->id) }}';" style="cursor: pointer;">
                                             <div class="ad-listing-content">
                                                 <div>{{$item->year}}</div>
                                                     <div class="h3">
@@ -38,9 +38,9 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-1 align-self-center">
-                                            <button class="btn" onclick="alert('saved')">
+                                            <a href="#" class="save_favourite">
                                                 <i class="far fa-heart fa-2x"></i>
-                                            </button>
+                                            </a>
                                         </div>
                                         <div class="border-top border-light mt-3 pt-3">
                                             <div class="row g-2">
@@ -72,3 +72,16 @@
         </div>
     </section>
 @endsection
+
+@push('javascript')
+<script>
+    let my_id = {{\Illuminate\Support\Facades\Session::get('loginId')}};
+
+        console.log(my_id);
+        $(document).ready(function(){
+            $('.save_favourite').click(function (){
+                alert('clicked');
+            });
+        });
+    </script>
+@endpush

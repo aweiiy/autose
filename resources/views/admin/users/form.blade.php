@@ -88,6 +88,11 @@
                     password: {
                         required: true,
                         minlength: 8
+                    },
+                    password_confirm: {
+                        required: true,
+                        minlength: 8,
+                        equalTo: "#password"
                     }
                 },
                 messages: {

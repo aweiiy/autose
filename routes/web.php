@@ -24,13 +24,15 @@ Route::get('/logout', [AuthController::class,'logout']);
 Route::view('/home', 'pages.home');
 
 
-Route::get('/listings', [\App\Http\Controllers\ListingController::class, 'display']);
+Route::get('/listings', [\App\Http\Controllers\ListingController::class, 'displayAll']);
+Route::get('/listings/{id}', [\App\Http\Controllers\ListingController::class, 'displayListing']);
 
 #User
 
 
 Route::group(['middleware' => 'isLoggedIn'], function(){
     Route::resource('mylistings', App\Http\Controllers\ListingController::class);
+    Route::get('mylistings/delete-image/{image_id}', [\App\Http\Controllers\User\ImageController::class, 'delete'])->name('delete-image');
     Route::resource('profile',App\Http\Controllers\User\ProfileController::class);
     #Admin
     Route::group(['prefix' => 'admin', 'as'=> '.admin', 'middleware' => 'isAdmin'], function () {

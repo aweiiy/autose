@@ -55,6 +55,11 @@
                                 <input type="password" name="password" id="password" class="form-control" placeholder="Enter password">
                             </div>
                             <span class="text-danger">@error('password') {{$message}} @enderror</span>
+                            <div class="form-group">
+                                <label for="password_confirmation"> Password Confirmation <span class="text-danger">*</span> </label>
+                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Enter password again">
+                            </div>
+                            <span class="text-danger">@error('password_confirmation') {{$message}} @enderror</span>
                             <div class="container">
                                 <div class="row">
                                     <div>
@@ -96,6 +101,11 @@
                 password: {
                     required: true,
                     minlength: 8
+                },
+                password_confirmation: {
+                    required: true,
+                    minlength: 8,
+                    equalTo: "#password"
                 }
             },
             messages: {

@@ -95,7 +95,7 @@ label {
     margin-top: .5rem
 }
 
-.form-group {
+.search-group {
     display: flex;
     align-items: center;
     padding: .5rem;
@@ -105,89 +105,89 @@ label {
     box-shadow: 0 .125rem .125rem -0.125rem rgba(31, 27, 45, .08), 0 .25rem .75rem rgba(31, 27, 45, .08)
 }
 
-.form-group>div:first-child:not(.row),
-.form-group>.form-control:first-child,
-.form-group>.form-select:first-child {
+.search-group>div:first-child:not(.row),
+.search-group>.form-control:first-child,
+.search-group>.form-select:first-child {
     margin-left: -0.5rem
 }
 
-.form-group .form-control,
-.form-group .form-select {
+.search-group .form-control,
+.search-group .form-select {
     border: 0;
     border-radius: 0;
     background-color: transparent
 }
 
-.form-group .form-control:focus,
-.form-group .form-select:focus {
+.search-group .form-control:focus,
+.search-group .form-select:focus {
     box-shadow: none
 }
 
-.form-group .input-group .input-group-text {
+.search-group .input-group .input-group-text {
     margin-top: .125rem;
     padding-right: 0;
     border: 0;
     background: transparent
 }
 
-.form-group .input-group .input-group-text+.form-control,
-.form-group .input-group .input-group-text+.form-select {
+.search-group .input-group .input-group-text+.form-control,
+.search-group .input-group .input-group-text+.form-select {
     padding-left: .750375rem
 }
 
-.form-group .dropdown-toggle {
+.search-group .dropdown-toggle {
     font-weight: normal
 }
 
-.form-group .dropdown-toggle.btn-link {
+.search-group .dropdown-toggle.btn-link {
     padding-right: 1.092rem;
     padding-left: 1.092rem;
     color: #9691a4
 }
 
-.form-group .dropdown-toggle.btn-link:hover,
-.form-group .dropdown-toggle.btn-link.show {
+.search-group .dropdown-toggle.btn-link:hover,
+.search-group .dropdown-toggle.btn-link.show {
     color: #454056
 }
 
-.form-group .dropdown-menu:not(.my-3) {
+.search-group .dropdown-menu:not(.my-3) {
     margin-top: .75rem !important;
     margin-bottom: .75rem !important
 }
 
-.form-group .range-slider {
+.search-group .range-slider {
     width: 100%;
     padding-right: 1.125rem;
     padding-left: 1.125rem
 }
 
-.form-group .range-slider-ui {
+.search-group .range-slider-ui {
     margin-top: 0;
     margin-bottom: 0
 }
 
-.form-group.rounded-pill,
-.form-group.rounded-xl-pill,
-.form-group.rounded-lg-pill,
-.form-group.rounded-md-pill,
-.form-group.rounded-sm-pill {
+.search-group.rounded-pill,
+.search-group.rounded-xl-pill,
+.search-group.rounded-lg-pill,
+.search-group.rounded-md-pill,
+.search-group.rounded-sm-pill {
     padding-left: .75rem
 }
 
-.form-group-light {
+.search-group-light {
     border-color: rgba(255, 255, 255, .15);
     background-color: rgba(255, 255, 255, .04)
 }
 
-.form-group-light .form-control,
-.form-group-light .form-select {
+.search-group-light .form-control,
+.search-group-light .form-select {
     color: #fff
 }
 
-.form-group-light .form-control:focus,
-.form-group-light .form-select:focus {
+.search-group-light .form-control:focus,
+.search-group-light .form-select:focus {
     background-color: transparent
 }
 
-.form-group-light
+.search-group-light
 

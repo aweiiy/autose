@@ -20,7 +20,7 @@
 
     <div class="container mt-4 mt-sm-3 mt-lg-n3 pb-5 mb-md-4">
         <!-- Form group-->
-        <form class="form-group d-block">
+        <form class="search-group d-block">
             <div class="row g-0 ms-lg-n2">
                 <div class="col-lg-2">
                     <div class="input-group border-end-lg"><span class="input-group-text text-muted ps-2 ps-sm-3"><i class="fi-search"></i></span>

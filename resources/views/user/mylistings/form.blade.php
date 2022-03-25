@@ -103,12 +103,13 @@
     <h2 class="h4 mb-4">Photos</h2>
     <div class="alert alert-warning bg-faded-warning border-warning mb-4" role="alert">
         <div class="d-flex">
-            <p class="fs-sm mb-1">The maximum photo size is 2 MB. Formats: jpeg, jpg, png. Put the main picture first. @if(isset($images))<strong>Old Photos will be deleted if new ones are uploaded</strong> @endif</p>
+            <p class="fs-sm mb-1">The maximum photo size is 2 MB. Formats: jpeg, jpg, png. Put the main picture first.</p>
         </div>
     </div>
     <div class="custom-file">
         <label for="files" class="form-label"> Upload images</label>
         <input
+            id="images"
             type="file"
             name="images[]"
             class="form-control"
@@ -116,13 +117,26 @@
             multiple
         >
     </div>
-    <div class="images">
-        @if(isset($images))
-            @foreach($images as $image)
-                <img src="{{url('listing_images', $image->name)}}" height="100" class="mt-2">
-            @endforeach
-        @endif
-    </div>
+            <div class="row mt-2">
+                    <label class="form-label"> Uploaded images:</label>
+                @if(isset($images))
+                @foreach($images as $image)
+                    <div class="col-lg-3 col-md-3 col-sm-5">
+                        <a href="{{url('listing_images', $image->name)}}" data-lightbox="roadtrip"> <img class="w-50 mb-2" src="{{url('listing_images', $image->name)}}" alt=""></a>
+                        <a href="../delete-image/{{$image->id}}" class="button p-2 mb-3">Delete</a>
+                    </div>
+                @endforeach
+                <label class="form-label"> New images:</label>
+                @endif
+                <div class="row mt-2" id="thumbs">
+                </div>
+                @if(Session::has('success'))
+                    <div class="alert alert-success">{{Session::get('success')}}</div>
+                @endif
+                @if(Session::has('fail'))
+                    <div class="alert alert-danger">{{Session::get('fail')}}</div>
+                @endif
+            </div>
     <span class="text-danger">@error('images.*') {{$message}} @enderror</span>
 </section>
 <section class="card card-light card-body border-0 shadow-sm p-4 mb-4" id="contacts">
@@ -162,3 +176,19 @@
 
     </script>
 @endsection
+@push('javascript')
+    <script src="{{ asset('js/lightbox.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#images').change(function(){
+                $("#thumbs").html('');
+                for (var i = 0; i < $(this)[0].files.length; i++) {
+                    $("#thumbs").append('<div class="col-lg-3 col-md-3 col-sm-5"><a href="'+window.URL.createObjectURL(this.files[i])+'" data-lightbox="roadtrip"><img src="'+window.URL.createObjectURL(this.files[i])+'" width="50%"/></a></div>');
+                }
+            });
+        });
+    </script>
+@endpush
+@push('css')
+    <link href="{{ asset('css/lightbox.css') }}" rel="stylesheet">
+@endpush

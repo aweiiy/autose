@@ -11,9 +11,11 @@
         }
     </style>
     <div class="card">
-        <div class="card-header">
-            <a href="{{ url('mylistings/'.$car_listing->id.'/edit') }}" class="btn btn-primary"><i class="fas fa-edit"></i> Edit listing</a>
-        </div>
+        @if($car_listing->user->id == \Illuminate\Support\Facades\Session::get('loginId'))
+            <div class="card-header">
+                <a href="{{ url('mylistings/'.$car_listing->id.'/edit') }}" class="btn btn-primary"><i class="fas fa-edit"></i> Edit listing</a>
+            </div>
+        @endif
         <div class="card-body">
             <div class="row">
                 <div class="col-md-7">
@@ -27,7 +29,7 @@
                                 <div class="carousel-inner">
                                     @foreach($images as $slider)
                                         <div class="carousel-item {{$loop->first ? 'active' : '' }}">
-                                            <img src="{{url('listing_images', $slider->name)}}" class="d-block w-100"  alt="...">
+                                            <img src="{{url('listing_images', $slider->name)}}" class="d-block w-100"  alt="{{$car_listing->car_make->name}} image {{ $loop->index + 1 }}">
                                         </div>
                                     @endforeach
                                 </div>
@@ -52,27 +54,27 @@
                                     <li class="mb-2"><strong>Mileage:</strong><span class="opacity-70 ms-1">{{$car_listing->mileage}} km</span></li>
                                     <li class="mb-2"><strong>Body Type:</strong><span class="opacity-70 ms-1">{{$car_listing->car_body_type->name}}</span></li>
                                     <li class="mb-2"><strong>Fuel Type:</strong><span class="opacity-70 ms-1">{{$car_listing->fuel_type->name}}</span></li>
-                                      <!-- Engine and battery-->
-                                            @if(!$car_listing->battery_capacity)
+                                    <!-- Engine and battery-->
+                                    @if(!$car_listing->battery_capacity)
                                         <li class="mb-2"><strong>Engine cubic capacity:</strong>
                                             <span class="opacity-70 ms-1">
                                                 {{number_format((float)$car_listing->cubic_capacity/1000, 1, '.', '')}} L.
-                                                @elseif(!$car_listing->cubic_capacity)
+                                    @elseif(!$car_listing->cubic_capacity)
                                         <li class="mb-2"><strong>Battery capacity:</strong>
                                             <span class="opacity-70 ms-1">
                                                 {{$car_listing->battery_capacity}} KWh.
-                                                 @else
+                                    @else
                                         <li class="mb-2"><strong>Engine cubic capacity:</strong>
                                             <span class="opacity-70 ms-1">
                                                 {{number_format((float)$car_listing->cubic_capacity/1000, 1, '.', '')}} L.
                                             </span>
                                         <li class="mb-2"><strong>Battery capacity:</strong>
-                                                {{$car_listing->battery_capacity}} KWh.
-                                                 @endif
+                                            {{$car_listing->battery_capacity}} KWh.
+                                        @endif
                                         <!-- Engine and battery-->
-                                        </span>
-                                    </li>
-                                    <li class="mb-2"><strong>VIN:</strong><span class="opacity-70 ms-1">{{$car_listing->vin}}</span></li>
+                                            </span>
+                                        </li>
+                                        <li class="mb-2"><strong>VIN:</strong><span class="opacity-70 ms-1">{{$car_listing->vin}}</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -93,19 +95,23 @@
                     <div class="sticky-top pt-5">
                         <div class="d-none d-md-block pt-5">
                             <div class="h3 ">
-                                {{ $car_listing->car_make->name }} {{ $car_listing->car_model->name }}
-                                <!-- Engine and battery-->
-                                    @if(!$car_listing->battery_capacity)
-                                {{number_format((float)$car_listing->cubic_capacity/1000, 1, '.', '')}} L.
-                                        @elseif(!$car_listing->cubic_capacity)
-                                        {{$car_listing->battery_capacity}} KWh.
-                                    @else
-                                        {{number_format((float)$car_listing->cubic_capacity/1000, 1, '.', '')}} L. , {{$car_listing->battery_capacity}} KWh.
-                                    @endif
-                                <!-- Engine and battery-->
+                            {{ $car_listing->car_make->name }} {{ $car_listing->car_model->name }}
+                            <!-- Engine and battery-->
+                                @if(!$car_listing->battery_capacity)
+                                    {{number_format((float)$car_listing->cubic_capacity/1000, 1, '.', '')}} L.
+                                @elseif(!$car_listing->cubic_capacity)
+                                    {{$car_listing->battery_capacity}} KWh.
+                                @else
+                                    {{number_format((float)$car_listing->cubic_capacity/1000, 1, '.', '')}} L. , {{$car_listing->battery_capacity}} KWh.
+                                @endif
+                            <!-- Engine and battery-->
                                 {{ $car_listing->year }}
                             </div>
-                            <div class="h3 ">{{$car_listing->price}} EUR</div>
+                            <div class="h3 ">{{$car_listing->price}} EUR
+                                <a href="#" class="save_favourite">
+                                    <i class="far fa-heart"></i>
+                                </a>
+                            </div>
                         </div>
                         <div class="card card-light card-body mb-4">
                             <div>
