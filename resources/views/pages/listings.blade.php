@@ -13,8 +13,10 @@
                     <div class="d-flex align-items-center justify-content-between pb-4 mb-2">
                         <h1 class="me-3 mb-0">Listings</h1>
                     </div>
+                {{$wishlist->first()}}
                     <!-- ad listing list  -->
                     @foreach($car_listings as $item)
+
                         <div class="car-listing-list mt-20">
                             <div class="row p-lg-3 p-sm-5 p-4">
                                 <div class="col-lg-4 align-self-center">
@@ -38,9 +40,18 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-1 align-self-center">
-                                            <a href="#" class="save_favourite">
+                                            @foreach($wishlist as $x)
+                                                {{$x}}
+                                            @endforeach
+                                            @if($item->id)
+                                            <a href="javascript:void(0);" class="add_to_wishlist" data-id="{{$item->id}}" id="add_to_wishlist_{{$item->id}}">
                                                 <i class="far fa-heart fa-2x"></i>
                                             </a>
+                                            @else
+                                                <a href="javascript:void(0);" class="remove_from_wishlist" data-id="{{$item->id}}" id="remove_from_wishlist_{{$item->id}}">
+                                                    <i class="fas fa-heart fa-2x"></i>
+                                                </a>
+                                            @endif
                                         </div>
                                         <div class="border-top border-light mt-3 pt-3">
                                             <div class="row g-2">
@@ -71,17 +82,10 @@
             </div>
         </div>
     </section>
+
 @endsection
 
 @push('javascript')
-<script>
-    let my_id = {{\Illuminate\Support\Facades\Session::get('loginId')}};
+    {{--Add to wishlist--}}
 
-        console.log(my_id);
-        $(document).ready(function(){
-            $('.save_favourite').click(function (){
-                alert('clicked');
-            });
-        });
-    </script>
 @endpush

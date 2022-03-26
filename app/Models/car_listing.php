@@ -47,4 +47,8 @@ class car_listing extends Model
         return $this->belongsTo(transmission::class);
     }
 
+    public function wishlists(){
+        return $this->hasMany(wishlist::class);
+    }
+
 }

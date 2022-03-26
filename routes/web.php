@@ -28,12 +28,15 @@ Route::get('/listings', [\App\Http\Controllers\ListingController::class, 'displa
 Route::get('/listings/{id}', [\App\Http\Controllers\ListingController::class, 'displayListing']);
 
 #User
-
+Route::post('add-to-wishlist',[App\Http\Controllers\User\WishlistController::class,'add']);
 
 Route::group(['middleware' => 'isLoggedIn'], function(){
     Route::resource('mylistings', App\Http\Controllers\ListingController::class);
     Route::get('mylistings/delete-image/{image_id}', [\App\Http\Controllers\User\ImageController::class, 'delete'])->name('delete-image');
     Route::resource('profile',App\Http\Controllers\User\ProfileController::class);
+    Route::get('wishlist',[App\Http\Controllers\User\WishlistController::class,'index'])->name('wishlist');
+    #Route::get('wishlist',[App\Http\Controllers\User\WishlistController::class,'wishlist'])->name('wishlist');
+    #Route::post('wishlist/store',[App\Http\Controllers\User\WishlistController::class,'wishlistStore'])->name('wishlist.store');
     #Admin
     Route::group(['prefix' => 'admin', 'as'=> '.admin', 'middleware' => 'isAdmin'], function () {
         Route::view('/', 'admin.home');

@@ -7,6 +7,7 @@ use App\Models\fuel_type;
 use App\Models\image;
 use App\Models\transmission;
 use App\Models\User;
+use App\Models\wishlist;
 use Faker\Provider\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -227,18 +228,23 @@ class ListingController extends Controller
     }
 
     public function displayAll(){
-
+        $wishlist = wishlist::where('user_id', '=', Session::get('loginId'));
+        print_r($wishlist->first());
         $car_listings = car_listing::paginate(5);
 
-        return view('pages.listings', compact('car_listings'));
+        return view('pages.listings', compact('car_listings','wishlist'));
     }
 
     public function displayListing($id){
 
+        $wishlist = wishlist::where('user_id', '=', Session::get('loginId'));
+
         $car_listing = car_listing::findOrFail($id);
+
+
 
         if(!$car_listing) abort(404);
         $images = $car_listing->images;
-        return view('pages.single', compact('car_listing','images'));
+        return view('pages.single', compact('car_listing','images', 'wishlist'));
     }
 }
