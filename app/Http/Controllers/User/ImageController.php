@@ -105,7 +105,7 @@ class ImageController extends Controller
         }
         if($res)
         {
-            return back()->with('success', 'Image deleted '.$imageParent.' '.$car_listing.' '.$images.' '.$imageCount );
+            return back()->with('success', 'Image deleted');
         }else{
             return back()->with('fail', 'Something went wrong');
         }

@@ -111,9 +111,14 @@
                 <div class="row mt-4" style="background-color: #e9ecef">
                     <label class="form-label"> Uploaded images:</label>
                     @if(isset($images))
+                        <?php $count = $images->count() ?>
                         @foreach($images as $image)
                             <div class="col-lg-3 col-md-3 col-sm-5 thumbnail">
                                 <a href="{{url('listing_images', $image->name)}}" data-lightbox="roadtrip"> <img class="w-50 mb-2" src="{{url('listing_images', $image->name)}}" alt=""></a>
+                                @if($count == 1)
+                            </div>
+                            @break
+                            @endif
                                 <a href="../delete-image/{{$image->id}}" class="button p-2 mb-3 align-top">Delete</a>
                             </div>
                         @endforeach
