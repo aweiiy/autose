@@ -45,7 +45,7 @@
                                     <li class="mb-2"><strong>Manufacturing Year:</strong><span class="opacity-70 ms-1">{{$car_listing->year}}</span></li>
                                     <li class="mb-2"><strong>Mileage:</strong><span class="opacity-70 ms-1">{{$car_listing->mileage}} km</span></li>
                                     <li class="mb-2"><strong>Body Type:</strong><span class="opacity-70 ms-1">{{$car_listing->car_body_type->name}}</span></li>
-                                    <li class="mb-2"><strong>Transmission:</strong><span class="opacity-70 ms-1">Automatic</span></li>
+                                    <li class="mb-2"><strong>Transmission:</strong><span class="opacity-70 ms-1">{{$car_listing->transmission->name}}</span></li>
                                 </ul>
                             </div>
                             <div class="col-sm-6 col-md-12 col-lg-6">

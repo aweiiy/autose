@@ -40,6 +40,8 @@ Route::group(['middleware' => 'isLoggedIn'], function(){
         Route::resource('users',App\Http\Controllers\Admin\UsersController::class);
         Route::resource('listings',App\Http\Controllers\Admin\ListingsController::class);
         Route::resource('makes',App\Http\Controllers\Admin\MakesController::class);
+        Route::resource('models',App\Http\Controllers\Admin\ModelsController::class);
+        Route::get('/models/create/{id}', [App\Http\Controllers\Admin\ModelsController::class, 'create']);
         Route::get('/makes/models/{id}', [App\Http\Controllers\Admin\ModelsController::class, 'car_models']);
     });
 });

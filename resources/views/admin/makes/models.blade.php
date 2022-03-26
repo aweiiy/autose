@@ -5,7 +5,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <a href="{{ url('admin/models/create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add model</a>
+            <a href="{{ url('admin/models/create/'.$car_make->id) }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add model</a>
         </div>
         <div class="card-body">
             @if(Session::has('success'))
@@ -38,8 +38,7 @@
                             <td>{{ $item->name }}</td>
                             <td>
                                 <a href="{{ url('admin/models/'.$item->id.'/edit') }}" class="btn btn-outline-primary btn-sm"><i class="fas fa-edit"></i> Edit</a>
-                                <a href="{{ url('admin/models/'.$item->id) }}" class="btn btn-outline-success btn-sm"><i class="fas fa-eye"></i> View</a>
-                                {!! Form::open(['method'=>'DELETE', 'url' => ['admin/makes', $item->id], 'style' => 'display:inline']) !!}
+                                {!! Form::open(['method'=>'DELETE', 'url' => ['admin/models', $item->id], 'style' => 'display:inline']) !!}
                                 {!! Form::button('<i class="fas fa-trash-alt"></i> Delete', ['class' => 'btn btn-danger btn-sm', 'type' => 'submit','onClick'=>'confirmReq()']) !!}
                                 {!! Form::close() !!}
                             </td>

@@ -58,6 +58,7 @@
                                             </span>
                                         </li>
                                         <li class="mb-2"><strong>VIN:</strong><span class="opacity-70 ms-1">{{$car_listing->vin}}</span></li>
+                                        <li class="mb-2"><strong>Transmission:</strong><span class="opacity-70 ms-1">{{$car_listing->transmission->name}}</span></li>
                                 </ul>
                             </div>
                         </div>

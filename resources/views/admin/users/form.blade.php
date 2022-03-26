@@ -7,7 +7,7 @@
         <div class="card-header">
             <h6 class="m-0 font-weight-bold text-primary">
                 @if(isset($user))
-                    Edit exist user
+                    Edit existing user
                 @else
                     Create new user
                 @endif

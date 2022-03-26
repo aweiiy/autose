@@ -101,7 +101,7 @@ class ImageController extends Controller
             $res = $image->delete();
             unlink($image_path);
         } else{
-            abort(401);
+            abort(403);
         }
         if($res)
         {

@@ -23,6 +23,7 @@ class CreateCarListingTable extends Migration
             $table->foreignId('fuel_type_id');
             $table->integer('cubic_capacity');
             $table->integer('battery_capacity');
+            $table->foreignId('transmission_id');
             $table->string('description');
             $table->integer('year');
             $table->integer('mileage');
@@ -38,6 +39,7 @@ class CreateCarListingTable extends Migration
             $table->foreign('car_body_type_id')->references('id')->on('car_body_type');
             $table->foreign('city_id')->references('id')->on('cities');
             $table->foreign('fuel_type_id')->references('id')->on('fuel_type');
+            $table->foreign('transmission_id')->references('id')->on('transmissions');
 
         });
     }

@@ -26,7 +26,9 @@ class ModelsController extends Controller
      */
     public function create($id)
     {
-        //
+        $car_make = car_make::findOrFail($id);
+
+        return view('admin.models.form', compact('car_make'));
     }
 
     /**
@@ -37,7 +39,21 @@ class ModelsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'make'=>'required',
+            'name'=>'required'
+        ]);
+        $car_model = new car_model();
+        $car_model->name = $request->name;
+        print_r($request->all());
+        $car_model->car_make_id = $request->make;
+        $res = $car_model->save();
+        if($res)
+        {
+            return redirect('admin/makes/models/'.$request->make)->with('success', 'Model added successfully.');
+        }else{
+            return back()->with('fail', 'Something went wrong');
+        }
     }
 
     /**
@@ -59,7 +75,9 @@ class ModelsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $car_model = car_model::findOrFail($id);
+        $car_make = car_make::where('id', '=', $car_model->car_make_id)->first();
+        return view('admin.models.form', compact('car_model','car_make'));
     }
 
     /**
@@ -71,7 +89,18 @@ class ModelsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'make'=>'required',
+            'name'=>'required'
+        ]);
+        $car_model = car_model::findOrFail($id);
+        $res = $car_model->update($request->all());
+        if($res)
+        {
+            return redirect('admin/makes/models/'.$request->make)->with('success', 'Model updated successfully.');
+        }else{
+            return back()->with('fail', 'Something went wrong');
+        }
     }
 
     /**
@@ -82,7 +111,15 @@ class ModelsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $car_model = car_model::findOrFail($id);
+        $link = $car_model->car_make->id;
+        $res = $car_model->delete();
+        if($res)
+        {
+            return redirect('admin/makes/models/'.$link)->with('success', 'Model deleted successfully.');
+        }else{
+            return back()->with('fail', 'Something went wrong');
+        }
     }
 
     public function car_models($id)

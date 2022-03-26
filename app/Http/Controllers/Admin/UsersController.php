@@ -104,10 +104,7 @@ class UsersController extends Controller
             'role'=>'required|min:0|max:1'
         ]);
         $user = User::findOrFail($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->role = $request->role;
-        $res = $user->save();
+        $res = $user->update($request->all());
         if($res)
         {
             return redirect('admin/users')->with('success', 'User updated successfully.');

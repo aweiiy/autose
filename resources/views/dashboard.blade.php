@@ -1,65 +1,92 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <title>Test dropdown</title>
-</head>
-<body>
-<div class="container my-5">
-    <h1 class="fs-5 fw-bold my-4 text-center">Test dropdown</h1>
-    <div class="row">
-        <form action="">
-            <div class="mb-3">
-                <label for="car_make" class="form-label">CAR MAKE</label>
-                <select class="form-control" name="" id="car_make">
-                    <option hidden>Choose car_make</option>
-                    @foreach ($make as $item)
-                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                    @endforeach
+<div>
+    <div class="pb-2 mb-2 mt-1">
+        <h1>Filters</h1>
+    </div>
+    <div class="offcanvas-body py-lg-4">
+        <div class="pb-4 mb-2">
+            <h3 class="h6 ">Location</h3>
+            <select class="form-select form-select-light mb-2">
+            </select>
+        </div>
+        <div class="pb-4 mb-2">
+            <h3 class="h6  pt-1">Year</h3>
+            <div class="d-flex align-items-center">
+                <select class="form-select form-select-light w-100">
+                    <option value="" disabled="" selected="">From</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                </select>
+                <div class="mx-2">—</div>
+                <select class="form-select form-select-light w-100">
+                    <option value="" disabled="">To</option>
+                    <option value="2022" selected="">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
                 </select>
             </div>
-            <div class="mb-3">
-                <label for="model" class="form-label">model</label>
-                <select class="form-control" name="model" id="model"></select>
+        </div>
+        <div class="pb-4 mb-2">
+            <h3 class="h6 ">Make &amp; Model</h3>
+            <select class="form-select form-select-light mb-2">
+                <option value="" disabled="" selected="">Any make</option>
+                <option value="Audi">Audi</option>
+                <option value="Lexus">Lexus</option>
+                <option value="Mazda">Mazda</option>
+                <option value="Mercedes-Benz">Mercedes-Benz</option>
+                <option value="Toyota">Toyota</option>
+            </select>
+            <select class="form-select form-select-light mb-1">
+                <option value="" disabled="" selected="">Any model</option>
+                <option value="A4">A4</option>
+                <option value="A5">A5</option>
+            </select>
+        </div>
+        <div class="pb-4 mb-2">
+            <h3 class="h6 ">Price</h3>
+            <div class="d-flex align-items-center">
+                <input class="form-control form-control-light w-100" type="number" min="0" step="500" placeholder="From">
+                <div class="mx-2">—</div>
+                <input class="form-control form-control-light w-100" type="number" min="0" step="500" placeholder="To">
             </div>
-        </form>
+        </div>
+        <div class="pb-4 mb-2">
+            <h3 class="h6 ">Fuel Type</h3>
+            <div class="form-check form-check-light">
+                <input class="form-check-input" type="checkbox" id="diesel">
+                <label class="form-check-label fs-sm" for="diesel">Diesel</label>
+            </div>
+            <div class="form-check form-check-light">
+                <input class="form-check-input" type="checkbox" id="petrol">
+                <label class="form-check-label fs-sm" for="petrol">Gasoline</label>
+            </div>
+            <div class="form-check form-check-light">
+                <input class="form-check-input" type="checkbox" id="electric">
+                <label class="form-check-label fs-sm" for="electric">Electric</label>
+            </div>
+            <div class="form-check form-check-light">
+                <input class="form-check-input" type="checkbox" id="hybrid">
+                <label class="form-check-label fs-sm" for="hybrid">Hybrid</label>
+            </div>
+        </div>
+        <div class="pb-4 mb-1">
+            <h3 class="h6 ">Transmission</h3>
+            <div class="form-check form-check-light">
+                <input class="form-check-input" type="checkbox" id="auto">
+                <label class="form-check-label fs-sm" for="auto">Automatic</label>
+            </div>
+            <div class="form-check form-check-light">
+                <input class="form-check-input" type="checkbox" id="manual">
+                <label class="form-check-label fs-sm" for="manual">Manual</label>
+            </div>
+        </div>
+        <div class="pb-4 mb-2">
+            <h3 class="h6  pt-1">Mileage</h3>
+            <div class="d-flex align-items-center">
+                <input class="form-control form-control-light w-100" type="number" min="0" step="500" placeholder="From">
+                <div class="mx-2">—</div>
+                <input class="form-control form-control-light w-100" type="number" min="0" step="500" placeholder="To">
+            </div>
+        </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function() {
-        $('#car_make').on('change', function() {
-            var car_make_id = $(this).val();
-            if(car_make_id) {
-                $.ajax({
-                    url: '/getModel/'+car_make_id,
-                    type: "GET",
-                    data : {"_token":"{{ csrf_token() }}"},
-                    dataType: "json",
-                    success:function(data)
-                    {
-                        if(data){
-                            $('#model').empty();
-                            $('#model').append('<option hidden>Choose model</option>');
-                            $.each(data, function(key, model){
-                                key++;
-                                $('select[name="model"]').append('<option value="'+ key +'">' + model.name+ '</option>');
-                            });
-                        }else{
-                            $('#model').empty();
-                        }
-                    }
-                });
-            }else{
-                $('#model').empty();
-            }
-        });
-    });
-</script>
-</body>
-</html>

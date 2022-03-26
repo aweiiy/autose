@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\city;
 use App\Models\fuel_type;
 use App\Models\image;
+use App\Models\transmission;
 use App\Models\User;
 use Faker\Provider\File;
 use Illuminate\Http\Request;
@@ -52,12 +53,15 @@ class ListingController extends Controller
         $fuel_types->prepend('Select fuel type', 0);
         $fuel_types->all();
 
+        $transmission = transmission::pluck('name', 'id');
+        $transmission->prepend('Select transmission', 0);
+        $transmission->all();
 
         $years = array_combine(range(date("Y"), 1900), range(date("Y"), 1900));
         $years = array('0' => 'Select build year') + $years;
         $user = User::all();
 
-        return view('user.mylistings.form', compact('car_make', 'car_body_type' , 'years', 'user','cities','fuel_types'));
+        return view('user.mylistings.form', compact('car_make', 'car_body_type' , 'years', 'user','cities','fuel_types','transmission'));
     }
 
     /**
@@ -76,6 +80,7 @@ class ListingController extends Controller
             'fuel_type_id' => 'nullable|integer|min:1',
             'cubic_capacity' => 'nullable|integer|min:100|max:10000',
             'battery_capacity' => 'nullable|integer|min:1|max:1000',
+            'transmission_id' => 'required|integer|min:1',
             'phone_number' => 'required|integer|min:1|digits_between:8,11',
             'price' => 'required|integer|max:1000000',
             'year' => 'required|digits:4|integer|min:1900|max:'.(date('Y')+1),
@@ -145,6 +150,10 @@ class ListingController extends Controller
         $fuel_types->prepend('Select fuel type', 0);
         $fuel_types->all();
 
+        $transmission = transmission::pluck('name', 'id');
+        $transmission->prepend('Select transmission', 0);
+        $transmission->all();
+
         $years = array_combine(range(date("Y"), 1900), range(date("Y"), 1900));
         $years = array('0' => 'Select build year') + $years;
 
@@ -152,7 +161,7 @@ class ListingController extends Controller
         $images = $car_listing->images;
 
 
-        return view('user.mylistings.form', compact('car_listing','car_make','car_body_type','years','images','cities','fuel_types'));
+        return view('user.mylistings.form', compact('car_listing','car_make','car_body_type','years','images','cities','fuel_types','transmission'));
     }
 
     /**
@@ -170,6 +179,7 @@ class ListingController extends Controller
             'fuel_type_id' => 'nullable|integer|min:1',
             'cubic_capacity' => 'nullable|integer|min:100|max:10000',
             'battery_capacity' => 'nullable|integer|min:1|max:1000',
+            'transmission_id' => 'required|integer|min:1',
             'phone_number' => 'required|integer|min:1|digits_between:8,11',
             'price' => 'required|integer|max:1000000',
             'year' => 'required|digits:4|integer|min:1900|max:'.(date('Y')+1),

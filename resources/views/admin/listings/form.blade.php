@@ -91,6 +91,9 @@
                     {!! Form::label('price', 'Price:', ['class' => 'col-sm-3']) !!}
                     {!! Form::number('price', null, ['class' => 'form-control w-100 me-2 mb-2', 'required' => 'required','min'=>'200', 'step'=>'50']) !!}
                     <span class="text-danger">@error('price') {{$message}} @enderror</span>
+                    {!! Form::label('transmission_id', 'Transmission: ', ['class' => 'col-sm-3']) !!}
+                    {!! Form::select('transmission_id', $transmission, isset($car_listing->transmission_id) ? $car_listing->transmission_id : null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    <span class="text-danger">@error('transmission_io') {{$message}} @enderror</span>
                     {!! Form::label('description', 'Description: ', ['class' => 'col-sm-3']) !!}
                     {!! Form::textarea('description', null, ['class' => 'form-control', 'rows'=>'5', 'style'=>'height:100%', 'placeholder'=>'Describe your vehicle']) !!}
                     <span class="text-danger">@error('description') {{$message}} @enderror</span>

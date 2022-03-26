@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\car_make;
+use App\Models\User;
 use Illuminate\Http\Request;
+
 
 class MakesController extends Controller
 {
@@ -26,7 +28,7 @@ class MakesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.makes.form');
     }
 
     /**
@@ -37,7 +39,18 @@ class MakesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required'
+        ]);
+        $car_make = new car_make();
+        $car_make->name = $request->name;
+        $res = $car_make->save();
+        if($res)
+        {
+            return redirect('admin/makes')->with('success', 'Make added successfully.');
+        }else{
+            return back()->with('fail', 'Something went wrong');
+        }
     }
 
     /**
@@ -48,7 +61,7 @@ class MakesController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -59,7 +72,8 @@ class MakesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $car_make = car_make::findOrFail($id);
+        return view('admin.makes.form', compact('car_make'));
     }
 
     /**
@@ -71,7 +85,17 @@ class MakesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'=>'required'
+        ]);
+        $car_make = car_make::findOrFail($id);
+        $res = $car_make->update($request->all());
+        if($res)
+        {
+            return redirect('admin/makes')->with('success', 'User updated successfully.');
+        }else{
+            return back()->with('fail', 'Something went wrong');
+        }
     }
 
     /**
@@ -82,6 +106,13 @@ class MakesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $car_make = car_make::findOrFail($id);
+        $res = $car_make->delete();
+        if($res)
+        {
+            return redirect('admin/makes')->with('success', 'Make deleted successfully.');
+        }else{
+            return back()->with('fail', 'Something went wrong');
+        }
     }
 }
