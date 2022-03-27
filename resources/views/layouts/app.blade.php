@@ -96,6 +96,7 @@
 <script>
     $(document).on('click','.add_to_wishlist', function(e){
         e.preventDefault();
+        console.log($(this).data('id'));
         var listing_id = $(this).data('id');
         var token="{{csrf_token()}}";
         var path="/add-to-wishlist";

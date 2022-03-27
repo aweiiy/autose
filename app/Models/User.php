@@ -20,6 +20,11 @@ class User extends Model
         return $this->hasMany(\App\Models\car_listing::class,'user_id','id');
     }
 
+
+    public function wishlists(){
+        return $this->hasMany(wishlist::class);
+    }
+
     public static function name() {
         $data = array();
         if(Session::has('loginId')){
@@ -40,4 +45,5 @@ class User extends Model
         }
         return $data;
     }
+
 }

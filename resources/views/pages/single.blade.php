@@ -105,9 +105,17 @@
                                 {{ $car_listing->year }}
                             </div>
                             <div class="h3 ">{{$car_listing->price}} EUR
+                                @if($wishlist->car_listing_id ?? '')
+                                @if($wishlist->car_listing_id == $car_listing->id)
                                 <a href="#" class="save_favourite">
-                                    <i class="far fa-heart"></i>
+                                    <i class="fas fa-heart"></i>
                                 </a>
+                                @else
+                                    <a href="#" class="save_favourite">
+                                        <i class="far fa-heart"></i>
+                                    </a>
+                                @endif
+                                    @endif
                             </div>
                         </div>
                         <div class="card card-light card-body mb-4">

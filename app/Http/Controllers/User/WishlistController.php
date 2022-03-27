@@ -29,7 +29,7 @@ class WishlistController extends Controller
     {
         if(Session()->has('loginId')){
             $listing_id = $request->input('listing_id');
-            if(car_listing::find($listing_id && wishlist::where('car_listing_id','!=',$listing_id))){
+            if(car_listing::find($listing_id) && wishlist::where('car_listing_id','=',$listing_id)->count() < 1  ){
                 $wish = new wishlist();
                 $wish->car_listing_id = $listing_id;
                 $wish->user_id = Session::get('loginId');
