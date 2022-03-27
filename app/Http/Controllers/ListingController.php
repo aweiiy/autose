@@ -228,12 +228,13 @@ class ListingController extends Controller
     }
 
     public function displayAll(){
-        $wishlist = wishlist::where('user_id', '=', Session::get('loginId'));
+        #$wishlist = wishlist::where('user_id', '=', Session::get('loginId'));
 
         $car_listings = car_listing::paginate(5);
         $user = User::where('id', '=', Session::get('loginId'))->first();;
+        $wishlist_items = $user->wishlists ?? array();
 
-        return view('pages.listings', compact('car_listings','wishlist', 'user'));
+        return view('pages.listings', compact('car_listings', 'wishlist_items'));
     }
 
     public function displayListing($id){
@@ -241,8 +242,6 @@ class ListingController extends Controller
         $wishlist = wishlist::where('user_id', '=', Session::get('loginId'))->where('car_listing_id', '=', $id)->first();
 
         $car_listing = car_listing::findOrFail($id);
-
-        print_r($wishlist->car_listing_id ?? '');
 
         $wishlist_item = $wishlist->car_listing_id ?? '';
 

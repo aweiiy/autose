@@ -115,8 +115,13 @@
             complete:function (){
 
             },
-            success:function (){
-                $('#add_to_wishlist_'+listing_id).html('<i class="fas fa-heart fa-2x"></i>')
+            success:function (data){
+                if(data['err']){
+                    alert(data['err']);
+                    $('#add_to_wishlist_'+listing_id).html('<i class="far fa-heart fa-2x"></i>')
+                }else{
+                    $('#add_to_wishlist_'+listing_id).html('<i class="fas fa-heart fa-2x"></i>')
+                }
             }
         })
 

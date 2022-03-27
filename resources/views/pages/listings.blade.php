@@ -39,7 +39,7 @@
                                         </div>
                                         <div class="col-lg-1 align-self-center">
                                             <?php $key = 0 ?>
-                                            @foreach($user->wishlists as $wish)
+                                            @foreach($wishlist_items as $wish)
                                                 @if($wish->car_listing_id == $item->id)
                                                         <?php ++$key ?>
                                                 @endif

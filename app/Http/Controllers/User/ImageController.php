@@ -90,9 +90,8 @@ class ImageController extends Controller
     {
         $image = image::findOrFail($image_id);
 
-        $imageParent = strtok($image->name, '-');
-        $car_listing = car_listing::where('id', '=', $imageParent)->get();
-        $images = image::where('car_listing_id', '=', $car_listing[0]->id)->get();
+        $images = image::where('car_listing_id', '=', $image->car_listing_id)->get();
+
         $imageCount = $images->count();
 
         if($image->car_listing->user->id == Session::get('loginId') || Session::get('role') == 1){

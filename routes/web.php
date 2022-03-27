@@ -46,6 +46,7 @@ Route::group(['middleware' => 'isLoggedIn'], function(){
         Route::resource('models',App\Http\Controllers\Admin\ModelsController::class);
         Route::get('/models/create/{id}', [App\Http\Controllers\Admin\ModelsController::class, 'create']);
         Route::get('/makes/models/{id}', [App\Http\Controllers\Admin\ModelsController::class, 'car_models']);
+        Route::get('listings/delete-image/{image_id}', [\App\Http\Controllers\User\ImageController::class, 'delete'])->name('delete-image');
     });
 });
 

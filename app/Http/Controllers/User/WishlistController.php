@@ -41,7 +41,7 @@ class WishlistController extends Controller
             }
         }
         else{
-                return response()->json(['status' => 'Login to add']);
+                return response()->json(['err' => 'Login to add']);
         }
 
     }

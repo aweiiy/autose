@@ -16,6 +16,16 @@ $(document).ready(function() {
             description: {
                 required:false,
             },
+            fuel_type_id: {
+                required:true,
+                min: 1
+            },
+            cubic_capacity: {
+                min: 100
+            },
+            battery_capacity: {
+                min: 1
+            },
             year: {
                 required:true,
                 min: 1
@@ -62,6 +72,16 @@ $(document).ready(function() {
                 required:"Please select a body type",
                 min: "Please select a body type"
             },
+            fuel_type_id: {
+                required:"Please select a fuel type",
+                min: "Please select a fuel type"
+            },
+            cubic_capacity: {
+                min: "Please enter a number larger or equal to 100"
+            },
+            battery_capacity: {
+                min: "Please enter a number larger or equal to 1"
+            },
             description: {
                 required:false,
             },
@@ -86,6 +106,16 @@ $(document).ready(function() {
         rules: {
             car_body_type_id: {
                 required:true,
+                min: 1
+            },
+            fuel_type_id: {
+                required:true,
+                min: 1
+            },
+            cubic_capacity: {
+                min: 100
+            },
+            battery_capacity: {
                 min: 1
             },
             description: {
@@ -135,6 +165,16 @@ $(document).ready(function() {
             },
             description: {
                 required:false,
+            },
+            fuel_type_id: {
+                required:"Please select a fuel type",
+                min: "Please select a fuel type"
+            },
+            cubic_capacity: {
+                min: "Please enter a number larger or equal to 100"
+            },
+            battery_capacity: {
+                min: "Please enter a number larger or equal to 1"
             },
             year: {
                 required:"Please select a year",

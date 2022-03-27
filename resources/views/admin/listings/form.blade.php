@@ -189,9 +189,14 @@
             }
         }).trigger('change');
 
-        $('.fa-heart').click(function() {
-            $(this).toggleClass('fas far');
-        })
+        $(document).ready(function(){
+            $('#images').change(function(){
+                $("#thumbs").html('');
+                for (var i = 0; i < $(this)[0].files.length; i++) {
+                    $("#thumbs").append('<div class="col-lg-3 col-md-3 col-sm-5"><a href="'+window.URL.createObjectURL(this.files[i])+'" data-lightbox="roadtrip"><img src="'+window.URL.createObjectURL(this.files[i])+'" width="50%"/></a></div>');
+                }
+            });
+        });
         lightbox.option({
             'resizeDuration': 0,
             'wrapAround': true,
