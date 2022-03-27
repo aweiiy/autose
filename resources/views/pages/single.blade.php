@@ -66,7 +66,7 @@
                                                 {{number_format((float)$car_listing->cubic_capacity/1000, 1, '.', '')}} L.
                                             </span>
                                         <li class="mb-2"><strong>Battery capacity:</strong>
-                                            {{$car_listing->battery_capacity}} KWh.
+                                            {{$car_listing->battery_capacity}} kWh.
                                         @endif
                                         <!-- Engine and battery-->
                                             </span>
@@ -99,14 +99,13 @@
                                 @elseif(!$car_listing->cubic_capacity)
                                     {{$car_listing->battery_capacity}} KWh.
                                 @else
-                                    {{number_format((float)$car_listing->cubic_capacity/1000, 1, '.', '')}} L. , {{$car_listing->battery_capacity}} KWh.
+                                    {{number_format((float)$car_listing->cubic_capacity/1000, 1, '.', '')}} L. , {{$car_listing->battery_capacity}} kWh.
                                 @endif
                             <!-- Engine and battery-->
                                 {{ $car_listing->year }}
                             </div>
                             <div class="h3 ">{{$car_listing->price}} EUR
-                                @if($wishlist->car_listing_id ?? '')
-                                @if($wishlist->car_listing_id == $car_listing->id)
+                                @if($wishlist_item == $car_listing->id)
                                 <a href="#" class="save_favourite">
                                     <i class="fas fa-heart"></i>
                                 </a>
@@ -115,7 +114,6 @@
                                         <i class="far fa-heart"></i>
                                     </a>
                                 @endif
-                                    @endif
                             </div>
                         </div>
                         <div class="card card-light card-body mb-4">

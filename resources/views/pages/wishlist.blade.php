@@ -27,6 +27,7 @@
 
             <div class="table-responsive">
                 @if($wishlist->count() > 0)
+                    <h1>Wishlist</h1>
                 <table class="table table-bordered table-striped align-middle table-hover">
                     <thead>
                     <tr>

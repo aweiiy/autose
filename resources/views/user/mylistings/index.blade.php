@@ -24,7 +24,7 @@
                     @endphp
                 </div>
             @endif
-
+                <h1>My listings</h1>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped align-middle table-hover">
                     <thead>

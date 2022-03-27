@@ -242,9 +242,12 @@ class ListingController extends Controller
 
         $car_listing = car_listing::findOrFail($id);
 
+        print_r($wishlist->car_listing_id ?? '');
+
+        $wishlist_item = $wishlist->car_listing_id ?? '';
 
         if(!$car_listing) abort(404);
         $images = $car_listing->images;
-        return view('pages.single', compact('car_listing','images', 'wishlist'));
+        return view('pages.single', compact('car_listing','images', 'wishlist_item'));
     }
 }

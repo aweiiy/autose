@@ -57,14 +57,14 @@
                                     @elseif(!$car_listing->cubic_capacity)
                                         <li class="mb-2"><strong>Battery capacity:</strong>
                                             <span class="opacity-70 ms-1">
-                                                {{$car_listing->battery_capacity}} KWh.
+                                                {{$car_listing->battery_capacity}} kWh.
                                     @else
                                         <li class="mb-2"><strong>Engine cubic capacity:</strong>
                                             <span class="opacity-70 ms-1">
                                                 {{number_format((float)$car_listing->cubic_capacity/1000, 1, '.', '')}} L.
                                             </span>
                                         <li class="mb-2"><strong>Battery capacity:</strong>
-                                            {{$car_listing->battery_capacity}} KWh.
+                                            {{$car_listing->battery_capacity}} kWh.
                                         @endif
                                         <!-- Engine and battery-->
                                             </span>
@@ -95,9 +95,9 @@
                                     @if(!$car_listing->battery_capacity)
                                 {{number_format((float)$car_listing->cubic_capacity/1000, 1, '.', '')}} L.
                                         @elseif(!$car_listing->cubic_capacity)
-                                        {{$car_listing->battery_capacity}} KWh.
+                                        {{$car_listing->battery_capacity}} kWh.
                                     @else
-                                        {{number_format((float)$car_listing->cubic_capacity/1000, 1, '.', '')}} L. , {{$car_listing->battery_capacity}} KWh.
+                                        {{number_format((float)$car_listing->cubic_capacity/1000, 1, '.', '')}} L. , {{$car_listing->battery_capacity}} kWh.
                                     @endif
                                 <!-- Engine and battery-->
                                 {{ $car_listing->year }}
