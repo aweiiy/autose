@@ -38,6 +38,12 @@ class User extends Model
         }else false;
 
     }
+    public static function admin() {
+        if(Session::get('role') == 1){
+            return true;
+        }else false;
+
+    }
     public static function data() {
         $data = array();
         if(Session::has('loginId')){

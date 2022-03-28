@@ -38,6 +38,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/listings">Listings</a>
                     </li>
+                    @if(\App\Models\User::admin())
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/admin') }}">Admin panel</a>
+                        </li>
+                    @endif
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li style="margin-top: 5px; margin-right: 5px">

@@ -90,7 +90,7 @@ class ListingController extends Controller
             'description' => 'nullable',
             'email' => 'nullable',
             'images' => 'required',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
         $data['user_id'] = Session::get('loginId');
@@ -189,7 +189,7 @@ class ListingController extends Controller
             'description' => 'nullable',
             'email' => 'nullable',
             'images' => 'nullable',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
         $car_listing = car_listing::findOrFail($id);
