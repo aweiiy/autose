@@ -67,7 +67,7 @@
                 </div>
                 <div class="col-md-6">
                     {!! Form::label('mileage', 'Mileage: ', ['class' => 'col-sm-3']) !!}
-                    {!! Form::number('mileage', null, ['class' => 'form-control', 'min'=>'1', 'step'=>'100' , 'type'=>'number', 'placeholder'=>'Enter mileage'] ) !!}
+                    {!! Form::number('mileage', null, ['class' => 'form-control', 'min'=>'100', 'step'=>'100' , 'type'=>'number', 'placeholder'=>'Enter mileage'] ) !!}
                     <span class="text-danger">@error('mileage') {{$message}} @enderror</span>
                 </div>
                 <div class="col-md-6">

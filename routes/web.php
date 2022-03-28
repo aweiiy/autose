@@ -35,6 +35,7 @@ Route::group(['middleware' => 'isLoggedIn'], function(){
     Route::get('mylistings/delete-image/{image_id}', [\App\Http\Controllers\User\ImageController::class, 'delete'])->name('delete-image');
     Route::resource('profile',App\Http\Controllers\User\ProfileController::class);
     Route::get('wishlist',[App\Http\Controllers\User\WishlistController::class,'index'])->name('wishlist');
+    Route::post('remove-from-wishlist',[App\Http\Controllers\User\WishlistController::class,'remove']);
     #Route::get('wishlist',[App\Http\Controllers\User\WishlistController::class,'wishlist'])->name('wishlist');
     #Route::post('wishlist/store',[App\Http\Controllers\User\WishlistController::class,'wishlistStore'])->name('wishlist.store');
     #Admin

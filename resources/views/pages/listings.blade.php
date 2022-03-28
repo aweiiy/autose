@@ -6,7 +6,8 @@
     <section class="section-sm">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-4">
+                <button class="btn btn-primary d-block d-sm-none" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Show filters</button>
+                <div class="col-lg-3 col-md-4 collapse.show d-none d-sm-block" id="multiCollapseExample2">
                 Filters go here
                 </div>
                 <div class="col-lg-9 col-md-8">
@@ -45,11 +46,11 @@
                                                 @endif
                                             @endforeach
                                                 @if($key == 0)
-                                                    <a href="javascript:void(0);" class="add_to_wishlist" data-id="{{$item->id}}" id="add_to_wishlist_{{$item->id}}">
+                                                    <a href="javascript:void(0);" class="add_to_wishlist" data-id="{{$item->id}}" id="wishlist_{{$item->id}}">
                                                         <i class="far fa-heart fa-2x"></i>
                                                     </a>
                                                 @else
-                                                    <a href="javascript:void(0);" class="remove_from_wishlist" data-id="{{$item->id}}" id="remove_from_wishlist_{{$item->id}}">
+                                                    <a href="javascript:void(0);" class="remove_from_wishlist" data-id="{{$item->id}}" id="wishlist_{{$item->id}}">
                                                         <i class="fas fa-heart fa-2x"></i>
                                                     </a>
                                                 @endif

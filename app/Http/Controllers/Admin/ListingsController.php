@@ -160,6 +160,6 @@ class ListingsController extends Controller
             unlink($image_path);
         }
         $car_listing->delete();
-        return redirect('admin.listings')->with('success', 'Listing deleted successfully.');
+        return redirect('admin/listings')->with('success', 'Listing deleted successfully.');
     }
 }

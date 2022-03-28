@@ -66,7 +66,7 @@
         </div>
         <div class="col-md-3 col-sm-6 mb-3">
             {!! Form::label('mileage', 'Mileage: ', ['class' => 'col-sm-3']) !!}
-            {!! Form::number('mileage', null, ['class' => 'form-control', 'min'=>'1', 'step'=>'100' , 'type'=>'number', 'placeholder'=>'Enter mileage'] ) !!}
+            {!! Form::number('mileage', null, ['class' => 'form-control', 'min'=>'100', 'step'=>'100' , 'type'=>'number', 'placeholder'=>'Enter mileage'] ) !!}
             <span class="text-danger">@error('mileage') {{$message}} @enderror</span>
         </div>
         <div class="col-md-6 mb-3">
@@ -85,10 +85,10 @@
                 {!! Form::select('fuel_type_id', $fuel_types, null, ['class' => 'form-control','id'=>'fuel']) !!}
                 <span class="text-danger">@error('fuel_type_id') {{$message}} @enderror</span>
                 {!! Form::label('cubic_capacity', 'Cubic capacity, cm³: ', ['class' => 'col-sm-3']) !!}
-                {!! Form::number('cubic_capacity', null, ['class' => 'form-control', 'min'=>'100', 'type'=>'number','id'=>'engine'] ) !!}
+                {!! Form::number('cubic_capacity', null, ['class' => 'form-control', 'min'=>'100', 'max'=>'10000' , 'type'=>'number','id'=>'engine'] ) !!}
                 <span class="text-danger">@error('cubic_capacity') {{$message}} @enderror</span>
                 {!! Form::label('battery_capacity', 'Battery capacity, kWh: ', ['class' => 'col-sm-3']) !!}
-                {!! Form::number('battery_capacity', null, ['class' => 'form-control', 'min'=>'1', 'type'=>'number','id'=>'battery'] ) !!}
+                {!! Form::number('battery_capacity', null, ['class' => 'form-control', 'min'=>'1', 'max'=>'200' , 'type'=>'number','id'=>'battery'] ) !!}
                 <span class="text-danger">@error('battery_capacity') {{$message}} @enderror</span>
                 {!! Form::label('transmission_id', 'Transmission: ', ['class' => 'col-sm-3']) !!}
                 {!! Form::select('transmission_id', $transmission, isset($car_listing->transmission_id) ? $car_listing->transmission_id : null, ['class' => 'form-control', 'required' => 'required']) !!}

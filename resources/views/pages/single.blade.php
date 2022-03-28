@@ -104,16 +104,20 @@
                             <!-- Engine and battery-->
                                 {{ $car_listing->year }}
                             </div>
-                            <div class="h3 ">{{$car_listing->price}} EUR
-                                @if($wishlist_item == $car_listing->id)
-                                <a href="#" class="save_favourite">
-                                    <i class="fas fa-heart"></i>
-                                </a>
-                                @else
-                                    <a href="#" class="save_favourite">
-                                        <i class="far fa-heart"></i>
-                                    </a>
-                                @endif
+                            <div class="h3 ">{{$car_listing->price}} EUR</div>
+                            <div class="row mb-2">
+                                <div class="col-sm-1">
+                                    @if($wishlist_item == $car_listing->id)
+                                        <a href="javascript:void(0);" class="remove_from_wishlist" data-id="{{$car_listing->id}}" id="wishlist_{{$car_listing->id}}">
+                                            <i class="fas fa-heart fa-2x"></i>
+                                        </a>
+                                    @else
+                                        <a href="javascript:void(0);" class="add_to_wishlist" data-id="{{$car_listing->id}}" id="wishlist_{{$car_listing->id}}">
+                                            <i class="far fa-heart fa-2x"></i>
+                                        </a>
+                                    @endif
+                                </div>
+                                   <div class="col-md-1 align-bottom">({{$car_listing->wishlists->count()}})</div>
                             </div>
                         </div>
                         <div class="card card-light card-body mb-4">

@@ -29,7 +29,7 @@ class WishlistController extends Controller
     {
         if(Session()->has('loginId')){
             $listing_id = $request->input('listing_id');
-            if(car_listing::find($listing_id) && wishlist::where('car_listing_id','=',$listing_id)->count() < 1  ){
+            if(car_listing::find($listing_id) && wishlist::where('car_listing_id','=',$listing_id)->where('user_id','=',Session::get('loginId'))->count() == 0){
                 $wish = new wishlist();
                 $wish->car_listing_id = $listing_id;
                 $wish->user_id = Session::get('loginId');
@@ -46,6 +46,24 @@ class WishlistController extends Controller
 
     }
 
+    public function remove(Request $request)
+    {
+        if(Session()->has('loginId')){
+            $listing_id = $request->input('listing_id');
+            if(car_listing::find($listing_id) && wishlist::where('car_listing_id','=',$listing_id)->where('user_id','=',Session::get('loginId'))){
+                $wish = wishlist::where('car_listing_id','=',$listing_id)->where('user_id','=',Session::get('loginId'))->first();
+                $wish->delete();
+                return response()->json(['status' => 'Listing removed from wishlist']);
+            }
+            else{
+                return response()->json(['status' => 'Fail']);
+            }
+        }
+        else{
+            return response()->json(['err' => 'Login to remove']);
+        }
+
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -110,6 +128,8 @@ class WishlistController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $wish = wishlist::find($id);
+        $wish->delete();
+        return redirect('/wishlist');
     }
 }

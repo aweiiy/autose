@@ -21,10 +21,12 @@ $(document).ready(function() {
                 min: 1
             },
             cubic_capacity: {
-                min: 100
+                min: 100,
+                max: 10000
             },
             battery_capacity: {
-                min: 1
+                min: 1,
+                max: 200
             },
             year: {
                 required:true,
@@ -35,7 +37,7 @@ $(document).ready(function() {
                 number: true
             },
             vin: {
-                symbols:17
+                maxlength: 17,
             },
             price: {
                 required:true,
@@ -77,10 +79,12 @@ $(document).ready(function() {
                 min: "Please select a fuel type"
             },
             cubic_capacity: {
-                min: "Please enter a number larger or equal to 100"
+                min: "Please enter a number larger or equal to 100",
+                max: "Please enter a number smaller or equal to 10000"
             },
             battery_capacity: {
-                min: "Please enter a number larger or equal to 1"
+                min: "Please enter a number larger or equal to 1",
+                max: "Please enter a number smaller or equal to 200"
             },
             description: {
                 required:false,
@@ -100,6 +104,9 @@ $(document).ready(function() {
             'images[]': {
                 required:"You must upload an image"
             },
+            vin:{
+                maxlength:"VIN must be 17 characters long",
+            }
         }
     });
     $("#listEditForm").validate({
@@ -113,10 +120,12 @@ $(document).ready(function() {
                 min: 1
             },
             cubic_capacity: {
-                min: 100
+                min: 100,
+                max: 10000
             },
             battery_capacity: {
-                min: 1
+                min: 1,
+                max: 200
             },
             description: {
                 required:false,
@@ -134,7 +143,8 @@ $(document).ready(function() {
                 number: true
             },
             vin: {
-                symbols:17
+                required: false,
+                maxlength: 17,
             },
             phone_number: {
                 required:true,
@@ -171,10 +181,12 @@ $(document).ready(function() {
                 min: "Please select a fuel type"
             },
             cubic_capacity: {
-                min: "Please enter a number larger or equal to 100"
+                min: "Please enter a number larger or equal to 100",
+                max: "Please enter a number smaller or equal to 10000"
             },
             battery_capacity: {
-                min: "Please enter a number larger or equal to 1"
+                min: "Please enter a number larger or equal to 1",
+                max: "Please enter a number smaller or equal to 200"
             },
             year: {
                 required:"Please select a year",
@@ -191,6 +203,9 @@ $(document).ready(function() {
             'images[]': {
                 required:"You must upload an image"
             },
+            vin:{
+                maxlength:"VIN must be 17 characters long"
+            }
         }
     });
 });

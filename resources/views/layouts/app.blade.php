@@ -110,7 +110,7 @@
                 _token:token,
             },
             beforeSend:function (){
-                $('#add_to_wishlist_'+listing_id).html('<i class="fa fa-spinner fa-spin"></i>')
+                $('#wishlist_'+listing_id).html('<i class="fa fa-spinner fa-spin"></i>')
             },
             complete:function (){
 
@@ -118,9 +118,45 @@
             success:function (data){
                 if(data['err']){
                     alert(data['err']);
-                    $('#add_to_wishlist_'+listing_id).html('<i class="far fa-heart fa-2x"></i>')
+                    $('#wishlist_'+listing_id).html('<i class="far fa-heart fa-2x"></i>')
                 }else{
-                    $('#add_to_wishlist_'+listing_id).html('<i class="fas fa-heart fa-2x"></i>')
+                    $('#wishlist_'+listing_id).removeClass('add_to_wishlist');
+                    $('#wishlist_'+listing_id).toggleClass('remove_from_wishlist');
+                    $('#wishlist_'+listing_id).html('<i class="fas fa-heart fa-2x"></i>')
+                }
+            }
+        })
+
+    });
+    $(document).on('click','.remove_from_wishlist', function(e){
+        e.preventDefault();
+        console.log($(this).data('id'));
+        var listing_id = $(this).data('id');
+        var token="{{csrf_token()}}";
+        var path="/remove-from-wishlist";
+
+        $.ajax({
+            url:path,
+            type: "POST",
+            dataType: "JSON",
+            data:{
+                listing_id: listing_id,
+                _token:token,
+            },
+            beforeSend:function (){
+                $('#wishlist_'+listing_id).html('<i class="fa fa-spinner fa-spin"></i>')
+            },
+            complete:function (){
+
+            },
+            success:function (data){
+                if(data['err']){
+                    alert(data['err']);
+                    $('#wishlist_'+listing_id).html('<i class="fas fa-heart fa-2x"></i>')
+                }else{
+                    $('#wishlist_'+listing_id).removeClass('remove_from_wishlist');
+                    $('#wishlist_'+listing_id).toggleClass('add_to_wishlist');
+                    $('#wishlist_'+listing_id).html('<i class="far fa-heart fa-2x"></i>')
                 }
             }
         })
