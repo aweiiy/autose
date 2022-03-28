@@ -49,8 +49,8 @@
                             <td>
                                 <a href="{{ url('admin/listings/'.$item->id) }}" class="btn btn-outline-secondary btn-sm" style="padding: 10px"><i class="fas fa-eye"></i> View</a>
                                 <a href="{{ url('admin/listings/'.$item->id.'/edit') }}" class="btn btn-outline-primary btn-sm" style="padding: 10px"><i class="fas fa-edit"></i> Edit</a>
-                                {!! Form::open(['method'=>'DELETE', 'url' => ['admin/listings', $item->id], 'style' => 'display:inline;','onClick'=>'confirmReq()']) !!}
-                                {!! Form::button('<i class="fas fa-trash-alt"></i> Delete', ['class' => 'btn btn-danger btn-sm', 'style' => 'padding: 10px', 'type' => 'submit']) !!}
+                                {!! Form::open(['method'=>'DELETE', 'url' => ['admin/listings', $item->id], 'style' => 'display:inline;']) !!}
+                                {!! Form::button('<i class="fas fa-trash-alt"></i> Delete', ['class' => 'btn btn-danger btn-sm', 'style' => 'padding: 10px', 'type' => 'submit', 'onclick'=>"return confirm('Are you sure?')"]) !!}
                                 {!! Form::close() !!}
                             </td>
                         </tr>

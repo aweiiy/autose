@@ -47,8 +47,8 @@
                             <td>
                                 <a href="{{ url('mylistings/'.$item->id) }}" class="btn btn-outline-secondary btn-sm" style="padding: 10px"><i class="fas fa-eye"></i> View</a>
                                 <a href="{{ url('mylistings/'.$item->id.'/edit') }}" class="btn btn-outline-primary btn-sm" style="padding: 10px"><i class="fas fa-edit"></i> Edit</a>
-                                {!! Form::open(['method'=>'DELETE', 'url' => ['mylistings', $item->id], 'style' => 'display:inline;','onClick'=>'confirmReq()']) !!}
-                                {!! Form::button('<i class="fas fa-trash-alt"></i> Delete', ['class' => 'btn btn-outline-danger btn-sm', 'style' => 'padding: 10px', 'type' => 'submit']) !!}
+                                {!! Form::open(['method'=>'DELETE', 'url' => ['mylistings', $item->id], 'style' => 'display:inline;']) !!}
+                                {!! Form::button('<i class="fas fa-trash-alt"></i> Delete', ['class' => 'btn btn-outline-danger btn-sm', 'style' => 'padding: 10px', 'type' => 'submit', 'onclick'=>"return confirm('Are you sure you want to delete?')"]) !!}
                                 {!! Form::close() !!}
                             </td>
                         </tr>
@@ -61,9 +61,4 @@
             </div>
         </div>
     </div>
-    <script>
-        function confirmReq() {
-            confirm("Do you really want to delete?");
-        }
-    </script>
 @endsection

@@ -117,7 +117,6 @@
                                         </a>
                                     @endif
                                 </div>
-                                   <div class="col-md-1 align-bottom">({{$car_listing->wishlists->count()}})</div>
                             </div>
                         </div>
                         <div class="card card-light card-body mb-4">

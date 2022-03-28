@@ -131,7 +131,7 @@
                     </div>
                             @break
                             @endif
-                        <a href="../delete-image/{{$image->id}}" class="button p-2 mb-3 align-top">Delete</a>
+                        <a href="../delete-image/{{$image->id}}" class="button p-2 mb-3 align-top" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
 
                     </div>
                 @endforeach
