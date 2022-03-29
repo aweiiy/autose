@@ -46,20 +46,22 @@
                                     <li class="mb-2"><strong>Mileage:</strong><span class="opacity-70 ms-1">{{$car_listing->mileage}} km</span></li>
                                     <li class="mb-2"><strong>Body Type:</strong><span class="opacity-70 ms-1">{{$car_listing->car_body_type->name}}</span></li>
                                     <li class="mb-2"><strong>Transmission:</strong><span class="opacity-70 ms-1">{{$car_listing->transmission->name}}</span></li>
+                                    <li class="mb-2"><strong>VIN:</strong><span class="opacity-70 ms-1">{{$car_listing->vin}}</span></li>
                                 </ul>
                             </div>
                             <div class="col-sm-6 col-md-12 col-lg-6">
                                 <ul class="list-unstyled">
                                     <li class="mb-2"><strong>Fuel Type:</strong><span class="opacity-70 ms-1">{{$car_listing->fuel_type->name}}</span></li>
                                     <!-- Engine and battery-->
-                                    @if(!$car_listing->battery_capacity)
+                                    @if(!$car_listing->battery_capacity && !$car_listing->cubic_capacity)
+                                    @elseif(!$car_listing->battery_capacity)
                                         <li class="mb-2"><strong>Engine cubic capacity:</strong>
                                             <span class="opacity-70 ms-1">
                                                 {{number_format((float)$car_listing->cubic_capacity/1000, 1, '.', '')}} L.
                                     @elseif(!$car_listing->cubic_capacity)
                                         <li class="mb-2"><strong>Battery capacity:</strong>
                                             <span class="opacity-70 ms-1">
-                                                {{$car_listing->battery_capacity}} KWh.
+                                                {{$car_listing->battery_capacity}} kWh.
                                     @else
                                         <li class="mb-2"><strong>Engine cubic capacity:</strong>
                                             <span class="opacity-70 ms-1">
@@ -67,11 +69,9 @@
                                             </span>
                                         <li class="mb-2"><strong>Battery capacity:</strong>
                                             {{$car_listing->battery_capacity}} kWh.
-                                        @endif
+                                    @endif
                                         <!-- Engine and battery-->
-                                            </span>
-                                        </li>
-                                        <li class="mb-2"><strong>VIN:</strong><span class="opacity-70 ms-1">{{$car_listing->vin}}</span></li>
+                                        <li class="mb-2"><strong>Engine power:</strong> <span class="opacity-70 ms-1">{{$car_listing->engine_power}} kW</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -94,10 +94,12 @@
                             <div class="h3 ">
                             {{ $car_listing->car_make->name }} {{ $car_listing->car_model->name }}
                             <!-- Engine and battery-->
-                                @if(!$car_listing->battery_capacity)
-                                    {{number_format((float)$car_listing->cubic_capacity/1000, 1, '.', '')}} L.
+                                @if(!$car_listing->battery_capacity && !$car_listing->cubic_capacity)
+
                                 @elseif(!$car_listing->cubic_capacity)
-                                    {{$car_listing->battery_capacity}} KWh.
+                                    {{$car_listing->battery_capacity}} kWh.
+                                @elseif(!$car_listing->battery_capacity)
+                                    {{number_format((float)$car_listing->cubic_capacity/1000, 1, '.', '')}} L.
                                 @else
                                     {{number_format((float)$car_listing->cubic_capacity/1000, 1, '.', '')}} L. , {{$car_listing->battery_capacity}} kWh.
                                 @endif
@@ -117,7 +119,7 @@
                                         </a>
                                     @endif
                                 </div>
-                                <div class="col-md-1 align-bottom">({{$car_listing->wishlists->count()}})</div>
+                                <div class="col-md-2 align-bottom">({{$car_listing->wishlists->count()}})</div>
                             </div>
                         </div>
                         <div class="card card-light card-body mb-4">

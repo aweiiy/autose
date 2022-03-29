@@ -36,6 +36,7 @@ Route::group(['middleware' => 'isLoggedIn'], function(){
     Route::resource('profile',App\Http\Controllers\User\ProfileController::class);
     Route::get('wishlist',[App\Http\Controllers\User\WishlistController::class,'index'])->name('wishlist');
     Route::post('remove-from-wishlist',[App\Http\Controllers\User\WishlistController::class,'remove']);
+    Route::post('compare-from-wishlist',[App\Http\Controllers\User\WishlistController::class,'compare'])->name('sendComparison');
     #Route::get('wishlist',[App\Http\Controllers\User\WishlistController::class,'wishlist'])->name('wishlist');
     #Route::post('wishlist/store',[App\Http\Controllers\User\WishlistController::class,'wishlistStore'])->name('wishlist.store');
     #Admin

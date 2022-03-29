@@ -17,6 +17,7 @@ class CreateWishlistsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->foreignId('car_listing_id');
+            $table->integer('price');
             $table->timestamps();
 
             $table->foreign('car_listing_id')->references('id')->on('car_listing')->onDelete('cascade');

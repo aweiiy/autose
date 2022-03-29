@@ -37,7 +37,7 @@
                     </thead>
                     <tbody>
                     @forelse($mylistings as $item)
-                        <tr onclick="window.location='{{ url('mylistings/'.$item->id) }}';" style="cursor: pointer">
+                        <tr onclick="window.location='{{ url('listings/'.$item->id) }}';" style="cursor: pointer">
                             @foreach($item->images as $image)
                                 <td class="w-25"><img src="{{url('listing_images/'.$image->name)}}" class="fitToSize img-fluid img-thumbnail"></td>
                                 @break
@@ -45,7 +45,7 @@
                             <td>{{ $item->car_make->name}} {{$item->car_model->name}} {{$item->car_body_type->name}} {{$item->year}}</td>
                             <td>{{ $item->price}} EUR</td>
                             <td>
-                                <a href="{{ url('mylistings/'.$item->id) }}" class="btn btn-outline-secondary btn-sm" style="padding: 10px"><i class="fas fa-eye"></i> View</a>
+                                <a href="{{ url('listings/'.$item->id) }}" class="btn btn-outline-secondary btn-sm" style="padding: 10px"><i class="fas fa-eye"></i> View</a>
                                 <a href="{{ url('mylistings/'.$item->id.'/edit') }}" class="btn btn-outline-primary btn-sm" style="padding: 10px"><i class="fas fa-edit"></i> Edit</a>
                                 {!! Form::open(['method'=>'DELETE', 'url' => ['mylistings', $item->id], 'style' => 'display:inline;']) !!}
                                 {!! Form::button('<i class="fas fa-trash-alt"></i> Delete', ['class' => 'btn btn-outline-danger btn-sm', 'style' => 'padding: 10px', 'type' => 'submit', 'onclick'=>"return confirm('Are you sure you want to delete?')"]) !!}

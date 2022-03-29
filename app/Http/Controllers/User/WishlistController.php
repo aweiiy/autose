@@ -19,7 +19,7 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        $wishlist = wishlist::where('user_id', '=', Session::get('loginId'))->paginate(10);
+        $wishlist = wishlist::where('user_id', '=', Session::get('loginId'))->paginate(2);
 
 
         return view('pages.wishlist', compact('wishlist'));
@@ -33,6 +33,7 @@ class WishlistController extends Controller
                 $wish = new wishlist();
                 $wish->car_listing_id = $listing_id;
                 $wish->user_id = Session::get('loginId');
+                $wish->price = car_listing::get()->where('id','=',$listing_id)->first()->price;
                 $wish->save();
                 return response()->json(['status' => 'Listing added to wishlist']);
             }
@@ -63,6 +64,18 @@ class WishlistController extends Controller
             return response()->json(['err' => 'Login to remove']);
         }
 
+    }
+
+    public function compare(Request $request){
+        $listing1 = car_listing::where('id', '=', $request->input('list_one'))->first();
+        $listing2 = car_listing::where('id', '=', $request->input('list_two'))->first();
+        if($listing1 && $listing2){
+            $returnHTML = view('pages.compare', compact('listing1','listing2'))->render();
+            return response()->json(['html' => $returnHTML, 'status' => 'success']);
+        }
+       // else{
+         //   return response()->json(['err' => 'fail']);
+        //}
     }
 
     /**

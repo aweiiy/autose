@@ -115,7 +115,7 @@
                 _token:token,
             },
             beforeSend:function (){
-                $('#wishlist_'+listing_id).html('<i class="fa fa-spinner fa-spin"></i>')
+                //$('#wishlist_'+listing_id).html('<i class="fa fa-spinner fa-spin"></i>')
             },
             complete:function (){
 
@@ -149,7 +149,7 @@
                 _token:token,
             },
             beforeSend:function (){
-                $('#wishlist_'+listing_id).html('<i class="fa fa-spinner fa-spin"></i>')
+                //$('#wishlist_'+listing_id).html('<i class="fa fa-spinner fa-spin"></i>')
             },
             complete:function (){
 
