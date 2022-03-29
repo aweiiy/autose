@@ -11,7 +11,7 @@ class car_listing extends Model
 {
     use HasFactory;
     protected $table = 'car_listing';
-    protected $fillable = ['user_id', 'car_make_id', 'car_model_id', 'car_body_type_id','city_id','fuel_type_id', 'cubic_capacity', 'battery_capacity', 'transmission_id','description', 'year', 'mileage', 'vin' , 'price', 'phone_number', 'email','image'];
+    protected $fillable = ['user_id', 'car_make_id', 'car_model_id', 'car_body_type_id','city_id','fuel_type_id', 'cubic_capacity', 'battery_capacity', 'transmission_id', 'engine_power' ,'description', 'year', 'mileage', 'vin' , 'price', 'phone_number', 'email','image'];
 
     public function user(): BelongsTo
     {

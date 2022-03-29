@@ -19,18 +19,19 @@ class CreateCarListingTable extends Migration
             $table->foreignId('car_make_id');
             $table->foreignId('car_model_id');
             $table->foreignId('car_body_type_id');
-            $table->foreignId('city_id');
-            $table->foreignId('fuel_type_id');
-            $table->integer('cubic_capacity');
-            $table->integer('battery_capacity');
+            $table->foreignId('city_id')->nullable();
+            $table->foreignId('fuel_type_id')->nullable();
+            $table->integer('cubic_capacity')->nullable();
+            $table->integer('battery_capacity')->nullable();
             $table->foreignId('transmission_id');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->integer('year');
             $table->integer('mileage');
-            $table->string('vin');
+            $table->integer('engine_power');
+            $table->string('vin')->nullable();
             $table->integer('price');
             $table->integer('phone_number');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

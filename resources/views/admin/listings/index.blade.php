@@ -63,12 +63,4 @@
             </div>
         </div>
     </div>
-    <script>
-        function confirmReq() {
-            if (confirm("Do you really want to delete?")) {
-            } else {
-                event.preventDefault();
-            }
-        }
-    </script>
 @endsection

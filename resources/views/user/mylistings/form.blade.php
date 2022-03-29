@@ -89,7 +89,12 @@
                 <span class="text-danger">@error('cubic_capacity') {{$message}} @enderror</span>
                 {!! Form::label('battery_capacity', 'Battery capacity, kWh: ', ['class' => 'col-sm-3']) !!}
                 {!! Form::number('battery_capacity', null, ['class' => 'form-control', 'min'=>'1', 'max'=>'200' , 'type'=>'number','id'=>'battery'] ) !!}
+            </div>
+            <div class="col-md-6">
                 <span class="text-danger">@error('battery_capacity') {{$message}} @enderror</span>
+                {!! Form::label('engine_power', 'Engine power, kW: ', ['class' => 'col-sm-3']) !!}
+                {!! Form::number('engine_power', null, ['class' => 'form-control', 'min'=>'20', 'max'=>'500' , 'type'=>'number'] ) !!}
+                <span class="text-danger">@error('engine_power') {{$message}} @enderror</span>
                 {!! Form::label('transmission_id', 'Transmission: ', ['class' => 'col-sm-3']) !!}
                 {!! Form::select('transmission_id', $transmission, isset($car_listing->transmission_id) ? $car_listing->transmission_id : null, ['class' => 'form-control', 'required' => 'required']) !!}
                 <span class="text-danger">@error('transmission_io') {{$message}} @enderror</span>

@@ -28,6 +28,11 @@ $(document).ready(function() {
                 min: 1,
                 max: 200
             },
+            engine_power: {
+                required:true,
+                min: 20,
+                max: 500
+            },
             year: {
                 required:true,
                 min: 1
@@ -38,6 +43,9 @@ $(document).ready(function() {
             },
             vin: {
                 maxlength: 17,
+            },
+            transmission_id: {
+                required:true,
             },
             price: {
                 required:true,
@@ -86,6 +94,10 @@ $(document).ready(function() {
                 min: "Please enter a number larger or equal to 1",
                 max: "Please enter a number smaller or equal to 200"
             },
+            engine_power: {
+                min: "Please enter a number larger or equal to 20",
+                max: "Please enter a number smaller or equal to 500"
+            },
             description: {
                 required:false,
             },
@@ -127,8 +139,16 @@ $(document).ready(function() {
                 min: 1,
                 max: 200
             },
+            engine_power: {
+                required:true,
+                min: 20,
+                max: 500
+            },
             description: {
                 required:false,
+            },
+            transmission_id: {
+                required:true,
             },
             year: {
                 required:true,
@@ -187,6 +207,10 @@ $(document).ready(function() {
             battery_capacity: {
                 min: "Please enter a number larger or equal to 1",
                 max: "Please enter a number smaller or equal to 200"
+            },
+            engine_power: {
+                min: "Please enter a number larger or equal to 20",
+                max: "Please enter a number smaller or equal to 500"
             },
             year: {
                 required:"Please select a year",
