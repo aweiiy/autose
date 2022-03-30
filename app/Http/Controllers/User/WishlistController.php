@@ -19,17 +19,10 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        $wishlist = wishlist::where('user_id', '=', Session::get('loginId'))->paginate(4);
+        $wishlist = wishlist::where('user_id', '=', Session::get('loginId'))->paginate(2);
 
-        if(Session::has('list1') && Session::has('list2')){
-            $compCount = 2;
-        }elseif(Session::has('list1') || Session::has('list2')){
-            $compCount = 1;}
-        else{
-            $compCount = 0;
-        }
 
-        return view('pages.wishlist', compact('wishlist','compCount'));
+        return view('pages.wishlist', compact('wishlist',));
     }
 
     public function add(Request $request)

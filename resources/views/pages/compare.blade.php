@@ -116,8 +116,8 @@
             </tr>
             <tr>
                 <th>Engine cubic capacity</th>
-                <td>{{$listing1->engine_capacity}} cm<sup>3</sup></td>
-                <td>{{$listing2->engine_capacity}} cm<sup>3</sup></td>
+                <td>{{$listing1->cubic_capacity}} cm<sup>3</sup></td>
+                <td>{{$listing2->cubic_capacity}} cm<sup>3</sup></td>
             </tr>
             <tr>
                 <th>Engine power</th>

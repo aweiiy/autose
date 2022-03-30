@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 @endif
-                    <span id="compNum" hidden>{{$compCount}}</span>
+
             <div class="table-responsive">
                 @if($wishlist->count() > 0)
                     <h1>Wishlist</h1>
@@ -182,14 +182,16 @@
                             '_token': '{{ csrf_token() }}'
                         },
                         success: function (data) {
+                            if(data.err){
+                                $('#compare_' + listing_id).removeClass('comparing');
+                                alert(data['err']);
+                            }else{
                             $('#compare_' + listing_id).removeClass('btn-outline-primary');
                             $('#compare_' + listing_id).addClass('btn-outline-danger');
                             $('#compare_' + listing_id).html('<i class="fa-solid fa-times"></i> Remove from comparison');
                             if(data.count > 1){
                                 $('#btn_compare').show();
                             }
-                            if(data.err){
-                                alert(data['err']);
                             }
                         }
                     });

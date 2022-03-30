@@ -24,7 +24,7 @@ class CreateCarListingTable extends Migration
             $table->integer('cubic_capacity')->nullable();
             $table->integer('battery_capacity')->nullable();
             $table->foreignId('transmission_id');
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->integer('year');
             $table->integer('mileage');
             $table->integer('engine_power');
