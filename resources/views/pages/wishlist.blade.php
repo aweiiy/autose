@@ -57,7 +57,6 @@
                 <table class="table table-bordered table-striped align-middle table-hover">
                     <thead>
                     <tr>
-                        <th style="width: 20px"> </th>
                         <th scope="col">Image</th>
                         <th scope="col">Name</th>
                         <th scope="col">Price</th>
@@ -67,13 +66,6 @@
                     <tbody>
                     @foreach($wishlist as $item)
                         <tr>
-                            <td>
-                                {!! Form::open(['method'=>'DELETE', 'url' => ['wishlist', $item->id], 'style' => 'display:inline;']) !!}
-                                {!! Form::button('<i class="fas fa-heart fa-2x"></i>', ['style' => 'color: red; border-style: none', 'type' => 'submit', 'onclick'=>"return confirm('Are you sure you want to delete?')"]) !!}
-                                <br>
-                                remove
-                                {!! Form::close() !!}
-                            </td>
                             @foreach($item->car_listing->images as $image)
                                 <td class="w-25"><img src="{{url('listing_images/'.$image->name)}}" class="fitToSize img-fluid img-thumbnail"></td>
                                 @break
@@ -91,6 +83,9 @@
                                     <i class="fa-solid fa-scale-balanced"></i> Compare
                                 </a>
                                 <a href="{{ url('listings/'.$item->car_listing->id) }}" class="btn btn-outline-secondary btn-md" style="padding: 10px"><i class="fas fa-eye"></i> View</a>
+                                {!! Form::open(['method'=>'DELETE', 'url' => ['wishlist', $item->id], 'style' => 'display:inline;']) !!}
+                                {!! Form::button('<i class="fas fa-heart fa-2x"></i>', ['style' => 'color: red; border-style: none', 'type' => 'submit', 'onclick'=>"return confirm('Are you sure you want to delete?')"]) !!}
+                                {!! Form::close() !!}
                             </td>
                         </tr>
                     @endforeach
@@ -111,7 +106,6 @@
                 e.preventDefault();
                 console.log($(this).data('id'));
                 var listing_id = $(this).data('id');
-                var token="{{csrf_token()}}";
                 var comparingNow = $('.comparing').length;
 
                 if(comparingNow > 1){
@@ -124,6 +118,9 @@
                             $('#list_one').val('');
                         }else if($('#list_two').val() == listing_id){
                             $('#list_two').val('');
+                        }
+                        if ($('.comparing').length < 2) {
+                            $('#btn_compare').hide();
                         }
                 }else{
                         alert('You can only compare two listings at a time');
@@ -143,7 +140,9 @@
                         }else if($('#list_two').val() == listing_id){
                             $('#list_two').val('');
                         }
-
+                        if ($('.comparing').length < 2) {
+                            $('#btn_compare').hide();
+                        }
                     } else {
                         $('#compare_' + listing_id).addClass('comparing');
 
@@ -162,7 +161,6 @@
                 }
 
             });
-            sendComparison
             $(document).on('click','#sendComparison', function(e){
                 e.preventDefault();
                 var list_one = $('#list_one').val();
