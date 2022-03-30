@@ -143,6 +143,6 @@ class WishlistController extends Controller
     {
         $wish = wishlist::find($id);
         $wish->delete();
-        return redirect('/wishlist');
+        return redirect('/wishlist')->with('success', 'Listing removed from wishlist');
     }
 }

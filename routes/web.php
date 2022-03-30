@@ -35,6 +35,7 @@ Route::group(['middleware' => 'isLoggedIn'], function(){
     Route::get('mylistings/delete-image/{image_id}', [\App\Http\Controllers\User\ImageController::class, 'delete'])->name('delete-image');
     Route::resource('profile',App\Http\Controllers\User\ProfileController::class);
     Route::get('wishlist',[App\Http\Controllers\User\WishlistController::class,'index'])->name('wishlist');
+    Route::delete('/wishlist/{id}', [App\Http\Controllers\User\WishlistController::class, 'destroy']);
     Route::post('remove-from-wishlist',[App\Http\Controllers\User\WishlistController::class,'remove']);
     Route::post('compare-from-wishlist',[App\Http\Controllers\User\WishlistController::class,'compare'])->name('sendComparison');
     #Route::get('wishlist',[App\Http\Controllers\User\WishlistController::class,'wishlist'])->name('wishlist');

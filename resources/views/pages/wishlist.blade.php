@@ -57,6 +57,7 @@
                 <table class="table table-bordered table-striped align-middle table-hover">
                     <thead>
                     <tr>
+                        <th style="width: 20px"> </th>
                         <th scope="col">Image</th>
                         <th scope="col">Name</th>
                         <th scope="col">Price</th>
@@ -66,6 +67,13 @@
                     <tbody>
                     @foreach($wishlist as $item)
                         <tr>
+                            <td>
+                                {!! Form::open(['method'=>'DELETE', 'url' => ['wishlist', $item->id], 'style' => 'display:inline;']) !!}
+                                {!! Form::button('<i class="fas fa-heart fa-2x"></i>', ['style' => 'color: red; border-style: none', 'type' => 'submit', 'onclick'=>"return confirm('Are you sure you want to delete?')"]) !!}
+                                <br>
+                                remove
+                                {!! Form::close() !!}
+                            </td>
                             @foreach($item->car_listing->images as $image)
                                 <td class="w-25"><img src="{{url('listing_images/'.$image->name)}}" class="fitToSize img-fluid img-thumbnail"></td>
                                 @break
