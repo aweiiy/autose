@@ -42,14 +42,19 @@
                     </div>
                 </div>
 
-
-                <div class="row" id="btn_compare" style="display:none; ">
-                    <div class="col-sm-12" style="margin-top: 50px;">
-                            <input type="hidden" value="" id="list_one" name="list_one"/>
-                            <input type="hidden" value="" id="list_two" name="list_two"/>
-                        <button id="sendComparison" class="btn btn-success" style="float:right;"> Compare listings</button>
+                @if(\Illuminate\Support\Facades\Session::get('list1') && \Illuminate\Support\Facades\Session::get('list2'))
+                    <div class="row" id="btn_compare">
+                        <div class="col-sm-12" style="margin-top: 50px;">
+                            <button id="sendComparison" class="btn btn-success" style="float:right;"> Compare listings</button>
+                        </div>
                     </div>
-                </div>
+                @else
+                    <div class="row" id="btn_compare" style="display:none; ">
+                        <div class="col-sm-12" style="margin-top: 50px;">
+                            <button id="sendComparison" class="btn btn-success" style="float:right;"> Compare listings</button>
+                        </div>
+                    </div>
+                @endif
 
             <div class="table-responsive">
                 @if($wishlist->count() > 0)
@@ -79,9 +84,15 @@
                                     <td><span><strong>{{ $item->car_listing->price}} EUR</strong></span></td>
                                 @endif
                             <td>
-                                <a href="javascript:void(0);" class="add_to_comparison btn btn-outline-primary btn-md" data-id="{{$item->car_listing->id}}" id="compare_{{$item->car_listing->id}}" style="padding: 10px">
-                                    <i class="fa-solid fa-scale-balanced"></i> Compare
-                                </a>
+                                @if(\Illuminate\Support\Facades\Session::get('list1') == $item->car_listing->id || \Illuminate\Support\Facades\Session::get('list2') == $item->car_listing->id)
+                                    <a href="javascript:void(0);" class="add_to_comparison btn btn-outline-danger btn-md comparing" data-id="{{$item->car_listing->id}}" id="compare_{{$item->car_listing->id}}" style="padding: 10px">
+                                        <i class="fa-solid fa-times"></i> Remove from comparison
+                                    </a>
+                                @else
+                                    <a href="javascript:void(0);" class="add_to_comparison btn btn-outline-primary btn-md" data-id="{{$item->car_listing->id}}" id="compare_{{$item->car_listing->id}}" style="padding: 10px">
+                                        <i class="fa-solid fa-scale-balanced"></i> Compare
+                                    </a>
+                                @endif
                                 <a href="{{ url('listings/'.$item->car_listing->id) }}" class="btn btn-outline-secondary btn-md" style="padding: 10px"><i class="fas fa-eye"></i> View</a>
                                 {!! Form::open(['method'=>'DELETE', 'url' => ['wishlist', $item->id], 'style' => 'display:inline;']) !!}
                                 {!! Form::button('<i class="fas fa-heart fa-2x"></i>', ['style' => 'color: red; border-style: none', 'type' => 'submit', 'onclick'=>"return confirm('Are you sure you want to delete?')"]) !!}
@@ -114,82 +125,83 @@
                         $('#compare_'+listing_id).removeClass('btn-outline-danger');
                         $('#compare_'+listing_id).addClass('btn-outline-primary');
                         $('#compare_'+listing_id).html('<i class="fa-solid fa-scale-balanced"></i> Compare');
-                        if($('#list_one').val() == listing_id){
-                            $('#list_one').val('');
-                        }else if($('#list_two').val() == listing_id){
-                            $('#list_two').val('');
-                        }
-                        if ($('.comparing').length < 2) {
-                            $('#btn_compare').hide();
-                        }
+                        $.ajax({
+                            url: '/ajax/remove_compare',
+                            type: 'POST',
+                            data: {
+                                listing_id: listing_id,
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function (data) {
+                                console.log(data);
+                                if(data.count > 1){
+                                    $('#btn_compare').show();
+                                }else{
+                                    $('#btn_compare').hide();
+                                }
+                            }
+                        });
                 }else{
                         alert('You can only compare two listings at a time');
                     }
                 }
                 else {
-                    if (comparingNow > 0) {
-                        $('#btn_compare').show();
-                    }
                     if ($('#compare_' + listing_id).hasClass('comparing')) {
                         $('#compare_' + listing_id).removeClass('comparing');
                         $('#compare_' + listing_id).removeClass('btn-outline-danger');
                         $('#compare_' + listing_id).addClass('btn-outline-primary');
                         $('#compare_' + listing_id).html('<i class="fa-solid fa-scale-balanced"></i> Compare');
-                        if($('#list_one').val() == listing_id){
-                            $('#list_one').val('');
-                        }else if($('#list_two').val() == listing_id){
-                            $('#list_two').val('');
-                        }
-                        if ($('.comparing').length < 2) {
-                            $('#btn_compare').hide();
-                        }
+                        $.ajax({
+                            url: '/ajax/remove_compare',
+                            type: 'POST',
+                            data: {
+                                listing_id: listing_id,
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function (data) {
+                                console.log(data);
+                                if(data.count > 1){
+                                    $('#btn_compare').show();
+                                }
+                                else{
+                                    $('#btn_compare').hide();
+                                }
+                            }
+                        });
                     } else {
                         $('#compare_' + listing_id).addClass('comparing');
-
-                        if ($('#list_one').val() == '') {
-                            $('#list_one').val(listing_id);
+                    $.ajax({
+                        url: '/ajax/add_compare',
+                        type: 'POST',
+                        data: {
+                            'listing_id': listing_id,
+                            '_token': '{{ csrf_token() }}'
+                        },
+                        success: function (data) {
                             $('#compare_' + listing_id).removeClass('btn-outline-primary');
                             $('#compare_' + listing_id).addClass('btn-outline-danger');
                             $('#compare_' + listing_id).html('<i class="fa-solid fa-times"></i> Remove from comparison');
-                        } else if ($('#list_two').val() == '') {
-                            $('#list_two').val(listing_id);
-                            $('#compare_' + listing_id).removeClass('btn-outline-primary');
-                            $('#compare_' + listing_id).addClass('btn-outline-danger');
-                            $('#compare_' + listing_id).html('<i class="fa-solid fa-times"></i> Remove from comparison');
+                            if(data.count > 1){
+                                $('#btn_compare').show();
+                            }
                         }
+                    });
                     }
                 }
 
             });
             $(document).on('click','#sendComparison', function(e){
                 e.preventDefault();
-                var list_one = $('#list_one').val();
-                var list_two = $('#list_two').val();
                 var token="{{csrf_token()}}";
                 $.ajax({
                     url: "{{route('sendComparison')}}",
                     type: "POST",
                     data: {
-                        list_one: list_one,
-                        list_two: list_two,
                         _token: token
                     },
                     success: function (data) {
                         console.log(data);
                         if(data.status == 'success'){
-                            $('#btn_compare').hide();
-                            $('#list_one').val('');
-                            $('#list_two').val('');
-                            $('#compare_'+list_one).removeClass('comparing');
-                            $('#compare_'+list_one).removeClass('btn-outline-danger');
-                            $('#compare_'+list_one).addClass('btn-outline-primary');
-                            $('#compare_'+list_one).html('<i class="fa-solid fa-scale-balanced"></i> Compare');
-                            $('#compare_'+list_two).removeClass('comparing');
-                            $('#compare_'+list_two).removeClass('btn-outline-danger');
-                            $('#compare_'+list_two).addClass('btn-outline-primary');
-                            $('#compare_'+list_two).html('<i class="fa-solid fa-scale-balanced"></i> Compare');
-                            $('#list_one').val('');
-                            $('#list_two').val('');
                             $("#exampleModal .modal-body").html(data.html);
                             $("#exampleModal").modal('show');
                         }

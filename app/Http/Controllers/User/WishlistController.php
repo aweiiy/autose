@@ -66,9 +66,57 @@ class WishlistController extends Controller
 
     }
 
+
+    public function addCompare(Request $request){
+        if(Session()->has('loginId')){
+            $listing_id = $request->input('listing_id');
+            if(Session()->has('list1') && !Session()->has('list2')){
+                Session::put('list2', $listing_id);
+                return response()->json(['count' => 2]);
+            }
+            elseif(Session()->has('list2') && !Session()->has('list1')){
+                Session::put('list1', $listing_id);
+                return response()->json(['count' => 2]);
+            }
+            elseif(Session()->has('list1') && Session()->has('list2')){
+                return response()->json(['err' => 'Can only compare 2 listings', 'count' => 2]);
+            }
+            elseif(Session()->has('list1')){
+                Session::put('list2', $listing_id);
+                return response()->json(['count' => 2]);
+            }
+            else{
+                Session::put('list1', $listing_id);
+                return response()->json(['count' => 1]);
+            }
+        }
+    }
+    public function removeCompare(Request $request){
+        if(Session()->has('loginId')){
+            $listing_id = $request->input('listing_id');
+            if(Session()->has('list1') && Session()->has('list2')){
+                if(Session::get('list1') == $listing_id){
+                    Session::pull('list1');
+                }
+                else{
+                    Session::pull('list2');
+                }
+                return response()->json(['count' => 1]);
+            }
+            else if(Session()->has('list1')){
+                Session::pull('list1');
+                return response()->json(['count' => 0]);
+            }
+            else if(Session()->has('list2')){
+                Session::pull('list2');
+                return response()->json(['count' => 0]);
+            }
+        }
+    }
+
     public function compare(Request $request){
-        $listing1 = car_listing::where('id', '=', $request->input('list_one'))->first();
-        $listing2 = car_listing::where('id', '=', $request->input('list_two'))->first();
+        $listing1 = car_listing::where('id', '=', Session::get('list1'))->first();
+        $listing2 = car_listing::where('id', '=', Session::get('list2'))->first();
         if($listing1 && $listing2){
             $returnHTML = view('pages.compare', compact('listing1','listing2'))->render();
             return response()->json(['html' => $returnHTML, 'status' => 'success']);
