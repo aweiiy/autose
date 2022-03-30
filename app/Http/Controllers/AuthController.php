@@ -67,6 +67,7 @@ class AuthController extends Controller
         if(Session::has('loginId')){
             Session::pull('loginId');
             Session::pull('role');
+            Session::flush();
             return redirect('home');
     }
     }

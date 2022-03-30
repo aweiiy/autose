@@ -31,17 +31,18 @@ Route::get('/listings/{id}', [\App\Http\Controllers\ListingController::class, 'd
 Route::post('add-to-wishlist',[App\Http\Controllers\User\WishlistController::class,'add']);
 
 Route::group(['middleware' => 'isLoggedIn'], function(){
+    #User listings
     Route::resource('mylistings', App\Http\Controllers\ListingController::class);
     Route::get('mylistings/delete-image/{image_id}', [\App\Http\Controllers\User\ImageController::class, 'delete'])->name('delete-image');
     Route::resource('profile',App\Http\Controllers\User\ProfileController::class);
+    #Wishlist and compare
     Route::get('wishlist',[App\Http\Controllers\User\WishlistController::class,'index'])->name('wishlist');
     Route::delete('/wishlist/{id}', [App\Http\Controllers\User\WishlistController::class, 'destroy']);
     Route::post('remove-from-wishlist',[App\Http\Controllers\User\WishlistController::class,'remove']);
     Route::post('compare-from-wishlist',[App\Http\Controllers\User\WishlistController::class,'compare'])->name('sendComparison');
     Route::post('/ajax/add_compare',[App\Http\Controllers\User\WishlistController::class,'addCompare'])->name('add_compare');
     Route::post('/ajax/remove_compare',[App\Http\Controllers\User\WishlistController::class,'removeCompare'])->name('remove_compare');
-    #Route::get('wishlist',[App\Http\Controllers\User\WishlistController::class,'wishlist'])->name('wishlist');
-    #Route::post('wishlist/store',[App\Http\Controllers\User\WishlistController::class,'wishlistStore'])->name('wishlist.store');
+
     #Admin
     Route::group(['prefix' => 'admin', 'as'=> '.admin', 'middleware' => 'isAdmin'], function () {
         Route::view('/', 'admin.home');

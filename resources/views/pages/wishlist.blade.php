@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 @endif
-
+                    <span id="compNum" hidden>{{$compCount}}</span>
             <div class="table-responsive">
                 @if($wishlist->count() > 0)
                     <h1>Wishlist</h1>
@@ -95,7 +95,7 @@
                                 @endif
                                 <a href="{{ url('listings/'.$item->car_listing->id) }}" class="btn btn-outline-secondary btn-md" style="padding: 10px"><i class="fas fa-eye"></i> View</a>
                                 {!! Form::open(['method'=>'DELETE', 'url' => ['wishlist', $item->id], 'style' => 'display:inline;']) !!}
-                                {!! Form::button('<i class="fas fa-heart fa-2x"></i>', ['style' => 'color: red; border-style: none', 'type' => 'submit', 'onclick'=>"return confirm('Are you sure you want to delete?')"]) !!}
+                                {!! Form::button('<i class="fas fa-heart-broken fa-2x"></i>', ['style' => 'color: red; border-style: none', 'type' => 'submit', 'onclick'=>"return confirm('Are you sure you want to delete?')"]) !!}
                                 {!! Form::close() !!}
                             </td>
                         </tr>
@@ -115,10 +115,8 @@
         $(document).ready(function () {
             $(document).on('click','.add_to_comparison', function(e){
                 e.preventDefault();
-                console.log($(this).data('id'));
                 var listing_id = $(this).data('id');
-                var comparingNow = $('.comparing').length;
-
+                var comparingNow = $('#compNum').text();
                 if(comparingNow > 1){
                     if($('#compare_'+listing_id).hasClass('comparing')){
                         $('#compare_'+listing_id).removeClass('comparing');
@@ -133,11 +131,14 @@
                                 _token: '{{ csrf_token() }}'
                             },
                             success: function (data) {
-                                console.log(data);
                                 if(data.count > 1){
                                     $('#btn_compare').show();
                                 }else{
                                     $('#btn_compare').hide();
+                                }
+                                if(data.err){
+                                    alert(data['err']);
+
                                 }
                             }
                         });
@@ -166,6 +167,9 @@
                                 else{
                                     $('#btn_compare').hide();
                                 }
+                                if(data.err){
+                                    alert(data['err']);
+                                }
                             }
                         });
                     } else {
@@ -183,6 +187,9 @@
                             $('#compare_' + listing_id).html('<i class="fa-solid fa-times"></i> Remove from comparison');
                             if(data.count > 1){
                                 $('#btn_compare').show();
+                            }
+                            if(data.err){
+                                alert(data['err']);
                             }
                         }
                     });

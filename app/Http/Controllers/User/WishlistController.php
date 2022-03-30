@@ -19,10 +19,17 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        $wishlist = wishlist::where('user_id', '=', Session::get('loginId'))->paginate(2);
+        $wishlist = wishlist::where('user_id', '=', Session::get('loginId'))->paginate(4);
 
+        if(Session::has('list1') && Session::has('list2')){
+            $compCount = 2;
+        }elseif(Session::has('list1') || Session::has('list2')){
+            $compCount = 1;}
+        else{
+            $compCount = 0;
+        }
 
-        return view('pages.wishlist', compact('wishlist'));
+        return view('pages.wishlist', compact('wishlist','compCount'));
     }
 
     public function add(Request $request)
@@ -54,6 +61,9 @@ class WishlistController extends Controller
             if(car_listing::find($listing_id) && wishlist::where('car_listing_id','=',$listing_id)->where('user_id','=',Session::get('loginId'))){
                 $wish = wishlist::where('car_listing_id','=',$listing_id)->where('user_id','=',Session::get('loginId'))->first();
                 $wish->delete();
+                if(Session::has('list1') || Session::has('list2')){
+                    Session::pull('list1');Session::pull('list2');
+                }
                 return response()->json(['status' => 'Listing removed from wishlist']);
             }
             else{
@@ -191,6 +201,9 @@ class WishlistController extends Controller
     {
         $wish = wishlist::find($id);
         $wish->delete();
+        if(Session::has('list1') || Session::has('list2')){
+            Session::pull('list1');Session::pull('list2');
+        }
         return redirect('/wishlist')->with('success', 'Listing removed from wishlist');
     }
 }
