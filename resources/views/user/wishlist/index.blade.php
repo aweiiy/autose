@@ -84,6 +84,11 @@
                                     <strong>{{ $item->price }}</strong>
                                 </td>
                                 <td>
+                                    @if(\Illuminate\Support\Facades\Session::get('list1') == $item->car_listing_id || \Illuminate\Support\Facades\Session::get('list2') == $item->car_listing_id)
+                                        <a href="javascript:void(0);" class="add_to_comparison btn btn-outline-danger btn-md comparing" data-id="{{$item->car_listing_id}}" id="compare_{{$item->car_listing_id}}" style="padding: 10px">
+                                            <i class="fa-solid fa-times"></i> Remove from comparison
+                                        </a>
+                                    @endif
                                     {!! Form::open(['method'=>'DELETE', 'url' => ['wishlist', $item->id], 'style' => 'display:inline;']) !!}
                                     {!! Form::button('<i class="fas fa-heart-broken fa-2x"></i>', ['style' => 'color: red; border-style: none', 'type' => 'submit', 'onclick'=>"return confirm('Are you sure you want to delete?')"]) !!}
                                     {!! Form::close() !!}

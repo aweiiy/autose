@@ -196,7 +196,7 @@ class ListingController extends Controller
 
         $car_listing = car_listing::findOrFail($id);
 
-
+        if($car_listing->user_id != Session::get('loginId')) abort(404,'Listing is not yours');
         if($request->has('images')){
             foreach($request->file('images')as $image){
                 $imageName = $car_listing['id'].'-image-'.time().rand(1,1000).'.'.$image->extension();

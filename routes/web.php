@@ -34,7 +34,12 @@ Route::group(['middleware' => 'isLoggedIn'], function(){
     #User listings
     Route::resource('mylistings', App\Http\Controllers\ListingController::class);
     Route::get('mylistings/delete-image/{image_id}', [\App\Http\Controllers\User\ImageController::class, 'delete'])->name('delete-image');
-    Route::resource('profile',App\Http\Controllers\User\ProfileController::class);
+    Route::get('profile',[App\Http\Controllers\User\ProfileController::class, 'index']);
+    Route::get('profile/edit', [\App\Http\Controllers\User\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('profile', [App\Http\Controllers\User\ProfileController::class, 'update']);
+    Route::get('profile/change-password', [\App\Http\Controllers\User\ProfileController::class, 'changePassword'])->name('profile.change-password');
+    Route::patch('profile/change-password', [\App\Http\Controllers\User\ProfileController::class, 'updatePassword']);
+    Route::delete('profile/delete', [\App\Http\Controllers\User\ProfileController::class, 'destroy'])->name('profile.delete');
     #Wishlist and compare
     Route::get('wishlist',[App\Http\Controllers\User\WishlistController::class,'index'])->name('wishlist');
     Route::delete('/wishlist/{id}', [App\Http\Controllers\User\WishlistController::class, 'destroy']);
@@ -52,7 +57,7 @@ Route::group(['middleware' => 'isLoggedIn'], function(){
         Route::resource('models',App\Http\Controllers\Admin\ModelsController::class);
         Route::get('/models/create/{id}', [App\Http\Controllers\Admin\ModelsController::class, 'create']);
         Route::get('/makes/models/{id}', [App\Http\Controllers\Admin\ModelsController::class, 'car_models']);
-        Route::get('listings/delete-image/{image_id}', [\App\Http\Controllers\User\ImageController::class, 'delete'])->name('delete-image');
+        Route::get('listings/delete-image/{image_id}', [\App\Http\Controllers\User\ImageController::class, 'delete']);
     });
 });
 

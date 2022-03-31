@@ -22,6 +22,7 @@ class CreateWishlistsTable extends Migration
             $table->timestamps();
 
             $table->foreign('car_listing_id')->references('id')->on('car_listing');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

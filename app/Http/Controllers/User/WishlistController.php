@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\car_listing;
+use App\Models\User;
 use App\Models\wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -21,7 +22,6 @@ class WishlistController extends Controller
     {
         $wishlist = wishlist::where('user_id', '=', Session::get('loginId'))->paginate(10);
 
-
         return view('user.wishlist.index', compact('wishlist'));
     }
 
@@ -36,7 +36,7 @@ class WishlistController extends Controller
                 $wish->name = car_listing::find($listing_id)->car_make->name . ' ' . car_listing::find($listing_id)->car_model->name . ' ' . car_listing::find($listing_id)->year;
                 $wish->price = car_listing::get()->where('id','=',$listing_id)->first()->price;
                 $wish->save();
-                return response()->json(['status' => 'Listing added to wishlist']);
+                return response()->json(['status' => 'Listing added to wishlist', 'count' => car_listing::find($listing_id)->wishlists->count()]);
             }
             else{
                 return response()->json(['status' => 'Fail']);
@@ -58,7 +58,7 @@ class WishlistController extends Controller
                 if(Session::has('list1') || Session::has('list2')){
                     Session::pull('list1');Session::pull('list2');
                 }
-                return response()->json(['status' => 'Listing removed from wishlist']);
+                return response()->json(['status' => 'Listing removed from wishlist', 'count' => car_listing::find($listing_id)->wishlists->count()]);
             }
             else{
                 return response()->json(['status' => 'Fail']);

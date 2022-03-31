@@ -13,7 +13,7 @@ class User extends Model
     use HasFactory;
 
     protected $table = 'users';
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name','phone_number', 'email', 'city_id' , 'password'];
 
     public function car_listing(): HasMany
     {
@@ -50,6 +50,13 @@ class User extends Model
             $data = User::where('id', '=', Session::get('loginId'))->first();
         }
         return $data;
+    }
+    public function wishlist(){
+        return $this->hasMany(wishlist::class);
+    }
+    public function city()
+    {
+        return $this->belongsTo(city::class);
     }
 
 }

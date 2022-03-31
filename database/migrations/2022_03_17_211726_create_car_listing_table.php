@@ -34,7 +34,7 @@ class CreateCarListingTable extends Migration
             $table->string('email')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('car_model_id')->references('id')->on('car_model');
             $table->foreign('car_make_id')->references('id')->on('car_make');
             $table->foreign('car_body_type_id')->references('id')->on('car_body_type');
