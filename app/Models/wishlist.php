@@ -12,6 +12,7 @@ class wishlist extends Model
     protected $table = 'wishlists';
     protected $fillable = [
         'user_id',
+        'name',
         'car_listing_id'
     ];
 

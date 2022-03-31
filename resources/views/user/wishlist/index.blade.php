@@ -25,11 +25,11 @@
                 </div>
             @endif
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="listingModal" tabindex="-1" aria-labelledby="listingModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-fullscreen">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Comparison</h5>
+                                <h5 class="modal-title" id="listingModalLabel">Comparison</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -70,6 +70,27 @@
                     </thead>
                     <tbody>
                     @foreach($wishlist as $item)
+                        @if(is_null($item->car_listing))
+                            <tr disabled="disabled">
+                                <td>
+                                    <img src="{{ asset('images/no-image.png') }}" class="fitToSize">
+                                </td>
+                                <td>
+                                    {{ $item->name }}
+                                    <br>
+                                    <p>(Listing deleted)</p>
+                                </td>
+                                <td>
+                                    <strong>{{ $item->price }}</strong>
+                                </td>
+                                <td>
+                                    {!! Form::open(['method'=>'DELETE', 'url' => ['wishlist', $item->id], 'style' => 'display:inline;']) !!}
+                                    {!! Form::button('<i class="fas fa-heart-broken fa-2x"></i>', ['style' => 'color: red; border-style: none', 'type' => 'submit', 'onclick'=>"return confirm('Are you sure you want to delete?')"]) !!}
+                                    {!! Form::close() !!}
+                                </td>
+                            </tr>
+                            @continue
+                        @endif
                         <tr>
                             @foreach($item->car_listing->images as $image)
                                 <td class="w-25"><img src="{{url('listing_images/'.$image->name)}}" class="fitToSize img-fluid img-thumbnail"></td>
@@ -113,67 +134,35 @@
 @push('javascript')
     <script>
         $(document).ready(function () {
-            $(document).on('click','.add_to_comparison', function(e){
+            $(document).on('click', '.add_to_comparison', function (e) {
                 e.preventDefault();
                 var listing_id = $(this).data('id');
-                var comparingNow = $('#compNum').text();
-                if(comparingNow > 1){
-                    if($('#compare_'+listing_id).hasClass('comparing')){
-                        $('#compare_'+listing_id).removeClass('comparing');
-                        $('#compare_'+listing_id).removeClass('btn-outline-danger');
-                        $('#compare_'+listing_id).addClass('btn-outline-primary');
-                        $('#compare_'+listing_id).html('<i class="fa-solid fa-scale-balanced"></i> Compare');
-                        $.ajax({
-                            url: '/ajax/remove_compare',
-                            type: 'POST',
-                            data: {
-                                listing_id: listing_id,
-                                _token: '{{ csrf_token() }}'
-                            },
-                            success: function (data) {
-                                if(data.count > 1){
-                                    $('#btn_compare').show();
-                                }else{
-                                    $('#btn_compare').hide();
-                                }
-                                if(data.err){
-                                    alert(data['err']);
-
-                                }
+                if ($('#compare_' + listing_id).hasClass('comparing')) {
+                    $('#compare_' + listing_id).removeClass('comparing');
+                    $('#compare_' + listing_id).removeClass('btn-outline-danger');
+                    $('#compare_' + listing_id).addClass('btn-outline-primary');
+                    $('#compare_' + listing_id).html('<i class="fa-solid fa-scale-balanced"></i> Compare');
+                    $.ajax({
+                        url: '/ajax/remove_compare',
+                        type: 'POST',
+                        data: {
+                            listing_id: listing_id,
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            if (data.count > 1) {
+                                $('#btn_compare').show();
+                            } else {
+                                $('#btn_compare').hide();
                             }
-                        });
-                }else{
-                        alert('You can only compare two listings at a time');
-                    }
-                }
-                else {
-                    if ($('#compare_' + listing_id).hasClass('comparing')) {
-                        $('#compare_' + listing_id).removeClass('comparing');
-                        $('#compare_' + listing_id).removeClass('btn-outline-danger');
-                        $('#compare_' + listing_id).addClass('btn-outline-primary');
-                        $('#compare_' + listing_id).html('<i class="fa-solid fa-scale-balanced"></i> Compare');
-                        $.ajax({
-                            url: '/ajax/remove_compare',
-                            type: 'POST',
-                            data: {
-                                listing_id: listing_id,
-                                _token: '{{ csrf_token() }}'
-                            },
-                            success: function (data) {
-                                console.log(data);
-                                if(data.count > 1){
-                                    $('#btn_compare').show();
-                                }
-                                else{
-                                    $('#btn_compare').hide();
-                                }
-                                if(data.err){
-                                    alert(data['err']);
-                                }
+                            if (data.err) {
+                                alert(data['err']);
                             }
-                        });
-                    } else {
-                        $('#compare_' + listing_id).addClass('comparing');
+                        }
+                    });
+                } else {
+                    $('#compare_' + listing_id).addClass('comparing');
                     $.ajax({
                         url: '/ajax/add_compare',
                         type: 'POST',
@@ -182,22 +171,23 @@
                             '_token': '{{ csrf_token() }}'
                         },
                         success: function (data) {
-                            if(data.err){
+                            if (data.err) {
                                 $('#compare_' + listing_id).removeClass('comparing');
                                 alert(data['err']);
-                            }else{
-                            $('#compare_' + listing_id).removeClass('btn-outline-primary');
-                            $('#compare_' + listing_id).addClass('btn-outline-danger');
-                            $('#compare_' + listing_id).html('<i class="fa-solid fa-times"></i> Remove from comparison');
-                            if(data.count > 1){
-                                $('#btn_compare').show();
-                            }
+                            } else {
+                                $('#compare_' + listing_id).removeClass('btn-outline-primary');
+                                $('#compare_' + listing_id).addClass('btn-outline-danger');
+                                $('#compare_' + listing_id).html('<i class="fa-solid fa-times"></i> Remove from comparison');
+                                if (data.count > 1) {
+                                    $('#btn_compare').show();
+                                    $('html, body').animate({
+                                        scrollTop: 0
+                                    }, 'slow');
+                                }
                             }
                         }
                     });
-                    }
                 }
-
             });
             $(document).on('click','#sendComparison', function(e){
                 e.preventDefault();
@@ -211,8 +201,8 @@
                     success: function (data) {
                         console.log(data);
                         if(data.status == 'success'){
-                            $("#exampleModal .modal-body").html(data.html);
-                            $("#exampleModal").modal('show');
+                            $("#listingModal .modal-body").html(data.html);
+                            $("#listingModal").modal('show');
                         }
                     }
                 });

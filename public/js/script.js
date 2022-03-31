@@ -31,6 +31,5 @@
   });
   // bottom to top
 
-
-
 })(jQuery);
+

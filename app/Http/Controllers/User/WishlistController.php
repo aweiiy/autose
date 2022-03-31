@@ -19,10 +19,10 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        $wishlist = wishlist::where('user_id', '=', Session::get('loginId'))->paginate(2);
+        $wishlist = wishlist::where('user_id', '=', Session::get('loginId'))->paginate(10);
 
 
-        return view('pages.wishlist', compact('wishlist',));
+        return view('user.wishlist.index', compact('wishlist'));
     }
 
     public function add(Request $request)
@@ -33,6 +33,7 @@ class WishlistController extends Controller
                 $wish = new wishlist();
                 $wish->car_listing_id = $listing_id;
                 $wish->user_id = Session::get('loginId');
+                $wish->name = car_listing::find($listing_id)->car_make->name . ' ' . car_listing::find($listing_id)->car_model->name . ' ' . car_listing::find($listing_id)->year;
                 $wish->price = car_listing::get()->where('id','=',$listing_id)->first()->price;
                 $wish->save();
                 return response()->json(['status' => 'Listing added to wishlist']);
