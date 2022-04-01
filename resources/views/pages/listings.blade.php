@@ -6,10 +6,12 @@
     <section class="section-sm">
         <div class="container">
             <div class="row">
-                <button class="btn btn-primary d-block d-sm-none" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Show filters</button>
-                <div class="col-lg-3 col-md-4 collapse.show d-none d-sm-block" id="multiCollapseExample2">
-                Filters go here
+                <div class="col-lg-3 col-md-4 collapse dont-collapse-sm" id="multiCollapseExample2">
+                    <!-- Filters  -->
+                    filters go here
+                    <!-- /Filters  -->
                 </div>
+                <button class="btn btn-primary d-md-none filtersToggle" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Show filters</button>
                 <div class="col-lg-9 col-md-8">
                     <div class="d-flex align-items-center justify-content-between pb-4 mb-2">
                         <h1 class="me-3 mb-0">Listings</h1>
@@ -90,4 +92,15 @@
 @push('javascript')
     {{--Add to wishlist--}}
 
+@endpush
+@push('css')
+   <style>
+       @media (min-width: 768px) {
+           .collapse.dont-collapse-sm {
+               display: block;
+               height: auto !important;
+               visibility: visible;
+           }
+       }
+   </style>
 @endpush

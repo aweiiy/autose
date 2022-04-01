@@ -60,10 +60,16 @@
                 <span class="text-danger">@error('car_model_id') {{$message}} @enderror</span>
             </div>
                 @endif
+
                 <div class="col-md-6">
                     {!! Form::label('year', 'Year: ', ['class' => 'col-sm-3']) !!}
                     {!! Form::select('year', $years, isset($car_listing->year) ? $car_listing->year : null, ['class' => 'form-control', 'required' => 'required']) !!}
                     <span class="text-danger">@error('year') {{$message}} @enderror</span>
+                </div>
+                <div class="col-md-6">
+                    {!! Form::label('price', 'Price: ', ['class' => 'col-sm-3']) !!}
+                    {!! Form::text('price', isset($car_listing->price) ? $car_listing->price : null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    <span class="text-danger">@error('price') {{$message}} @enderror</span>
                 </div>
                 <div class="col-md-6">
                     {!! Form::label('mileage', 'Mileage: ', ['class' => 'col-sm-3']) !!}
@@ -88,9 +94,9 @@
                     {!! Form::label('battery_capacity', 'Battery capacity, kWh: ', ['class' => 'col-sm-3']) !!}
                     {!! Form::number('battery_capacity', null, ['class' => 'form-control', 'min'=>'1', 'type'=>'number','id'=>'battery'] ) !!}
                     <span class="text-danger">@error('battery_capacity') {{$message}} @enderror</span>
-                    {!! Form::label('price', 'Price:', ['class' => 'col-sm-3']) !!}
-                    {!! Form::number('price', null, ['class' => 'form-control w-100 me-2 mb-2', 'required' => 'required','min'=>'200', 'step'=>'50']) !!}
-                    <span class="text-danger">@error('price') {{$message}} @enderror</span>
+                    {!! Form::label('engine_power', 'Engine power, kW: ', ['class' => 'col-sm-3']) !!}
+                    {!! Form::number('engine_power', null, ['class' => 'form-control', 'min'=>'1', 'type'=>'number','id'=>'power'] ) !!}
+                    <span class="text-danger">@error('engine_power') {{$message}} @enderror</span>
                     {!! Form::label('transmission_id', 'Transmission: ', ['class' => 'col-sm-3']) !!}
                     {!! Form::select('transmission_id', $transmission, isset($car_listing->transmission_id) ? $car_listing->transmission_id : null, ['class' => 'form-control', 'required' => 'required']) !!}
                     <span class="text-danger">@error('transmission_io') {{$message}} @enderror</span>

@@ -31,5 +31,24 @@
   });
   // bottom to top
 
+
+    $('.menuToggle').click(function(){
+        var $this = $(this);
+        $this.toggleClass('menuToggle--active');
+        if($this.hasClass('menuToggle--active')){
+            $this.html('Hide menu');
+        }else{
+            $this.html('Show menu');
+        }
+    });
+    $('.filtersToggle').click(function(){
+        var $this = $(this);
+        $this.toggleClass('filtersToggle--active');
+        if($this.hasClass('filtersToggle--active')){
+            $this.html('Hide filters');
+        }else{
+            $this.html('Show filters');
+        }
+    });
 })(jQuery);
 

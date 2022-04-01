@@ -29,6 +29,7 @@
                 <table class="table table-bordered table-striped align-middle table-hover">
                     <thead>
                     <tr>
+                        <th>ID</th>
                         <th scope="col">Owner</th>
                         <th scope="col">Image</th>
                         <th scope="col">Name</th>
@@ -38,13 +39,16 @@
                     </thead>
                     <tbody>
                     @forelse($listings as $item)
-                        <tr onclick="window.location='{{ url('admin/listings/'.$item->id) }}';" style="cursor: pointer">
+                        <tr>
+                            <td>{{ $item->id }}</td>
                             <td>{{ $item->user->name}}</td>
                             @foreach($item->images as $image)
                                 <td class="w-25"><img src="{{url('listing_images/'.$image->name)}}" class="fitToSize img-fluid img-thumbnail"></td>
                                 @break
                             @endforeach
-                            <td>{{ $item->car_make->name}} {{$item->car_model->name}} {{$item->car_body_type->name}} {{$item->year}}</td>
+                            <td onclick="window.location='{{ url('admin/listings/'.$item->id) }}';" style="cursor: pointer">
+                                {{ $item->car_make->name}} {{$item->car_model->name}} {{$item->car_body_type->name}} {{$item->year}}
+                            </td>
                             <td>{{ $item->price}} EUR</td>
                             <td>
                                 <a href="{{ url('admin/listings/'.$item->id) }}" class="btn btn-outline-secondary btn-sm" style="padding: 10px"><i class="fas fa-eye"></i> View</a>

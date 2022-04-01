@@ -36,24 +36,35 @@
                 </div>
                 <span class="text-danger">@error('email') {{$message}} @enderror</span>
             </div>
-            @if(!isset($user))
+                <div class="form-group">
+                    {!! Form::label('phone_number', 'Phone number: ', ['class' => 'col-sm-3']) !!}
+                    <div class="col-sm-6">
+                        {!! Form::number('phone_number', null, ['class' => 'form-control', 'required' => 'required', 'type'=>'tel', 'placeholder'=>'+370 XXXXXXX']) !!}
+                        {!! $errors->first('phone_number', '<div class="invalid-feedback">:message</div>') !!}
+                    </div>
+                    <span class="text-danger">@error('phone_number') {{$message}} @enderror</span>
+                </div>
+                <div class="form-group">
+                    {!! Form::label('city_id', 'City: ', ['class' => 'col-sm-3']) !!}
+                    <div class="col-sm-6">
+                        {!! Form::select('city_id', $cities, null, ['class' => 'form-control']) !!}
+                    </div>
+                    <span class="text-danger">@error('city_id') {{$message}} @enderror</span>
+                </div>
                 <div class="form-group">
                     {!! Form::label('password', 'Password: ', ['class' => 'col-sm-3']) !!}
                     <div class="col-sm-6">
-                        {!! Form::password('password', ['class' => 'form-control'.($errors->has('password') ? ' is-invalid' : ''), 'required' => 'required']) !!}
+                        {!! Form::password('password', ['class' => 'form-control'.($errors->has('password') ? ' is-invalid' : '')]) !!}
                         {!! $errors->first('password', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
-                    <span class="text-danger">@error('password') {{$message}} @enderror</span>
                 </div>
                 <div class="form-group">
                     {!! Form::label('password_confirmation', 'Confirm password: ', ['class' => 'col-sm-3']) !!}
                     <div class="col-sm-6">
-                        {!! Form::password('password_confirmation', ['class' => 'form-control'.($errors->has('password_confirmation') ? ' is-invalid' : ''), 'required' => 'required']) !!}
+                        {!! Form::password('password_confirmation', ['class' => 'form-control'.($errors->has('password_confirmation') ? ' is-invalid' : '')]) !!}
                         {!! $errors->first('password_confirmation', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
-                    <span class="text-danger">@error('password_confirmation') {{$message}} @enderror</span>
                 </div>
-            @endif
             <div class="form-group">
                 {!! Form::label('role', 'Role: ', ['class' => 'col-sm-3']) !!}
                 <div class="col-sm-6">

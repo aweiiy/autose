@@ -32,7 +32,9 @@
     @endif
     <div class="row align-items-center">
         {!! Form::model($user, ['url' => ['profile/change-password'], 'method' => 'patch']) !!}
-
+        <div class="mt-1">
+            <h2> Change password</h2>
+        </div>
         <div class="form-group">
             {!! Form::label('old_password', 'Old password: ', ['class' => 'col-sm-3']) !!}
             <div class="col-sm-6">

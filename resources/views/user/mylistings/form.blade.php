@@ -158,7 +158,7 @@
     <div class="row">
         <div class="col-sm-6 mb-3">
             {!! Form::label('city_id', 'City: ', ['class' => 'col-sm-3']) !!}
-            {!! Form::select('city_id', $cities, null, ['class' => 'form-control']) !!}
+            {!! Form::select('city_id', $cities, isset(\App\Models\User::data()->city_id) ? \App\Models\User::data()->city_id : null, ['class' => 'form-control']) !!}
             <span class="text-danger">@error('city_id') {{$message}} @enderror</span>
         </div>
         <div class="col-sm-6 mb-3">
@@ -170,7 +170,7 @@
     <div class="row">
         <div class="col-sm-6 mb-3">
             {!! Form::label('phone_number', 'Phone number: ', ['class' => 'col-sm-3']) !!}
-            {!! Form::number('phone_number', null, ['class' => 'form-control', 'required' => 'required', 'type'=>'tel', 'placeholder'=>'+370 XXXXXXX']) !!}
+            {!! Form::number('phone_number', isset(\App\Models\User::data()->phone_number) ? \App\Models\User::data()->phone_number : null , ['class' => 'form-control', 'required' => 'required', 'type'=>'tel', 'placeholder'=>'+370 XXXXXXX']) !!}
             <span class="text-danger">@error('phone_number') {{$message}} @enderror</span>
         </div>
     </div>

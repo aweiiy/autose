@@ -24,8 +24,28 @@
                         <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                     </tr>
                     <tr>
+                        <td>Phone number</td>
+                        @if($user->phone_number)
+                            <td>{{ $user->phone_number }}</td>
+                        @else
+                            <td>Not set</td>
+                        @endif
+                    </tr>
+                    <tr>
+                        <td>City</td>
+                        @if($user->city)
+                            <td>{{ $user->city->name }}</td>
+                        @else
+                            <td>Not set</td>
+                        @endif
+                    </tr>
+                    <tr>
                         <td>Role</td>
                         <td>@if($user->role == 0) User @else Admin @endif</td>
+                    </tr>
+                    <tr>
+                        <td>Created at</td>
+                        <td>{{ $user->created_at }}</td>
                     </tr>
                     </tbody>
                 </table>

@@ -12,12 +12,14 @@
 <!-- Favicon -->
 <link href="" rel="shortcut icon">
 <!-- Bootstrap -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
 <!-- Font Awesome -->
 <link href="{{ asset('bower_components/fontawesome/css/all.min.css') }}" rel="stylesheet">
 <!-- Custom CSS -->
 <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- Jquery -->
+<script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
+
 @stack('css')
 
 </head>
@@ -38,11 +40,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/listings">Listings</a>
                     </li>
-                    @if(\App\Models\User::admin())
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/admin') }}">Admin panel</a>
-                        </li>
-                    @endif
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li style="margin-top: 5px; margin-right: 5px">
@@ -59,6 +56,20 @@
                                 User
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item align-bottom" href="{{ url('/profile') }}">
+                                        @if( !\App\Models\User::data()->image )
+                                            <img src="{{ asset('images/default-profile.jpg') }}" class="rounded-circle" width="50" height="50" alt="{{\App\Models\User::data()->name}}">
+                                        @else
+                                            <img src="{{ asset('profile_images/'.\App\Models\User::data()->image) }}" class="rounded-circle" width="50" height="50" alt="{{\App\Models\User::data()->name}}">
+                                        @endif
+                                        {{\App\Models\User::data()->name}}
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                @if(\App\Models\User::admin())
+                                <li><a class="dropdown-item" href="{{ url('/admin') }}">Admin panel</a></li>
+                                @endif
                                 <li><a class="dropdown-item" href="{{ url('/mylistings') }}">My listings</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="{{ url('/logout') }}">Logout</a></li>
@@ -80,16 +91,6 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                @if(\App\Models\User::logged())
-                <tbody>
-                <tr>
-                    <td>Name: {{\App\Models\User::data()->name}}</td>
-                    <br>
-                    <td>Email: {{\App\Models\User::data()->email}}</td>
-                    <br>
-                </tr>
-                </tbody>
-                @endif
                 @yield('content')
             </div>
         </div>
@@ -99,8 +100,8 @@
 
 <!-- JavaScripts -->
 <script src="{{ asset('bower_components/fontawesome/js/all.min.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+<script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('bower_components/jquery-validation/dist/jquery.validate.js') }}"></script>
 <script src="{{ asset('js/script.js') }}"></script>
 <script src="{{ asset('js/selector.js') }}"></script>
 <script>

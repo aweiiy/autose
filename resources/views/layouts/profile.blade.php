@@ -22,7 +22,7 @@
                     </div>
                     <hr class="my-4">
                     <!--- Profile Menu -->
-                    <ul id="demo1" class="list-group list-group-flush d-none d-md-block">
+                    <ul id="profile_menu" class="list-group list-group-flush collapse dont-collapse-sm">
                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                             <h6 class="mb-0">
                                 <a href="{{ url('/profile') }}" class="text-dark"><i class="fa-solid fa-user"></i> Personal info</a>
@@ -51,6 +51,9 @@
                             </h6>
                         </li>
                     </ul>
+                    <div>
+                        <button class="btn btn-outline-secondary d-md-none mt-1 menuToggle" type="button" data-bs-toggle="collapse" data-bs-target="#profile_menu" aria-expanded="false" aria-controls="multiCollapseExample2">Show menu</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -64,6 +67,9 @@
     </div>
 
 @endsection
+@push('javascript')
+
+@endpush
 @push('css')
     <style>
         a:link { text-decoration: none; }
@@ -77,4 +83,13 @@
 
         a:active { text-decoration: none; }
     </style>
+        <style>
+            @media (min-width: 768px) {
+                .collapse.dont-collapse-sm {
+                    display: block;
+                    height: auto !important;
+                    visibility: visible;
+                }
+            }
+        </style>
 @endpush

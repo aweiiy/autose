@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\city;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -29,7 +30,11 @@ class UsersController extends Controller
     {
         $roles = array("0"=>"User", "1"=>"Admin");
 
-        return view('admin.users.form', compact('roles'));
+        $cities = city::pluck('name', 'id');
+        $cities->prepend('Select city', 0);
+        $cities->all();
+
+        return view('admin.users.form', compact('roles', 'cities'));
     }
 
     /**
@@ -44,12 +49,16 @@ class UsersController extends Controller
             'name'=>'required',
             'email'=>'required|email|unique:users',
             'password'=>'required|min:8|max:24|confirmed',
+            'phone_number' => 'nullable|integer|min:1|digits_between:8,11',
+            'city_id' => 'nullable|min:1',
             'role'=>'required|min:0|max:1'
         ]);
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->phone_number = $request->phone_number;
+        $user->city_id = $request->city_id;
         $user->role = $request->role;
         $res = $user->save();
         if($res)
@@ -70,6 +79,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
+
         return view('admin.users.show', compact('user'));
     }
 
@@ -83,10 +93,14 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
 
+        $cities = city::pluck('name', 'id');
+        $cities->prepend('Select city', 0);
+        $cities->all();
+
         $roles = array("0"=>"User", "1"=>"Admin");
 
 
-        return view('admin.users.form', compact('user', 'roles'));
+        return view('admin.users.form', compact('user', 'roles', 'cities'));
     }
 
     /**
@@ -101,10 +115,22 @@ class UsersController extends Controller
         $request->validate([
             'name'=>'required',
             'email'=>'required|email',
-            'role'=>'required|min:0|max:1'
+            'phone_number' => 'nullable|integer|min:1|digits_between:8,11',
+            'city_id' => 'nullable|min:1',
+            'role'=>'required|min:0|max:1',
+            'password'=> $request->password != null ?'sometimes|required|min:8|max:24|confirmed': ''
         ]);
         $user = User::findOrFail($id);
-        $res = $user->update($request->all());
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone_number = $request->phone_number;
+        $user->city_id = $request->city_id;
+        $user->role = $request->role;
+        if($request->password != null)
+        {
+            $user->password = Hash::make($request->password);
+        }
+        $res = $user->save();
         if($res)
         {
             return redirect('admin/users')->with('success', 'User updated successfully.');
