@@ -58,7 +58,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
                                     <a class="dropdown-item align-bottom" href="{{ url('/profile') }}">
-                                        @if( !\App\Models\User::data()->image )
+                                        @if( is_null(\App\Models\User::data()->image) )
                                             <img src="{{ asset('images/default-profile.jpg') }}" class="rounded-circle" width="50" height="50" alt="{{\App\Models\User::data()->name}}">
                                         @else
                                             <img src="{{ asset('profile_images/'.\App\Models\User::data()->image) }}" class="rounded-circle" width="50" height="50" alt="{{\App\Models\User::data()->name}}">
