@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->timestamps();
 
-            $table->foreign('city_id')->references('id')->on('cities')->onDelete('set null');
+            $table->foreign('city_id')->references('id')->on('cities');
         });
     }
 
