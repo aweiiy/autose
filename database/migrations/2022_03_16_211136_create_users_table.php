@@ -19,10 +19,12 @@ class CreateUsersTable extends Migration
             $table->integer('phone_number')->nullable();
             $table->string('email')->unique();
             $table->foreignId('city_id')->nullable();
+            $table->string('image')->nullable();
+            $table->integer('role')->default(0);
             $table->string('password');
             $table->timestamps();
 
-            $table->foreign('city_id')->references('id')->on('cities');
+            #$table->foreign('city_id')->references('id')->on('cities');
         });
     }
 

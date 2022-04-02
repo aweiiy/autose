@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
         #    CarBodyTypeSeeder::class,
         #    FuelTypeSeeder::class,
         #    CitySeeder::class,
-        #    UserSeeder::class
+        #    UserSeeder::class,
+        #    TransmissionSeeder::class
         ]);
     }
 }
