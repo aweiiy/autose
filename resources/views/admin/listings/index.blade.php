@@ -25,6 +25,157 @@
                 </div>
             @endif
 
+                    <form action="{{ url('admin/listings') }}" method="GET" style="margin-top: 20px;" id="filters">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <input  class="form-control" name="id" placeholder="Enter listing id" @if(request()->id) value="{{request()->id}}" @endif>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <input class="form-control" name="owner" placeholder="Enter listing owner name" @if(request()->owner) value="{{request()->owner}}" @endif>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <select class="form-control" name="make" id="car_make_id">
+                                        <option value="">Select Make</option>
+                                        @foreach ($car_make as $make)
+                                            <option value="{{$make->id}}" @if(request()->make == $make->id) selected @endif>{{$make->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <select class="form-control" name="car_model_id" id="car_model_id"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <input  class="form-control" type="number" name="min_price" id="min_price" placeholder="Enter min price" @if(request()->min_price) value="{{request()->min_price}}" @endif>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <input  class="form-control" type="number" name="max_price" placeholder="Enter max price" @if(request()->max_price) value="{{request()->max_price}}" @endif>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <select class="form-control" name="min_year" id="min_year">
+                                        <option value="">Select min year</option>
+                                        @foreach ($years as $year)
+                                            <option value="{{$year}}" @if(request()->min_year == $year) selected @endif>{{$year}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <select class="form-control" name="max_year" id="max_year">
+                                        <option value="">Select max year</option>
+                                        @foreach ($years as $year)
+                                            <option value="{{$year}}" @if(request()->max_year == $year) selected @endif>{{$year}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <input class="form-control" type="number" name="min_mileage" placeholder="Enter min mileage" @if(request()->min_mileage) value="{{request()->min_mileage}}" @endif>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <input class="form-control" type="number" name="max_mileage" placeholder="Enter max mileage" @if(request()->max_mileage) value="{{request()->max_mileage}}" @endif>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <input class="form-control" type="number" name="min_engine" placeholder="Enter min engine" @if(request()->min_engine) value="{{request()->min_engine}}" @endif>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <input class="form-control" type="number" name="max_engine" placeholder="Enter max engine" @if(request()->max_engine) value="{{request()->max_engine}}" @endif>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <select class="form-control" name="transmission">
+                                            <option value="">Select transmission</option>
+                                                @foreach($transmissions as $transmission)
+                                                <option value="{{$transmission->id}}" @if(request()->transmission == $transmission->id) selected @endif>{{$transmission->name}}</option>
+                                                @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <select class="form-control" name="fuel_type">
+                                            <option value="">Select fuel</option>
+                                            @foreach($fuel_types as $fuel_type)
+                                                <option value="{{$fuel_type->id}}" @if(request()->fuel_type == $fuel_type->id) selected @endif>{{$fuel_type->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6">
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <select class="form-control" name="body_type">
+                                            <option value="">Select body type</option>
+                                            @foreach($car_body_types as $car_body_type)
+                                                <option value="{{$car_body_type->id}}" @if(request()->body_type == $car_body_type->id) selected @endif>{{$car_body_type->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <select class="form-control" name="city">
+                                            <option value="">Select city</option>
+                                            @foreach($cities as $city)
+                                                <option value="{{$city->id}}" @if(request()->city == $city->id) selected @endif>{{$city->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6">
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <input  class="form-control" name="keywords" placeholder="Enter keywords" @if(request()->keywords) value="{{request()->keywords}}" @endif>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6">
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="submit" class="btn btn-primary btn-sm mb-2 mt-2" value="Filter">
+                        <button type="button" class="btn btn-danger btn-sm mb-2 mt-2" onclick="clearFilter()">Clear Filter</button>
+                    </form>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped align-middle table-hover">
                     <thead>
@@ -67,4 +218,39 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#car_model_id').append('<option value="" hidden>Choose make first</option>');
+            $('#car_make_id').on('change', function() {
+                var car_make_id = $(this).val();
+                if(car_make_id) {
+                    $.ajax({
+                        url: '/getModel/'+car_make_id,
+                        type: "GET",
+                        data : {"_token":"{{ csrf_token() }}"},
+                        dataType: "json",
+                        success:function(data)
+                        {
+                            if(data){
+                                $('#car_model_id').empty();
+                                $('#car_model_id').append('<option value="" hidden>Select model</option>');
+                                $.each(data, function(key, model){
+                                    key++;
+                                    $('select[name="car_model_id"]').append('<option value="'+ model.id +'">' + model.name+ '</option>');
+                                });
+                            }else{
+                                $('#car_model_id').empty();
+                            }
+                        }
+                    });
+                }else{
+                    $('#car_model_id').empty();
+                    $('#car_model_id').append('<option value="" hidden>Choose make first</option>');
+                }
+            }).change();
+        });
+            function clearFilter() {
+            window.location.href = "{{ url('admin/listings') }}";
+        }
+    </script>
 @endsection

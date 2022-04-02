@@ -13,6 +13,7 @@ use App\Models\transmission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ListingsController extends Controller
 {
@@ -23,11 +24,58 @@ class ListingsController extends Controller
      */
     public function index()
     {
-        $listings = car_listing::paginate(5);
+        #$listings = car_listing::paginate(5);
 
+        $listings = car_listing::query()->when(request('id'),function ($query) {
+            return $query->where('id',request('id'));
+        })->when(request('make'),function ($query) {
+            return $query->where('car_make_id',request('make'));
+        })->when(request('car_model_id'),function ($query) {
+            return $query->where('car_model_id',request('car_model_id'));
+        })->when(request('body_type'),function ($query) {
+            return $query->where('car_body_type_id',request('body_type'));
+        })->when(request('transmission'),function ($query) {
+            return $query->where('transmission_id',request('transmission'));
+        })->when(request('fuel_type'),function ($query) {
+            return $query->where('fuel_type_id',request('fuel_type'));
+        })->when(request('city'),function ($query) {
+            return $query->where('city_id',request('city'));
+        })->when(request('min_price'),function ($query) {
+            return $query->where('price', '>=' ,request('min_price'));
+        })->when(request('max_price'),function ($query) {
+            return $query->where('price', '<=' ,request('max_price'));
+        })->when(request('min_year'),function ($query) {
+            return $query->where('year', '>=' ,request('min_year'));
+        })->when(request('max_year'),function ($query) {
+            return $query->where('year', '<=' ,request('max_year'));
+        })->when(request('min_mileage'),function ($query) {
+            return $query->where('mileage', '>=' ,request('min_mileage'));
+        })->when(request('max_mileage'),function ($query) {
+            return $query->where('mileage', '<=' ,request('max_mileage'));
+        })->when(request('min_engine_size'),function ($query) {
+            return $query->where('engine_size', '>=' ,request('min_engine_size'));
+        })->when(request('max_engine_size'),function ($query) {
+            return $query->where('engine_size', '<=' ,request('max_engine_size'));
+        })->when(request('owner'),function ($query) {
+            return $query->with('user')->whereHas('user',function ($query) {
+                return $query->where('name', 'LIKE', '%'.request('owner').'%');
+            });
+        })->paginate(5)->appends(request()->query());
+
+        $cities = city::all();
+
+        $car_body_types = car_body_type::all();
+        $fuel_types = fuel_type::all();
+
+        $transmissions = transmission::all();
+
+        $years = array_combine(range(date("Y"), 1900), range(date("Y"), 1900));
+        $years = array() + $years;
+
+        $car_make = car_make::all();
         #print_r($mylistings);
 
-        return view('admin.listings.index', compact('listings'));
+        return view('admin.listings.index', compact('listings', 'car_make', 'cities', 'car_body_types', 'fuel_types', 'transmissions', 'years'));
     }
 
     /**
