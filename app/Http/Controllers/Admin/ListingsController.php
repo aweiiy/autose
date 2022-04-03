@@ -57,7 +57,13 @@ class ListingsController extends Controller
             }
             return $query->whereIn('fuel_type_id',$fuel_type_id);
         })->when(request('city'),function ($query) {
-            return $query->where('city_id',request('city'));
+            $checked = $_GET['city'];
+            $city = city::whereIn('id',$checked)->get();
+            $city_id = [];
+            foreach ($city as $cities){
+                $city_id[] = $cities->id;
+            }
+            return $query->whereIn('city_id',$city_id);
         })->when(request('min_price'),function ($query) {
             return $query->where('price', '>=' ,request('min_price'));
         })->when(request('max_price'),function ($query) {

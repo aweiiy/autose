@@ -24,7 +24,7 @@
                     @endphp
                 </div>
             @endif
-
+            <!--- Filter form -->
                     <form action="{{ url('admin/listings') }}" method="GET" style="margin-top: 20px;" id="filters">
                     <div class="row">
                         <div class="col">
@@ -105,6 +105,7 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col-sm-6 col-md-6">
+                                        Transmission
                                         <div id="coll-2" class="scroll-v-150px">
                                             @foreach($transmissions as $transmission)
                                                 @php
@@ -123,6 +124,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-md-6">
+                                        Fuel type
                                         <div id="coll-2" class="scroll-v-150px">
                                             @foreach($fuel_types as $fuel_type)
                                                 @php
@@ -152,6 +154,7 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col-sm-6 col-md-6">
+                                        Body Type
                                         <div id="coll-2" class="scroll-v-150px">
                                             @foreach($car_body_types as $car_body_type)
                                                 @php
@@ -170,12 +173,23 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-md-6">
-                                        <select class="form-control" name="city">
-                                            <option value="">Select city</option>
+                                        City
+                                        <div id="coll-2" class="scroll-v-150px">
                                             @foreach($cities as $city)
-                                                <option value="{{$city->id}}" @if(request()->city == $city->id) selected @endif>{{$city->name}}</option>
+                                                @php
+                                                    $checked = [];
+                                                    if(isset($_GET['city'])){
+                                                        $checked = $_GET['city'];
+                                                    }
+                                                @endphp
+                                                <div class="form-check ml-1">
+                                                    <input class="form-check-input" type="checkbox" name="city[]" value="{{$city->id}}" id="city_{{$city->id}}" @if(in_array($city->id, $checked)) checked @endif>
+                                                    <label class="form-check-label" for="city_{{$city->id}}">
+                                                        {{$city->name}}
+                                                    </label>
+                                                </div>
                                             @endforeach
-                                        </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <br>
@@ -205,6 +219,7 @@
                         <input type="submit" class="btn btn-primary btn-sm mb-2 mt-2" value="Filter">
                         <button type="button" class="btn btn-danger btn-sm mb-2 mt-2" onclick="clearFilter()">Clear Filter</button>
                     </form>
+            <!--- End Filter -->
             <div class="table-responsive">
                 <table class="table table-bordered table-striped align-middle table-hover">
                     <thead>
