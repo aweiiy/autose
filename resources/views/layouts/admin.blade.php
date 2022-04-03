@@ -10,8 +10,9 @@
     <link href="{{ asset('bower_components/fontawesome/css/all.min.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
-    @stack('css')
+    <!-- jQuery -->
     <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
+    @stack('css')
 
 
 </head>

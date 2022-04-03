@@ -33,11 +33,29 @@ class ListingsController extends Controller
         })->when(request('car_model_id'),function ($query) {
             return $query->where('car_model_id',request('car_model_id'));
         })->when(request('body_type'),function ($query) {
-            return $query->where('car_body_type_id',request('body_type'));
+            $checked = $_GET['body_type'];
+            $body_type = car_body_type::whereIn('id',$checked)->get();
+            $body_type_id = [];
+            foreach ($body_type as $body_types){
+                $body_type_id[] = $body_types->id;
+            }
+            return $query->whereIn('car_body_type_id',$body_type_id);
         })->when(request('transmission'),function ($query) {
-            return $query->where('transmission_id',request('transmission'));
+            $checked = $_GET['transmission'];
+            $transmission = transmission::whereIn('id',$checked)->get();
+            $transmission_id = [];
+            foreach ($transmission as $transmissions){
+                $transmission_id[] = $transmissions->id;
+            }
+            return $query->whereIn('transmission_id',$transmission_id);
         })->when(request('fuel_type'),function ($query) {
-            return $query->where('fuel_type_id',request('fuel_type'));
+            $checked = $_GET['fuel_type'];
+            $fuel_type = fuel_type::whereIn('id',$checked)->get();
+            $fuel_type_id = [];
+            foreach ($fuel_type as $fuel_types){
+                $fuel_type_id[] = $fuel_types->id;
+            }
+            return $query->whereIn('fuel_type_id',$fuel_type_id);
         })->when(request('city'),function ($query) {
             return $query->where('city_id',request('city'));
         })->when(request('min_price'),function ($query) {
@@ -52,10 +70,14 @@ class ListingsController extends Controller
             return $query->where('mileage', '>=' ,request('min_mileage'));
         })->when(request('max_mileage'),function ($query) {
             return $query->where('mileage', '<=' ,request('max_mileage'));
-        })->when(request('min_engine_size'),function ($query) {
-            return $query->where('engine_size', '>=' ,request('min_engine_size'));
-        })->when(request('max_engine_size'),function ($query) {
-            return $query->where('engine_size', '<=' ,request('max_engine_size'));
+        })->when(request('min_engine'),function ($query) {
+            return $query->where('cubic_capacity', '>=' ,request('min_engine'));
+        })->when(request('max_engine'),function ($query) {
+            return $query->where('cubic_capacity', '<=' ,request('min_engine'));
+        })->when(request('min_battery'),function ($query) {
+            return $query->where('battery_capacity', '>=' ,request('min_battery'));
+        })->when(request('max_battery'),function ($query) {
+            return $query->where('battery_capacity', '<=' ,request('max_battery'));
         })->when(request('owner'),function ($query) {
             return $query->with('user')->whereHas('user',function ($query) {
                 return $query->where('name', 'LIKE', '%'.request('owner').'%');

@@ -105,20 +105,40 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col-sm-6 col-md-6">
-                                        <select class="form-control" name="transmission">
-                                            <option value="">Select transmission</option>
-                                                @foreach($transmissions as $transmission)
-                                                <option value="{{$transmission->id}}" @if(request()->transmission == $transmission->id) selected @endif>{{$transmission->name}}</option>
-                                                @endforeach
-                                        </select>
+                                        <div id="coll-2" class="scroll-v-150px">
+                                            @foreach($transmissions as $transmission)
+                                                @php
+                                                    $checked = [];
+                                                    if(isset($_GET['transmission'])){
+                                                        $checked = $_GET['transmission'];
+                                                    }
+                                                @endphp
+                                                <div class="form-check ml-1">
+                                                    <input class="form-check-input" type="checkbox" name="transmission[]" value="{{$transmission->id}}" id="transmission_{{$transmission->id}}" @if(in_array($transmission->id, $checked)) checked @endif>
+                                                    <label class="form-check-label" for="transmission_{{$transmission->id}}">
+                                                        {{$transmission->name}}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     </div>
                                     <div class="col-sm-6 col-md-6">
-                                        <select class="form-control" name="fuel_type">
-                                            <option value="">Select fuel</option>
+                                        <div id="coll-2" class="scroll-v-150px">
                                             @foreach($fuel_types as $fuel_type)
-                                                <option value="{{$fuel_type->id}}" @if(request()->fuel_type == $fuel_type->id) selected @endif>{{$fuel_type->name}}</option>
+                                                @php
+                                                    $checked = [];
+                                                    if(isset($_GET['fuel_type'])){
+                                                        $checked = $_GET['fuel_type'];
+                                                    }
+                                                @endphp
+                                                <div class="form-check ml-1">
+                                                    <input class="form-check-input" type="checkbox" name="fuel_type[]" value="{{$fuel_type->id}}" id="fuel_type_{{$fuel_type->id}}" @if(in_array($fuel_type->id, $checked)) checked @endif>
+                                                    <label class="form-check-label" for="fuel_type_{{$fuel_type->id}}">
+                                                        {{$fuel_type->name}}
+                                                    </label>
+                                                </div>
                                             @endforeach
-                                        </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <br>
@@ -132,12 +152,22 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col-sm-6 col-md-6">
-                                        <select class="form-control" name="body_type">
-                                            <option value="">Select body type</option>
+                                        <div id="coll-2" class="scroll-v-150px">
                                             @foreach($car_body_types as $car_body_type)
-                                                <option value="{{$car_body_type->id}}" @if(request()->body_type == $car_body_type->id) selected @endif>{{$car_body_type->name}}</option>
+                                                @php
+                                                    $checked = [];
+                                                    if(isset($_GET['body_type'])){
+                                                        $checked = $_GET['body_type'];
+                                                    }
+                                                @endphp
+                                                <div class="form-check ml-1">
+                                                    <input class="form-check-input" type="checkbox" name="body_type[]" value="{{$car_body_type->id}}" id="body_type_{{$car_body_type->id}}" @if(in_array($car_body_type->id, $checked)) checked @endif>
+                                                    <label class="form-check-label" for="body_type_{{$car_body_type->id}}">
+                                                        {{$car_body_type->name}}
+                                                    </label>
+                                                </div>
                                             @endforeach
-                                        </select>
+                                        </div>
                                     </div>
                                     <div class="col-sm-6 col-md-6">
                                         <select class="form-control" name="city">
@@ -159,7 +189,6 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col-sm-6 col-md-6">
-                                        <input  class="form-control" name="keywords" placeholder="Enter keywords" @if(request()->keywords) value="{{request()->keywords}}" @endif>
                                     </div>
                                     <div class="col-sm-6 col-md-6">
                                     </div>
@@ -254,3 +283,11 @@
         }
     </script>
 @endsection
+@push('css')
+    <style>
+        .scroll-v-150px {
+            max-height: 150px;
+            overflow-y: scroll;
+        }
+    </style>
+@endpush
