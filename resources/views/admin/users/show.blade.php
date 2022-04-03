@@ -16,6 +16,14 @@
                         <td>{{ $user->id }}</td>
                     </tr>
                     <tr>
+                        <td>Image</td>
+                        @if(isset($user->image))
+                            <td><img src="{{ asset('profile_images/'.$user->image) }}" alt="{{ $user->name }}" class="img-thumbnail" width="100"></td>
+                        @else
+                            <td><img src="{{ asset('images/default-profile.jpg') }}" alt="{{ $user->name }}" class="img-thumbnail" width="100"></td>
+                        @endif
+                    </tr>
+                    <tr>
                         <td>Name</td>
                         <td>{{ $user->name }}</td>
                     </tr>

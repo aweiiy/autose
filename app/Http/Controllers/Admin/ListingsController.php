@@ -80,6 +80,10 @@ class ListingsController extends Controller
             return $query->where('cubic_capacity', '>=' ,request('min_engine'));
         })->when(request('max_engine'),function ($query) {
             return $query->where('cubic_capacity', '<=' ,request('min_engine'));
+        })->when(request('min_power'),function ($query) {
+            return $query->where('engine_power', '>=' ,request('min_power'));
+        })->when(request('max_power'),function ($query) {
+            return $query->where('engine_power', '<=' ,request('max_power'));
         })->when(request('min_battery'),function ($query) {
             return $query->where('battery_capacity', '>=' ,request('min_battery'));
         })->when(request('max_battery'),function ($query) {

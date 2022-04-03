@@ -92,10 +92,10 @@
                             <br>
                             <div class="row">
                                 <div class="col-sm-6 col-md-6">
-                                    <input class="form-control" type="number" name="min_engine" placeholder="Enter min engine" @if(request()->min_engine) value="{{request()->min_engine}}" @endif>
+                                    <input class="form-control" type="number" name="min_engine" placeholder="Enter min cubic capacity" @if(request()->min_engine) value="{{request()->min_engine}}" @endif>
                                 </div>
                                 <div class="col-sm-6 col-md-6">
-                                    <input class="form-control" type="number" name="max_engine" placeholder="Enter max engine" @if(request()->max_engine) value="{{request()->max_engine}}" @endif>
+                                    <input class="form-control" type="number" name="max_engine" placeholder="Enter max cubic capacity" @if(request()->max_engine) value="{{request()->max_engine}}" @endif>
                                 </div>
                             </div>
                         </div>
@@ -203,15 +203,19 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col-sm-6 col-md-6">
+                                        <input class="form-control" name="min_power" type="number" placeholder="Enter min engine power (kw)" min="20" max="500" @if(request()->min_power) value="{{request()->min_power}}" @endif>
                                     </div>
                                     <div class="col-sm-6 col-md-6">
+                                        <input class="form-control" name="max_power" type="number" placeholder="Enter max engine power (kw)" min="20" max="500" @if(request()->max_power) value="{{request()->max_power}}" @endif>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row">
                                     <div class="col-sm-6 col-md-6">
+                                        <input class="form-control" name="min_battery" type="number" placeholder="Enter min Battery capacity" min="0" max="200" @if(request()->min_battery) value="{{request()->min_battery}}" @endif>
                                     </div>
                                     <div class="col-sm-6 col-md-6">
+                                        <input class="form-control" name="max_battery" type="number" placeholder="Enter max Battery capacity" min="0" max="200" @if(request()->max_battery) value="{{request()->max_battery}}" @endif>
                                     </div>
                                 </div>
                             </div>

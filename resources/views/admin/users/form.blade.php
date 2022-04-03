@@ -15,11 +15,10 @@
         </div>
         <div class="card-body">
             @if(isset($user))
-                {!! Form::model($user, ['url' => ['admin/users', $user->id], 'method' => 'patch', 'class' => 'needs-validation', 'id'=>'userForm']) !!}
+                {!! Form::model($user, ['url' => ['admin/users', $user->id], 'method' => 'patch', 'class' => 'needs-validation', 'id'=>'userForm', 'enctype'=>'multipart/form-data']) !!}
             @else
-                {!! Form::open(['url' => 'admin/users', 'class' => 'needs-validation', 'id'=>'userForm']) !!}
+                {!! Form::open(['url' => 'admin/users', 'class' => 'needs-validation', 'id'=>'userForm', 'enctype'=>'multipart/form-data']) !!}
             @endif
-
             <div class="form-group">
                 {!! Form::label('name', 'Name: ', ['class' => 'col-sm-3']) !!}
                 <div class="col-sm-6">
@@ -28,6 +27,23 @@
                 </div>
                 <span class="text-danger">@error('name') {{$message}} @enderror</span>
             </div>
+                <div class="form-group">
+                    {!! Form::label('image', 'Avatar: ', ['class' => 'col-sm-3']) !!}
+                    <div class="custom-file">
+                        {!! Form::file('image', ['class' => 'custom-file-input col-sm-6', 'id' => 'image']) !!}
+                        {!! Form::label('image', 'Avatar', ['class' => 'custom-file-label col-sm-6']) !!}
+                        <script>
+                            $(".custom-file-input").on("change", function() {
+                                var fileName = $(this).val().split("\\").pop();
+                                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                            });
+                        </script>
+                        @if(isset($user->image))
+                            <img src="{{ asset('profile_images/' . $user->image) }}" class="img-thumbnail" alt="{{ $user->name }}" width="100">
+                        @endif
+                        <span class="text-danger">@error('image') {{$message}} @enderror</span>
+                    </div>
+                </div>
             <div class="form-group">
                 {!! Form::label('email', 'E-mail: ', ['class' => 'col-sm-3']) !!}
                 <div class="col-sm-6">
