@@ -61,25 +61,55 @@
                             <div class="mb-2">
                                 <h3 class="h6 ">Price, €</h3>
                                 <div class="d-flex align-items-center">
-                                    <input class="form-control form-control-light w-100" type="number" name="min_price" id="min_price" min="0" step="500" placeholder="From" @if(request()->min_price) value="{{request()->min_price}}" @endif>
+                                    <select class="form-select form-select-light w-100" name="min_price">
+                                        <option value="">From</option>
+                                        @foreach($prices as $price)
+                                            <option value="{{ $price }}" @if(request()->min_price == $price) selected @endif>{{ $price }} €</option>
+                                        @endforeach
+                                    </select>
                                     <div class="mx-2">—</div>
-                                    <input class="form-control form-control-light w-100" type="number" name="max_price" id="max_price" min="0" step="500" placeholder="To" @if(request()->max_price) value="{{request()->max_price}}" @endif>
+                                    <select class="form-select form-select-light w-100" name="max_price">
+                                        <option value="">To</option>
+                                        @foreach($prices as $price)
+                                            <option value="{{ $price }}" @if(request()->max_price == $price) selected @endif>{{ $price }} €</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="mb-2">
                                 <h3 class="h6">Cubic capacity, cm³</h3>
                                 <div class="d-flex align-items-center">
-                                    <input class="form-control form-control-light w-100" type="number" name="min_engine" id="min_engine" min="0" step="1" placeholder="From" @if(request()->min_engine) value="{{request()->min_engine}}" @endif>
+                                    <select class="form-select form-select-light w-100" name="min_engine">
+                                        <option value="">From</option>
+                                        @foreach($cubic_capacities as $capacity)
+                                            <option value="{{ $capacity }}" @if(request()->min_engine == $capacity) selected @endif>{{ $capacity }} cm³</option>
+                                        @endforeach
+                                    </select>
                                     <div class="mx-2">—</div>
-                                    <input class="form-control form-control-light w-100" type="number" name="max_engine" id="max_engine" min="0" step="1" placeholder="To" @if(request()->max_engine) value="{{request()->max_engine}}" @endif>
+                                    <select class="form-select form-select-light w-100" name="max_engine">
+                                        <option value="">To</option>
+                                        @foreach($cubic_capacities as $capacity)
+                                            <option value="{{ $capacity }}" @if(request()->max_engine == $capacity) selected @endif>{{ $capacity }} cm³</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="mb-2">
                                 <h3 class="h6">Engine power, kW</h3>
                                 <div class="d-flex align-items-center">
-                                    <input class="form-control form-control-light w-100" type="number" name="min_power" id="min_power" min="0" step="1" placeholder="From" @if(request()->min_power) value="{{request()->min_power}}" @endif>
+                                    <select class="form-select form-select-light w-100" name="min_power">
+                                        <option value="">From</option>
+                                        @foreach($engine_powers as $power)
+                                            <option value="{{ $power }}" @if(request()->min_power == $power) selected @endif>{{ $power }} kw ({{round($power*1.3596216173)}} hp)</option>
+                                        @endforeach
+                                    </select>
                                     <div class="mx-2">—</div>
-                                    <input class="form-control form-control-light w-100" type="number" name="max_power" id="max_power" min="0" step="1" placeholder="To" @if(request()->max_power) value="{{request()->max_power}}" @endif>
+                                    <select class="form-select form-select-light w-100" name="max_power">
+                                        <option value="">To</option>
+                                        @foreach($engine_powers as $power)
+                                            <option value="{{ $power }}" @if(request()->max_power == $power) selected @endif>{{ $power }} kw ({{round($power*1.3596216173)}} hp)</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="mb-2">

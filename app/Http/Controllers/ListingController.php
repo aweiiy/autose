@@ -308,11 +308,21 @@ class ListingController extends Controller
         $years = array_combine(range(date("Y"), 1970), range(date("Y"), 1970));
         $years = array() + $years;
 
+        #$lowPrices = array_combine(range(500, 5000,500), range(500, 5000,500));
+        #$midPrices = array_combine(range(5000, 15000,1000), range(5000, 15000,1000));
+        #$midHighPrices = array_combine(range(15000, 30000,2500), range(15000, 30000,2500));
+        #$highPrices = array_combine(range(30000, 50000,5000), range(30000, 50000,5000));
+        #$vipPrices = array_combine(range(50000, 90000,10000), range(50000, 90000,10000));
+        #$prices = array() + $lowPrices + $midPrices + $midHighPrices + $highPrices + $vipPrices;
+        $prices = array ( '500' => 500, '1000' => 1000, '1500' => 1500, '2000' => 2000, '2500' => 2500, '3000' => 3000, '3500' => 3500, '4000' => 4000, '4500' => 4500, '5000' => 5000, '6000' => 6000, '7000' => 7000, '8000' => 8000, '9000' => 9000, '10000' => 10000, '11000' => 11000, '12000' => 12000, '13000' => 13000, '14000' => 14000, '15000' => 15000, '17500' => 17500, '20000' => 20000, '22500' => 22500, '25000' => 25000, '27500' => 27500, '30000' => 30000, '35000' => 35000, '40000' => 40000, '45000' => 45000, '50000' => 50000, '60000' => 60000, '70000' => 70000, '80000' => 80000, '90000' => 90000 );
+        $cubic_capacities = array( '1000' => 1000, '1200' => 1200, '1600' => 1600, '1800' => 1800, '2000' => 2000, '2600' => 2600, '3000' => 3000, '5000' => 5000, '7500' => 7500, '8000'=>8000, '9000'=>9000);
+        $engine_powers = array( '25' => 25, '35' => 35, '44' => 44, '55' => 55, '66' => 66, '74' => 74, '85' => 85, '96' => 96, '110' => 110, '147' => 147, '184' => 184, '222' => 222, '262' => 262, '296' => 296, '333' => 333 );
+
         $car_make = car_make::all();
         $user = User::where('id', '=', Session::get('loginId'))->first();;
         $wishlist_items = $user->wishlists ?? array();
 
-        return view('pages.listings', compact('car_listings', 'wishlist_items', 'car_make', 'car_body_types', 'fuel_types', 'transmissions', 'years', 'cities'));
+        return view('pages.listings', compact('car_listings', 'wishlist_items', 'car_make', 'car_body_types', 'fuel_types', 'transmissions', 'years', 'cities', 'prices', 'cubic_capacities', 'engine_powers'));
     }
 
     public function displayListing($id){
