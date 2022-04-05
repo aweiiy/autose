@@ -30,67 +30,45 @@
                 <hr class="hr-light d-lg-none my-2">
                 <div class="col-lg-2 col-md-3 col-sm-6">
                     <div class="dropdown border-end-sm border-light" data-bs-toggle="select">
-                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown"><i class="fi-list me-2"></i><span class="dropdown-toggle-label">Make</span></button>
-                        <input type="hidden" name="make">
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Acura</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">BMW</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Citroen</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Lexus</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Mercedes-Benz</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Nissan</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Toyota</span></a></li>
-                        </ul>
+                        <select class="selectpicker" data-live-search="true" data-dropup-auto="false" data-size="7" name="make" id="car_make_id" title="Select make">
+                            <option value="">Select make</option>
+                            @foreach($car_make as $make)
+                                <option value="{{ $make->id }}">{{ $make->name }}</option>
+                            @endforeach
+                        </select>
+
                     </div>
                 </div>
                 <hr class="hr-light d-sm-none my-2">
                 <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="dropdown border-end-md border-light" data-bs-toggle="select">
-                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown"><i class="fi-list me-2"></i><span class="dropdown-toggle-label">Model</span></button>
-                        <input type="hidden" name="model">
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Altima</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Juke</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Leaf</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Maxima</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Micra</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Murano</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Note</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Patrol</span></a></li>
-                        </ul>
+                    <div class="dropdown border-end-md border-light" data-bs-toggle="select" data-dropup-auto="false">
+                        <select class="selectpicker" name="car_model_id" id="car_model_id" title="Select model first"></select>
                     </div>
                 </div>
                 <hr class="hr-light d-md-none my-2">
                 <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="dropdown border-end-sm border-light" data-bs-toggle="select">
-                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown"><i class="fi-car fs-lg me-2"></i><span class="dropdown-toggle-label">Body type</span></button>
-                        <input type="hidden" name="type">
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Compact</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Crossover</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Coupe</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Family MPV</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Pickup</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Sedan</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">SUV</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Wagon</span></a></li>
-                        </ul>
+                    <div class="dropdown border-end-sm border-light" data-bs-toggle="select" data-dropup-auto="false">
+                        <select class="selectpicker" name="body_type[]" multiple title="Select body type">
+                            @foreach($car_body_types as $car_body_type)
+                                <option value="{{ $car_body_type->id }}">{{ $car_body_type->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <hr class="hr-light d-sm-none my-2">
                 <div class="col-lg-2 col-md-3 col-sm-6">
                     <div class="dropdown" data-bs-toggle="select">
-                        <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown"><i class="fi-map-pin me-2"></i><span class="dropdown-toggle-label">Location</span></button>
-                        <input type="hidden" name="location">
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Dallas</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Chicago</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Houston</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Las Vegas</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Los Angeles</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">New York</span></a></li>
-                            <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">San Francisco</span></a></li>
-                        </ul>
+                        <select class="selectpicker" data-live-search="true" multiple data-actions-box="true" data-dropup-auto="false" data-selected-text-format="count > 3" data-size="7" name="city[]" title="Select cities">
+                            @foreach($cities as $city)
+                                @php
+                                    $checked = [];
+                                    if(isset($_GET['city'])){
+                                        $checked = $_GET['city'];
+                                    }
+                                @endphp
+                                <option value="{{ $city->id }}" @if(in_array($city->id, $checked)) selected @endif>{{ $city->name }}</option>
+                        @endforeach
+                        </select>
                     </div>
                 </div>
                 <hr class="hr-light d-lg-none my-2">
@@ -103,5 +81,31 @@
 @endsection
 
 @section('content')
+    <h1>Latest listings</h1>
+    <div class="row">
+                @foreach($car_listings->split($car_listings->count()/2) as $row)
+                <div class="col">
+                    @foreach($row as $item)
+                        <a href="{{ url('listings/'.$item->id) }}" style="text-decoration: none;">
+                        <div class="row mb-2 car-listing-home">
+                            <div class="col-md-6 imgContainer float-left">
+                                @foreach($item->images as $image)
 
+                                        <img src="{{url('listing_images/'.$image->name)}}" class="fitToSize img-fluid" style="margin-left: -12px;">
+
+                                    @break
+                                @endforeach
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="mt-2">{{$item->car_make->name}} {{$item->car_model->name}} {{$item->year}}</h5>
+                                <h2 class="pr-5">{{$item->price}} EUR</h2>
+                                <p>Mileage: {{$item->price}} km</p>
+                            </div>
+                        </div>
+                        </a>
+                    @endforeach
+                </div>
+                @endforeach
+    </div>
+    <a class="btn btn-outline-secondary mb-3" href="/listings">View all listings</a>
 @endsection

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\car_listing;
 use App\Models\User;
 use App\Models\wishlist;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Session;
 */
 
 #All
-Route::view('/', 'pages.home');
+Route::get('/', App\Http\Controllers\HomeController::class)->name('home');
 Route::get('/login',[AuthController::class,'login'])->middleware('alreadyLoggedIn');
 Route::get('/register', [AuthController::class,'register'])->middleware('alreadyLoggedIn');
 Route::post('/register-user',[AuthController::class, 'registerUser'])->name('register-user');
@@ -53,7 +54,7 @@ Route::group(['middleware' => 'isLoggedIn'], function(){
 
     #Admin
     Route::group(['prefix' => 'admin', 'as'=> '.admin', 'middleware' => 'isAdmin'], function () {
-        Route::view('/', 'admin.home');
+        Route::get('/', App\Http\Controllers\Admin\HomeController::class);
         Route::resource('users',App\Http\Controllers\Admin\UsersController::class);
         Route::resource('listings',App\Http\Controllers\Admin\ListingsController::class);
         Route::resource('makes',App\Http\Controllers\Admin\MakesController::class);
@@ -68,9 +69,9 @@ Route::group(['middleware' => 'isLoggedIn'], function(){
 
 Route::get('/dashboard', [AuthController::class,'dashboard'])->middleware('isLoggedIn');
 Route::get('/test', function (){
-    $wishlist = wishlist::where('user_id', '=', Session::get('loginId'))->paginate(10);
+    $mylistings = car_listing::where('user_id', '=', Session::get('loginId'))->paginate(5);
     $user = User::where('id', '=', Session::get('loginId'))->first();
-    return view('auth.test',compact('wishlist','user'));
+    return view('auth.test',compact('mylistings','user'));
 });
 Route::get('getModel/{id}', function ($id) {
     $car_model = App\Models\car_model::where('car_make_id',$id)->get();

@@ -19,7 +19,7 @@
         </div>
     @endif
     <div class="row align-items-center">
-        {!! Form::model($user, ['url' => ['profile'], 'method' => 'patch', 'enctype'=>'multipart/form-data','id'=>'listEditForm']) !!}
+        {!! Form::model($user, ['url' => ['profile'], 'method' => 'patch', 'enctype'=>'multipart/form-data','id'=>'editForm']) !!}
 
             <div class="form-group">
                 {!! Form::label('name', 'Name: ', ['class' => 'col-sm-3']) !!}
@@ -69,7 +69,8 @@
             </div>
             {!! Form::close() !!}
     </div>
-
+@endsection
+        @push('javascript')
             <script>
                 document.getElementById('imageUpload').onchange = function (e) {
                     var reader = new FileReader();
@@ -79,4 +80,59 @@
                     reader.readAsDataURL(e.target.files[0]);
                 };
             </script>
-@endsection
+            <script>
+                $(document).ready(function () {
+                    $("#editForm").validate({
+                        rules: {
+                            name: {
+                                required: true,
+                                minlength: 3
+                            },
+                            email: {
+                                required: true,
+                                email: true
+                            },
+                            phone_number: {
+                                required: false,
+                                minlength: 6,
+                                maxlength: 15
+                            },
+                            city_id: {
+                                required: false
+                            },
+                            image: {
+                                required: false
+                            }
+                        },
+                        messages: {
+                            name: {
+                                required: "Please enter your name",
+                                minlength: "Your name must consist of at least 3 characters"
+                            },
+                            email: {
+                                required: "Please enter your email",
+                                email: "Please enter a valid email address"
+                            },
+                            phone_number: {
+                                minlength: "Your phone number must consist of at least 6 characters",
+                                maxlength: "Your phone number must consist of at most 15 characters"
+                            },
+                            city_id: {
+                                required: "Please select your city"
+                            },
+                            image: {
+                                required: "Please select your image"
+                            }
+                        }
+                    });
+                });
+            </script>
+        @endpush
+        @push('css')
+            <style>
+                label.error {
+                    color: #dc3545;
+                    font-size: 14px;
+                }
+            </style>
+    @endpush

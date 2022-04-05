@@ -125,7 +125,12 @@
                         <div class="card card-light card-body mb-4">
                             <div>
                                 <div class="text-nowrap"><span class="">Contact info:</span></div>
-                                <div class="text-nowrap"><span class="">Name: {{$car_listing->user->name}}</span></div>
+                                @if(is_null($car_listing->user->image))
+                                    <img src="{{ asset('images/default-profile.jpg') }}" alt="{{ $car_listing->user->name }}" class="rounded-circle" style="width:40px; height:40px; object-fit:cover;" id="profile-image">
+                                @else
+                                    <img class="rounded-circle img-fluid" src="{{url('profile_images', $car_listing->user->image)}}" style="width:40px; height:40px; object-fit:cover;" alt="{{$car_listing->user->name}}">
+                                @endif
+                                <div class="text-nowrap"><span class=""> Name: {{$car_listing->user->name}}</span></div>
                                 <div class="text-nowrap"><span class="">Phone number: {{$car_listing->phone_number}}</span></div>
                                 <div class="text-nowrap"><span class="">City: {{$car_listing->city->name}}</span></div>
                                 <br>

@@ -12,7 +12,7 @@ $(document).ready(function() {
                 {
                     if(data){
                         $('#car_model_id').empty();
-                        $('#car_model_id').append('<option hidden>Select model</option>');
+                        $('#car_model_id').append('<option value="" hidden>Select model</option>');
                         $.each(data, function(key, model){
                             key++;
                             $('select[name="car_model_id"]').append('<option value="'+ model.id +'">' + model.name+ '</option>');
@@ -20,6 +20,7 @@ $(document).ready(function() {
                     }else{
                         $('#car_model_id').empty();
                     }
+                    $('.selectpicker').selectpicker('refresh');
                 }
             });
         }else{

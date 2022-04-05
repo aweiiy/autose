@@ -8,7 +8,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>150</h3>
+                    <h3>{{$totalListings}}</h3>
 
                     <p>Total listings</p>
                 </div>
@@ -23,9 +23,9 @@
             <!-- small box -->
             <div class="small-box bg-warning">
                 <div class="inner">
-                    <h3>44</h3>
+                    <h3>{{$totalUsers}}</h3>
 
-                    <p>Total User Registrations</p>
+                    <p>Total Users</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-person-add"></i>

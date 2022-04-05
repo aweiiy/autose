@@ -141,15 +141,23 @@ class ProfileController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy()
+    public function destroy(Request $request)
     {
+        $request->validate([
+        'password' => 'required|min:8'
+        ]);
+
         $user = User::findOrFail(Session::get('loginId'));
+
         if(Session::get('loginId') == $user->id){
-            Session::flush();
-            $user->delete();
-            return redirect()->route('/')->with('success', 'Account deleted successfully');
+            if(Hash::check($request->password, $user->password)){
+                Session::flush();
+                $user->delete();
+                return redirect()->route('/')->with('success', 'Account deleted successfully');
+            }
+            return redirect()->back()->with('error', 'Password incorrect, account not deleted');
         }
     }
 }

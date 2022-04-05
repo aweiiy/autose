@@ -13,9 +13,8 @@
 <link href="" rel="shortcut icon">
 <!-- Bootstrap -->
 <link href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css" integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q==" crossorigin="anonymous"
-
-    <!-- Font Awesome -->
+<link href="{{ asset('css/bootstrap-select.min.css') }}" rel="stylesheet">
+<!-- Font Awesome -->
 <link href="{{ asset('bower_components/fontawesome/css/all.min.css') }}" rel="stylesheet">
 <!-- Custom CSS -->
 <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -70,7 +69,7 @@
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 @if(\App\Models\User::admin())
-                                <li><a class="dropdown-item" href="{{ url('/admin') }}">Admin panel</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('/admin') }}">Admin panel</a></li>
                                 @endif
                                 <li><a class="dropdown-item" href="{{ url('/mylistings') }}">My listings</a></li>
                                 <li><hr class="dropdown-divider"></li>
@@ -104,7 +103,7 @@
 <script src="{{ asset('bower_components/fontawesome/js/all.min.js') }}"></script>
 <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('bower_components/jquery-validation/dist/jquery.validate.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js" integrity="sha512-FHZVRMUW9FsXobt+ONiix6Z0tIkxvQfxtCSirkKc5Sb4TKHmqq1dZa8DphF0XqKb3ldLu/wgMa8mT6uXiLlRlw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{{ asset('js/bootstrap-select.min.js') }}"></script>
 <script src="{{ asset('js/script.js') }}"></script>
 <script src="{{ asset('js/selector.js') }}"></script>
 <script>

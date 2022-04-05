@@ -38,11 +38,11 @@
                                 $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
                             });
                         </script>
-                        @if(isset($user->image))
-                            <img src="{{ asset('profile_images/' . $user->image) }}" class="img-thumbnail" alt="{{ $user->name }}" width="100">
-                        @endif
                         <span class="text-danger">@error('image') {{$message}} @enderror</span>
                     </div>
+                    @if(isset($user->image))
+                        <img class="mt-2" src="{{ asset('profile_images/' . $user->image) }}" alt="{{ $user->name }}" style="width:80px; height:80px; object-fit:cover;">
+                    @endif
                 </div>
             <div class="form-group">
                 {!! Form::label('email', 'E-mail: ', ['class' => 'col-sm-3']) !!}
@@ -55,7 +55,7 @@
                 <div class="form-group">
                     {!! Form::label('phone_number', 'Phone number: ', ['class' => 'col-sm-3']) !!}
                     <div class="col-sm-6">
-                        {!! Form::number('phone_number', null, ['class' => 'form-control', 'required' => 'required', 'type'=>'tel', 'placeholder'=>'+370 XXXXXXX']) !!}
+                        {!! Form::number('phone_number', null, ['class' => 'form-control', 'type'=>'tel', 'placeholder'=>'+370 XXXXXXX']) !!}
                         {!! $errors->first('phone_number', '<div class="invalid-feedback">:message</div>') !!}
                     </div>
                     <span class="text-danger">@error('phone_number') {{$message}} @enderror</span>

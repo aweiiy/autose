@@ -21,8 +21,9 @@ class WishlistController extends Controller
     public function index()
     {
         $wishlist = wishlist::where('user_id', '=', Session::get('loginId'))->paginate(10);
+        $user = User::where('id', '=', Session::get('loginId'))->first();
 
-        return view('user.wishlist.index', compact('wishlist'));
+        return view('user.wishlist.index', compact('wishlist', 'user'));
     }
 
     public function add(Request $request)
@@ -125,9 +126,9 @@ class WishlistController extends Controller
             $returnHTML = view('pages.compare', compact('listing1','listing2'))->render();
             return response()->json(['html' => $returnHTML, 'status' => 'success']);
         }
-       // else{
-         //   return response()->json(['err' => 'fail']);
-        //}
+        else{
+            return response()->json(['err' => 'fail']);
+        }
     }
 
     /**

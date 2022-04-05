@@ -22,22 +22,24 @@
                                         <option value="{{$make->id}}" @if(request()->make == $make->id) selected @endif>{{$make->name}}</option>
                                     @endforeach
                                 </select>
-                                <select class="form-control mt-1" name="car_model_id" id="car_model_id"></select>
+                                <select class="form-control mt-1" name="car_model_id" id="car_model_id">
+                                    <option value="">Select Model</option>
+                                </select>
                             </div>
                             <div class="mb-2">
                                 <h3 class="h6  pt-1">Year</h3>
                                 <div class="d-flex align-items-center">
-                                    <select class="form-select form-select-light w-100">
+                                    <select class="form-select form-select-light w-100" name="min_year">
                                         <option value="" hidden>From</option>
                                         @foreach($years as $year)
-                                            <option value="{{ $year }}">{{ $year }}</option>
+                                            <option value="{{ $year }}" @if(request()->min_year == $year) selected @endif>{{ $year }}</option>
                                         @endforeach
                                     </select>
                                     <div class="mx-2">—</div>
-                                    <select class="form-select form-select-light w-100">
+                                    <select class="form-select form-select-light w-100" name="max_year">
                                         <option value="" hidden>To</option>
                                         @foreach($years as $year)
-                                            <option value="{{ $year }}">{{ $year }}</option>
+                                            <option value="{{ $year }}" @if(request()->max_year == $year) selected @endif>{{ $year }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -176,7 +178,7 @@
                                 <div class="col-lg-4 align-self-center">
                                     <a href="{{ url('listings/'.$item->id) }}">
                                         @foreach($item->images as $image)
-                                            <img src="{{url('listing_images/'.$image->name)}}" class="fitToSize img-fluid img-thumbnail rounded">
+                                            <img src="{{url('listing_images/'.$image->name)}}" class="fitToSize img-fluid rounded">
                                             @break
                                         @endforeach
                                     </a>

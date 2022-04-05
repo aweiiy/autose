@@ -118,6 +118,7 @@ class UsersController extends Controller
             'phone_number' => 'nullable|integer|min:1|digits_between:8,11',
             'city_id' => 'nullable|min:1',
             'role'=>'required|min:0|max:1',
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
             'password'=> $request->password != null ?'sometimes|required|min:8|max:24|confirmed': ''
         ]);
         $user = User::findOrFail($id);
@@ -126,6 +127,12 @@ class UsersController extends Controller
         $user->phone_number = $request->phone_number;
         $user->city_id = $request->city_id;
         $user->role = $request->role;
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $imageName = $user->name.'-'.time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('profile_images'), $imageName);
+            $user->image = $imageName;
+        }
         if($request->password != null)
         {
             $user->password = Hash::make($request->password);

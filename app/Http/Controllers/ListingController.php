@@ -29,9 +29,9 @@ class ListingController extends Controller
     {
         $mylistings = car_listing::where('user_id', '=', Session::get('loginId'))->paginate(5);
 
-        #print_r($mylistings);
+        $user = User::where('id', '=', Session::get('loginId'))->first();
 
-        return view('user.mylistings.index', compact('mylistings'));
+        return view('user.mylistings.index', compact('mylistings', 'user'));
     }
 
     /**
@@ -232,20 +232,20 @@ class ListingController extends Controller
     public function displayAll(){
         #$wishlist = wishlist::where('user_id', '=', Session::get('loginId'));
 
-        $car_listings = car_listing::query()->when(request('id'),function ($query) {
-            return $query->where('id',request('id'));
-        })->when(request('make'),function ($query) {
+        $car_listings = car_listing::query()->when(request('make'),function ($query) {
             return $query->where('car_make_id',request('make'));
         })->when(request('car_model_id'),function ($query) {
             return $query->where('car_model_id',request('car_model_id'));
         })->when(request('body_type'),function ($query) {
             $checked = $_GET['body_type'];
-            $body_type = car_body_type::whereIn('id',$checked)->get();
-            $body_type_id = [];
-            foreach ($body_type as $body_types){
-                $body_type_id[] = $body_types->id;
-            }
-            return $query->whereIn('car_body_type_id',$body_type_id);
+
+                $body_type = car_body_type::whereIn('id',$checked)->get();
+                $body_type_id = [];
+                foreach ($body_type as $body_types){
+                    $body_type_id[] = $body_types->id;
+                }
+                return $query->whereIn('car_body_type_id',$body_type_id);
+
         })->when(request('transmission'),function ($query) {
             $checked = $_GET['transmission'];
             $transmission = transmission::whereIn('id',$checked)->get();
@@ -285,7 +285,7 @@ class ListingController extends Controller
         })->when(request('min_engine'),function ($query) {
             return $query->where('cubic_capacity', '>=' ,request('min_engine'));
         })->when(request('max_engine'),function ($query) {
-            return $query->where('cubic_capacity', '<=' ,request('min_engine'));
+            return $query->where('cubic_capacity', '<=' ,request('max_engine'));
         })->when(request('min_power'),function ($query) {
             return $query->where('engine_power', '>=' ,request('min_power'));
         })->when(request('max_power'),function ($query) {
@@ -294,10 +294,8 @@ class ListingController extends Controller
             return $query->where('battery_capacity', '>=' ,request('min_battery'));
         })->when(request('max_battery'),function ($query) {
             return $query->where('battery_capacity', '<=' ,request('max_battery'));
-        })->when(request('owner'),function ($query) {
-            return $query->with('user')->whereHas('user',function ($query) {
-                return $query->where('name', 'LIKE', '%'.request('owner').'%');
-            });
+        })->when(request('keywords'),function ($query) {
+            return $query->where('description','like', '%'.request('keywords').'%');
         })->paginate(5)->appends(request()->query());
 
         $cities = city::all();

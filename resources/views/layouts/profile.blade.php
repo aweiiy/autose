@@ -17,7 +17,7 @@
                             <h3 class="text-dark font-weight-normal">{{ $user->name }}</h3>
                             <p class="text-secondary mb-1"><i class="fa-solid fa-phone"></i> {{$user->phone_number}}</p>
                             <p class="text-muted font-size-sm"><i class="fa-solid fa-at"></i> {{$user->email}}</p>
-                            <button class="btn btn-success btn-lg w-100 mb-3"><i class="fa-solid fa-plus"></i> Add listing</button>
+                            <a class="btn btn-success btn-lg w-100 mb-3" href="{{ url('/mylistings/create') }}"><i class="fa fa-plus-circle"></i> Add listing</a>
                         </div>
                     </div>
                     <hr class="my-4">
