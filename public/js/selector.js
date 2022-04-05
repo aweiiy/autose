@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#car_model_id').append('<option hidden>Choose make first</option>');
+    $('#car_model_id').append('<option value="" hidden>Choose make first</option>');
     $('#car_make_id').on('change', function() {
         var car_make_id = $(this).val();
         if(car_make_id) {
@@ -24,6 +24,7 @@ $(document).ready(function() {
             });
         }else{
             $('#car_model_id').empty();
+            $('#car_model_id').append('<option value="" hidden>Choose make first</option>');
         }
-    });
+    }).change();
 });

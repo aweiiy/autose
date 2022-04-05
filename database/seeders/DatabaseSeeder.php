@@ -14,13 +14,17 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-        #    CarMakeSeeder::class,
-        #    CarModelSeeder::class,
-        #    CarBodyTypeSeeder::class,
-        #    FuelTypeSeeder::class,
-        #    CitySeeder::class,
-        #    UserSeeder::class,
-        #    TransmissionSeeder::class
+            CarMakeSeeder::class,
+            CarModelSeeder::class,
+            CarBodyTypeSeeder::class,
+            FuelTypeSeeder::class,
+            CitySeeder::class,
+            UserSeeder::class,
+            TransmissionSeeder::class,
+            CarListingSeeder::class,
+            ImagesSeeder::class,
+            WishlistSeeder::class,
+
         ]);
     }
 }

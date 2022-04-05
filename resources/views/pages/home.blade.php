@@ -20,7 +20,7 @@
 
     <div class="container mt-4 mt-sm-3 mt-lg-n3 pb-5 mb-md-4">
         <!-- Form group-->
-        <form class="search-group d-block">
+        <form class="search-group d-block" action="{{ url('/listings') }}" method="GET" id="filters">
             <div class="row g-0 ms-lg-n2">
                 <div class="col-lg-2">
                     <div class="input-group border-end-lg"><span class="input-group-text text-muted ps-2 ps-sm-3"><i class="fi-search"></i></span>
@@ -32,7 +32,7 @@
                     <div class="dropdown border-end-sm border-light" data-bs-toggle="select">
                         <button class="btn btn-link dropdown-toggle ps-2 ps-sm-3" type="button" data-bs-toggle="dropdown"><i class="fi-list me-2"></i><span class="dropdown-toggle-label">Make</span></button>
                         <input type="hidden" name="make">
-                        <ul class="dropdown-menu dropdown-menu-dark">
+                        <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Acura</span></a></li>
                             <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">BMW</span></a></li>
                             <li><a class="dropdown-item" href="#"><span class="dropdown-item-label">Citroen</span></a></li>

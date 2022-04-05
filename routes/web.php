@@ -1,7 +1,10 @@
 <?php
 
+use App\Models\User;
+use App\Models\wishlist;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,7 +67,11 @@ Route::group(['middleware' => 'isLoggedIn'], function(){
 
 
 Route::get('/dashboard', [AuthController::class,'dashboard'])->middleware('isLoggedIn');
-Route::view('/test', 'auth.test');
+Route::get('/test', function (){
+    $wishlist = wishlist::where('user_id', '=', Session::get('loginId'))->paginate(10);
+    $user = User::where('id', '=', Session::get('loginId'))->first();
+    return view('auth.test',compact('wishlist','user'));
+});
 Route::get('getModel/{id}', function ($id) {
     $car_model = App\Models\car_model::where('car_make_id',$id)->get();
     return response()->json($car_model);

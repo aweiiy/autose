@@ -15,11 +15,11 @@ class CreateImageTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id('id');
-            $table->foreignId('car_listing_id')->constrained()->onDelete('cascade');
+            $table->foreignId('car_listing_id');
             $table->string('name');
             $table->timestamps();
 
-            #$table->foreign('car_listing_id')->references('id')->on('car_listing')->onDelete('cascade');
+            $table->foreign('car_listing_id')->references('id')->on('car_listing')->onDelete('cascade');
 
         });
     }

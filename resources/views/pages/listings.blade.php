@@ -8,7 +8,160 @@
             <div class="row">
                 <div class="col-lg-3 col-md-4 collapse dont-collapse-sm" id="multiCollapseExample2">
                     <!-- Filters  -->
-                    filters go here
+                    <form action="{{ url('/listings') }}" method="GET" id="filters">
+                    <div>
+                        <div class="pb-2 mb-2 mt-1">
+                            <h1>Filters</h1>
+                        </div>
+                        <div class="offcanvas-body py-lg-4">
+                            <div class="mb-2">
+                                <h3 class="h6 ">Make &amp; Model</h3>
+                                <select class="form-control" name="make" id="car_make_id">
+                                    <option value="">Select Make</option>
+                                    @foreach ($car_make as $make)
+                                        <option value="{{$make->id}}" @if(request()->make == $make->id) selected @endif>{{$make->name}}</option>
+                                    @endforeach
+                                </select>
+                                <select class="form-control mt-1" name="car_model_id" id="car_model_id"></select>
+                            </div>
+                            <div class="mb-2">
+                                <h3 class="h6  pt-1">Year</h3>
+                                <div class="d-flex align-items-center">
+                                    <select class="form-select form-select-light w-100">
+                                        <option value="" hidden>From</option>
+                                        @foreach($years as $year)
+                                            <option value="{{ $year }}">{{ $year }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="mx-2">—</div>
+                                    <select class="form-select form-select-light w-100">
+                                        <option value="" hidden>To</option>
+                                        @foreach($years as $year)
+                                            <option value="{{ $year }}">{{ $year }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <h3 class="h6 ">Location</h3>
+                                <select class="selectpicker" data-live-search="true" multiple data-actions-box="true" data-selected-text-format="count > 3" data-size="7" name="city[]" title="Select cities">
+                                    @foreach($cities as $city)
+                                        @php
+                                            $checked = [];
+                                            if(isset($_GET['city'])){
+                                                $checked = $_GET['city'];
+                                            }
+                                        @endphp
+                                        <option value="{{ $city->id }}" @if(in_array($city->id, $checked)) selected @endif>{{ $city->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-2">
+                                <h3 class="h6 ">Price, €</h3>
+                                <div class="d-flex align-items-center">
+                                    <input class="form-control form-control-light w-100" type="number" name="min_price" id="min_price" min="0" step="500" placeholder="From" @if(request()->min_price) value="{{request()->min_price}}" @endif>
+                                    <div class="mx-2">—</div>
+                                    <input class="form-control form-control-light w-100" type="number" name="max_price" id="max_price" min="0" step="500" placeholder="To" @if(request()->max_price) value="{{request()->max_price}}" @endif>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <h3 class="h6">Cubic capacity, cm³</h3>
+                                <div class="d-flex align-items-center">
+                                    <input class="form-control form-control-light w-100" type="number" name="min_engine" id="min_engine" min="0" step="1" placeholder="From" @if(request()->min_engine) value="{{request()->min_engine}}" @endif>
+                                    <div class="mx-2">—</div>
+                                    <input class="form-control form-control-light w-100" type="number" name="max_engine" id="max_engine" min="0" step="1" placeholder="To" @if(request()->max_engine) value="{{request()->max_engine}}" @endif>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <h3 class="h6">Engine power, kW</h3>
+                                <div class="d-flex align-items-center">
+                                    <input class="form-control form-control-light w-100" type="number" name="min_power" id="min_power" min="0" step="1" placeholder="From" @if(request()->min_power) value="{{request()->min_power}}" @endif>
+                                    <div class="mx-2">—</div>
+                                    <input class="form-control form-control-light w-100" type="number" name="max_power" id="max_power" min="0" step="1" placeholder="To" @if(request()->max_power) value="{{request()->max_power}}" @endif>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <h3 class="h6">Mileage, km</h3>
+                                <div class="d-flex align-items-center">
+                                    <input class="form-control form-control-light w-100" type="number" name="min_mileage" id="min_mileage" min="0" step="1" placeholder="From" @if(request()->min_mileage) value="{{request()->min_mileage}}" @endif>
+                                    <div class="mx-2">—</div>
+                                    <input class="form-control form-control-light w-100" type="number" name="max_mileage" id="max_mileage" min="0" step="1" placeholder="To" @if(request()->max_mileage) value="{{request()->max_mileage}}" @endif>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <h3 class="h6">Body type</h3>
+                                <div class="scroll-v-150px">
+                                    @foreach($car_body_types as $car_body_type)
+                                        @php
+                                            $checked = [];
+                                            if(isset($_GET['body_type'])){
+                                                $checked = $_GET['body_type'];
+                                            }
+                                        @endphp
+                                        <div class="form-check ml-1">
+                                            <input class="form-check-input" type="checkbox" name="body_type[]" value="{{$car_body_type->id}}" id="body_type_{{$car_body_type->id}}" @if(in_array($car_body_type->id, $checked)) checked @endif>
+                                            <label class="form-check-label" for="body_type_{{$car_body_type->id}}">
+                                                {{$car_body_type->name}}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <h3 class="h6 ">Fuel Type</h3>
+                                <div id="coll-2" class="scroll-v-150px">
+                                    @foreach($fuel_types as $fuel_type)
+                                        @php
+                                            $checked = [];
+                                            if(isset($_GET['fuel_type'])){
+                                                $checked = $_GET['fuel_type'];
+                                            }
+                                        @endphp
+                                        <div class="form-check ml-1">
+                                            <input class="form-check-input" type="checkbox" name="fuel_type[]" value="{{$fuel_type->id}}" id="fuel_type_{{$fuel_type->id}}" @if(in_array($fuel_type->id, $checked)) checked @endif>
+                                            <label class="form-check-label" for="fuel_type_{{$fuel_type->id}}">
+                                                {{$fuel_type->name}}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="mb-1">
+                                <h3 class="h6 ">Transmission</h3>
+                                <div id="coll-2" class="scroll-v-150px">
+                                    @foreach($transmissions as $transmission)
+                                        @php
+                                            $checked = [];
+                                            if(isset($_GET['transmission'])){
+                                                $checked = $_GET['transmission'];
+                                            }
+                                        @endphp
+                                        <div class="form-check ml-1">
+                                            <input class="form-check-input" type="checkbox" name="transmission[]" value="{{$transmission->id}}" id="transmission_{{$transmission->id}}" @if(in_array($transmission->id, $checked)) checked @endif>
+                                            <label class="form-check-label" for="transmission_{{$transmission->id}}">
+                                                {{$transmission->name}}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <h3 class="h6  pt-1">Battery capacity, kWh</h3>
+                                <div class="d-flex align-items-center">
+                                    <div class="form-group mr-2">
+                                        <input type="text" class="form-control" name="min_battery" placeholder="From" value="{{isset($_GET['min_battery']) ? $_GET['min_battery'] : ''}}">
+                                    </div>
+                                    <div class="mx-2">—</div>
+                                    <div class="form-group mr-2">
+                                        <input type="text" class="form-control" name="max_battery" placeholder="To" value="{{isset($_GET['max_battery']) ? $_GET['max_battery'] : ''}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary mb-2 mt-2" value="Filter">
+                            <button type="button" class="btn btn-danger mb-2 mt-2" onclick="clearFilter()">Clear Filters</button>
+                        </div>
+                    </div>
+                    </form>
                     <!-- /Filters  -->
                 </div>
                 <button class="btn btn-primary d-md-none filtersToggle" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Show filters</button>
@@ -17,7 +170,7 @@
                         <h1 class="me-3 mb-0">Listings</h1>
                     </div>
                     <!-- ad listing list  -->
-                    @foreach($car_listings as $item)
+                    @forelse($car_listings as $item)
                         <div class="car-listing-list mt-20">
                             <div class="row p-lg-3 p-sm-5 p-4">
                                 <div class="col-lg-4 align-self-center">
@@ -75,7 +228,14 @@
                             </div>
                         </div>
                         <!-- ad listing list  -->
-                @endforeach
+                @empty
+                    <div class="col-lg-12">
+                        <div class="alert alert-info">
+                            <h4 class="alert-heading">No results found!</h4>
+                            <p>Please try again with different search criteria.</p>
+                        </div>
+                    </div>
+                @endforelse
 
                 <!-- pagination -->
                     <div class="pagination justify-content-center py-4">
@@ -90,8 +250,12 @@
 @endsection
 
 @push('javascript')
-    {{--Add to wishlist--}}
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script>
+    function clearFilter() {
+        window.location.href = "{{ url('/listings') }}";
+    }
+</script>
 @endpush
 @push('css')
    <style>
