@@ -296,7 +296,7 @@ class ListingController extends Controller
             return $query->where('battery_capacity', '<=' ,request('max_battery'));
         })->when(request('keywords'),function ($query) {
             return $query->where('description','like', '%'.request('keywords').'%');
-        })->paginate(5)->appends(request()->query());
+        })->paginate(10)->appends(request()->query());
 
         $cities = city::all();
 

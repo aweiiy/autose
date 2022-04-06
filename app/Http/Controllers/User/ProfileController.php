@@ -85,7 +85,7 @@ class ProfileController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.Session::get('loginId'),
-            'phone_number' => 'nullable|integer|min:1|digits_between:8,11',
+            'phone_number' => 'nullable|integer|digits_between:8,11',
             'city_id' => 'nullable|min:1',
             'image' => 'image|mimes:jpeg,png,jpg|max:2048'
         ]);
@@ -99,6 +99,9 @@ class ProfileController extends Controller
             $user->phone_number = $request->phone_number;
             $user->city_id = $request->city_id;
             if($request->hasFile('image')){
+                if($user->image){
+                    unlink(public_path('profile_images/'.$user->image));
+                }
                 $image = $request->file('image');
                 $imageName = $user->name.'-'.time().'.'.$image->getClientOriginalExtension();
                 $image->move(public_path('profile_images'), $imageName);

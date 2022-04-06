@@ -92,7 +92,7 @@ class ListingsController extends Controller
             return $query->with('user')->whereHas('user',function ($query) {
                 return $query->where('name', 'LIKE', '%'.request('owner').'%');
             });
-        })->paginate(5)->appends(request()->query());
+        })->paginate(10)->appends(request()->query());
 
         $cities = city::all();
 

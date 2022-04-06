@@ -9,9 +9,9 @@
                         <div class="mt-3">
                             <div id="profile-container">
                                 @if(is_null($user->image))
-                                    <img src="{{ asset('images/default-profile.jpg') }}" alt="{{ $user->name }}" class="rounded-circle" width="100" height="100" style="overflow: hidden" id="profile-image">
+                                    <img src="{{ asset('images/default-profile.jpg') }}" alt="{{ $user->name }}" class="rounded-circle" style="width:100px; height:100px; object-fit:cover;" id="profile-image">
                                 @else
-                                <img src="{{url('profile_images', $user->image)}}" alt="{{ $user->name }}" class="rounded-circle" width="100" height="100">
+                                <img src="{{url('profile_images', $user->image)}}" alt="{{ $user->name }}" class="rounded-circle" style="width:100px; height:100px; object-fit:cover;">
                                 @endif
                             </div>
                             <h3 class="text-dark font-weight-normal">{{ $user->name }}</h3>

@@ -62,7 +62,7 @@
                                         @if( is_null(\App\Models\User::data()->image) )
                                             <img src="{{ asset('images/default-profile.jpg') }}" class="rounded-circle" width="50" height="50" alt="{{\App\Models\User::data()->name}}">
                                         @else
-                                            <img src="{{ asset('profile_images/'.\App\Models\User::data()->image) }}" class="rounded-circle" width="50" height="50" alt="{{\App\Models\User::data()->name}}">
+                                            <img src="{{ asset('profile_images/'.\App\Models\User::data()->image) }}" class="rounded-circle" style="width:50px; height:50px; object-fit:cover;" alt="{{\App\Models\User::data()->name}}">
                                         @endif
                                         {{\App\Models\User::data()->name}}
                                     </a>

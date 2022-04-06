@@ -13,7 +13,7 @@ class UsersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
@@ -128,6 +128,9 @@ class UsersController extends Controller
         $user->city_id = $request->city_id;
         $user->role = $request->role;
         if($request->hasFile('image')){
+            if($user->image){
+                unlink(public_path('profile_images/'.$user->image));
+            }
             $image = $request->file('image');
             $imageName = $user->name.'-'.time().'.'.$image->getClientOriginalExtension();
             $image->move(public_path('profile_images'), $imageName);
@@ -150,7 +153,7 @@ class UsersController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
