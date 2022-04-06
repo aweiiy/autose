@@ -172,7 +172,13 @@
         </div>
         <!-- ad listing list  -->
     @empty
-        wishlist empty
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="alert alert-info">
+                    <strong>No items in your wishlist.</strong>
+                </div>
+            </div>
+        </div>
     @endforelse
     {{ $wishlist->links() }}
 

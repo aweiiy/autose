@@ -25,7 +25,6 @@ Route::get('/register', [AuthController::class,'register'])->middleware('already
 Route::post('/register-user',[AuthController::class, 'registerUser'])->name('register-user');
 Route::post('/login-user',[AuthController::class, 'loginUser'])->name('login-user');
 Route::get('/logout', [AuthController::class,'logout']);
-Route::view('/home', 'pages.home');
 
 
 Route::get('/listings', [\App\Http\Controllers\ListingController::class, 'displayAll']);

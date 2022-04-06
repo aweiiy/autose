@@ -15,11 +15,11 @@ class CreateCarListingTable extends Migration
     {
         Schema::create('car_listing', function (Blueprint $table) {
             $table->id('id');
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('car_make_id');
             $table->foreignId('car_model_id');
             $table->foreignId('car_body_type_id');
-            $table->foreignId('city_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('city_id')->nullable();
             $table->foreignId('fuel_type_id')->nullable();
             $table->integer('cubic_capacity')->nullable();
             $table->integer('battery_capacity')->nullable();

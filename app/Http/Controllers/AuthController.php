@@ -47,7 +47,7 @@ class AuthController extends Controller
                 $request->session()->put('loginId', $user->id);
                 $request->session()->put('role', $user->role);
                 if($user->role == 1) return redirect('admin/');
-                return redirect('home')->with('success', 'You have logged in successfully');
+                return redirect('/')->with('success', 'You have logged in successfully');
             }else{
                 return back()->with('fail', 'Password incorrect');
             }
@@ -68,7 +68,7 @@ class AuthController extends Controller
             Session::pull('loginId');
             Session::pull('role');
             Session::flush();
-            return redirect('home');
+            return redirect('/')->with('success', 'You have logged out successfully');
     }
     }
 }

@@ -70,7 +70,9 @@
         </div>
         <!-- ad listing list  -->
     @empty
-        <div><p>You have no listings. <a href="{{ url('/mylistings/create') }}">Add one!</a></p></div>
+        <div class="alert alert-info">
+            <strong>You have no listings. <a href="{{ url('/mylistings/create') }}">Add one!</a></strong>
+        </div>
     @endforelse
     {{ $mylistings->links() }}
 

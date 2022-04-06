@@ -13,7 +13,7 @@
                         <div class="pb-2 mb-2 mt-1">
                             <h1>Filters</h1>
                         </div>
-                        <div class="offcanvas-body py-lg-4">
+                        <div class="offcanvas-body py-lg-4" style="background-color: white; box-shadow: 0px 0px 1px black">
                             <div class="mb-2">
                                 <h3 class="h6 ">Make &amp; Model</h3>
                                 <select class="form-control" name="make" id="car_make_id">
@@ -115,9 +115,19 @@
                             <div class="mb-2">
                                 <h3 class="h6">Mileage, km</h3>
                                 <div class="d-flex align-items-center">
-                                    <input class="form-control form-control-light w-100" type="number" name="min_mileage" id="min_mileage" min="0" step="1" placeholder="From" @if(request()->min_mileage) value="{{request()->min_mileage}}" @endif>
+                                    <select class="form-select form-select-light w-100" name="min_mileage">
+                                        <option value="">From</option>
+                                        @foreach($mileages as $mileage)
+                                            <option value="{{ $mileage }}" @if(request()->min_mileage == $mileage) selected @endif>{{ $mileage }} km</option>
+                                        @endforeach
+                                    </select>
                                     <div class="mx-2">—</div>
-                                    <input class="form-control form-control-light w-100" type="number" name="max_mileage" id="max_mileage" min="0" step="1" placeholder="To" @if(request()->max_mileage) value="{{request()->max_mileage}}" @endif>
+                                    <select class="form-select form-select-light w-100" name="max_mileage">
+                                        <option value="">To</option>
+                                        @foreach($mileages as $mileage)
+                                            <option value="{{ $mileage }}" @if(request()->max_mileage == $mileage) selected @endif>{{ $mileage }} km</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="mb-2">
@@ -189,6 +199,10 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="mb-2">
+                                <h3 class="h6  pt-1">Keywords</h3>
+                                <input class="form-control" name="keywords" placeholder="Enter keywords" @if(request()->keywords) value="{{request()->keywords}}" @endif>
+                            </div>
                             <input type="submit" class="btn btn-primary mb-2 mt-2" value="Filter">
                             <button type="button" class="btn btn-danger mb-2 mt-2" onclick="clearFilter()">Clear Filters</button>
                         </div>
@@ -196,7 +210,7 @@
                     </form>
                     <!-- /Filters  -->
                 </div>
-                <button class="btn btn-primary d-md-none filtersToggle" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Show filters</button>
+                <button class="btn btn-primary d-md-none filtersToggle mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Show filters</button>
                 <div class="col-lg-9 col-md-8">
                     <div class="d-flex align-items-center justify-content-between pb-4 mb-2">
                         <h1 class="me-3 mb-0">Listings</h1>
