@@ -15,7 +15,7 @@ class CreateCarListingTable extends Migration
     {
         Schema::create('car_listing', function (Blueprint $table) {
             $table->id('id');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id');
             $table->foreignId('car_make_id');
             $table->foreignId('car_model_id');
             $table->foreignId('car_body_type_id');
@@ -34,13 +34,13 @@ class CreateCarListingTable extends Migration
             $table->string('email')->nullable();
             $table->timestamps();
 
-            #$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            #$table->foreign('car_model_id')->references('id')->on('car_model');
-            #$table->foreign('car_make_id')->references('id')->on('car_make');
-            #$table->foreign('car_body_type_id')->references('id')->on('car_body_type');
-            #$table->foreign('city_id')->references('id')->on('cities');
-            #$table->foreign('fuel_type_id')->references('id')->on('fuel_type');
-            #$table->foreign('transmission_id')->references('id')->on('transmissions');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('car_model_id')->references('id')->on('car_model');
+            $table->foreign('car_make_id')->references('id')->on('car_make');
+            $table->foreign('car_body_type_id')->references('id')->on('car_body_type');
+            $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('fuel_type_id')->references('id')->on('fuel_type');
+            $table->foreign('transmission_id')->references('id')->on('transmissions');
 
         });
     }
