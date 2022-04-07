@@ -224,6 +224,9 @@
                         <button type="button" class="btn btn-danger btn-sm mb-2 mt-2" onclick="clearFilter()">Clear Filter</button>
                     </form>
             <!--- End Filter -->
+                <div>
+                    {{$_GET ? ' Found listings: '.$listings->total() : ''}}
+                </div>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped align-middle table-hover">
                     <thead>

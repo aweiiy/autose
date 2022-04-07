@@ -45,7 +45,6 @@ class ModelsController extends Controller
         ]);
         $car_model = new car_model();
         $car_model->name = $request->name;
-        print_r($request->all());
         $car_model->car_make_id = $request->make;
         $res = $car_model->save();
         if($res)

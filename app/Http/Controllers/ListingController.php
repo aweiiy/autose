@@ -329,6 +329,7 @@ class ListingController extends Controller
         $user = User::where('id', '=', Session::get('loginId'))->first();;
         $wishlist_items = $user->wishlists ?? array();
 
+
         return view('pages.listings', compact('car_listings', 'wishlist_items', 'car_make', 'car_body_types', 'fuel_types', 'transmissions', 'years', 'cities', 'prices', 'cubic_capacities', 'engine_powers', 'battery_capacities', 'mileages'));
     }
 

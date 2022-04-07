@@ -46,7 +46,7 @@
                             </div>
                             <div class="mb-2">
                                 <h3 class="h6 ">Location</h3>
-                                <select class="selectpicker" data-live-search="true" multiple data-actions-box="true" data-selected-text-format="count > 3" data-size="7" name="city[]" title="Select cities">
+                                <select class="selectpicker form-control" data-live-search="true" multiple data-actions-box="true" data-selected-text-format="count > 3" data-size="7" name="city[]" title="Select cities" style="border: 1px solid black;">
                                     @foreach($cities as $city)
                                         @php
                                             $checked = [];
@@ -214,6 +214,9 @@
                 <div class="col-lg-9 col-md-8">
                     <div class="d-flex align-items-center justify-content-between pb-4 mb-2">
                         <h1 class="me-3 mb-0">Listings</h1>
+                    </div>
+                    <div>
+                        {{$_GET ? ' | Found listings: '.$car_listings->total() : ''}}
                     </div>
                     <!-- ad listing list  -->
                     @forelse($car_listings as $item)
