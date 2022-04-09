@@ -43,7 +43,10 @@
                     </a>
                     <br>
                     <a href="{{ url('/') }}" class="d-block">
-                        <i class="fa-solid fa-house"></i>Main page
+                        <i class="fa-solid fa-house"></i> Main page
+                    </a>
+                    <br>
+                    <a href="{{ url('/logout') }}" onclick="return confirm('Are you sure you want to logout?')"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout
                     </a>
                 </div>
             </div>
