@@ -112,6 +112,11 @@
                         email: true,
                         maxlength: 50
                     },
+                    phone_number: {
+                        required: false,
+                        minlength: 6,
+                        maxlength: 15
+                    },
                     password: {
                         required: true,
                         minlength: 8
@@ -131,6 +136,10 @@
                         required: "Email is required",
                         email: "Email must be a valid email address",
                         maxlength: "Email cannot be more than 50 characters",
+                    },
+                    phone_number: {
+                        minlength: "Phone number must be at least 6 characters",
+                        maxlength: "Phone number cannot be more than 15 characters",
                     },
                     password: {
                         required: "Password is required",

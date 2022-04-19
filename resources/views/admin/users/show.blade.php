@@ -8,6 +8,17 @@
             <a href="{{ url('/admin/users/'.$user->id.'/edit') }}" class="btn btn-primary"><i class="fas fa-edit"></i> Edit user</a>
         </div>
         <div class="card-body">
+            @if(Session::has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ Session::get('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    @php
+                        Session::forget('success');
+                    @endphp
+                </div>
+            @endif
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <tbody>

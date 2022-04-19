@@ -143,7 +143,7 @@ class UsersController extends Controller
         $res = $user->save();
         if($res)
         {
-            return redirect('admin/users')->with('success', 'User updated successfully.');
+            return redirect('admin/users/'.$id)->with('success', 'User updated successfully.');
         }else{
             return back()->with('fail', 'Something went wrong');
         }

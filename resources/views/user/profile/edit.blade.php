@@ -75,7 +75,7 @@
                 document.getElementById('imageUpload').onchange = function (e) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
-                        document.getElementById('profile-container').innerHTML = '<img src="' + e.target.result + '" alt="' + '{{ $user->name }}' + '" class="rounded-circle" width="100" height="100">';
+                        document.getElementById('profile-container').innerHTML = '<img src="' + e.target.result + '" alt="' + '{{ $user->name }}' + '" class="rounded-circle" style="width:100px; height:100px; object-fit:cover;">';
                     };
                     reader.readAsDataURL(e.target.files[0]);
                 };
