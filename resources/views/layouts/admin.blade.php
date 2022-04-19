@@ -129,6 +129,7 @@
 <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.bundle.js') }}"></script>
 <script src="{{ asset('bower_components/fontawesome/js/all.min.js') }}"></script>
 <script src="{{ asset('js/adminlte.js') }}"></script>
+<script src="{{ asset('bower_components/jquery-validation/dist/jquery.validate.js') }}"></script>
 @stack('javascript')
 </body>
 </html>
