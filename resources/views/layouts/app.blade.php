@@ -50,6 +50,9 @@
                         <li class="nav-item">
                             <a class="nav-link login-button" href="{{ url('/login') }}">Login</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link login-button" href="{{ url('/register') }}">Register</a>
+                        </li>
                     @endif
                     @if( \App\Models\User::logged() )
                         <li class="nav-item dropdown">

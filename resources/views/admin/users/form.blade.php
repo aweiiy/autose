@@ -116,8 +116,8 @@
                     },
                     phone_number: {
                         required: false,
-                        minlength: 6,
-                        maxlength: 15
+                        minlength: 8,
+                        maxlength: 11
                     },
                     password: {
                         required: true,

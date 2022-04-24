@@ -33,7 +33,6 @@
                 {!! Form::label('email', 'E-mail: ', ['class' => 'col-sm-3']) !!}
                 <div class="col-sm-6">
                     {!! Form::email('email', null, ['class' => 'form-control'.($errors->has('email') ? ' is-invalid' : ''), 'required' => 'required']) !!}
-                    {!! $errors->first('email', '<div class="invalid-feedback">:message</div>') !!}
                 </div>
                 <span class="text-danger">@error('email') {{$message}} @enderror</span>
             </div>
@@ -94,8 +93,8 @@
                             },
                             phone_number: {
                                 required: false,
-                                minlength: 6,
-                                maxlength: 15
+                                minlength: 8,
+                                maxlength: 11
                             },
                             city_id: {
                                 required: false
